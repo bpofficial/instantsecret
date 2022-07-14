@@ -14,7 +14,7 @@ const nextConfig = {
     NEXT_PUBLIC_AUTH0_DOMAIN: "",
     NEXT_PUBLIC_AUTH0_CLIENT_ID: "",
     NEXT_PUBLIC_AUTH0_REDIRECT_URI: ""
-  }
+  },
 };
 
 module.exports = withNx(nextConfig);

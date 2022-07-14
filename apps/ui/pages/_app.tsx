@@ -1,9 +1,8 @@
 import { AppProps } from 'next/app';
-import Head from 'next/head';
+import { chakra } from '@chakra-ui/react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { ChakraProvider } from '@chakra-ui/react';
-
-import './styles.css';
+import { Banner, TopBar } from '../components';
 
 function InstantSecret({ Component, pageProps }: AppProps) {
   return (
@@ -13,12 +12,11 @@ function InstantSecret({ Component, pageProps }: AppProps) {
       redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI}
     >
       <ChakraProvider>
-        <Head>
-          <title>Welcome to ui!</title>
-        </Head>
-        <main className="app">
+        <chakra.main w="100%" h="100%">
+          <Banner />
+          <TopBar />
           <Component {...pageProps} />
-        </main>
+        </chakra.main>
       </ChakraProvider>
     </Auth0Provider>
   );
