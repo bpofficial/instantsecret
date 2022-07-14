@@ -2,6 +2,8 @@
   "$schema": "./node_modules/nx/schemas/workspace-schema.json",
   "version": 2,
   "projects": {
+    "api-client": "libs/api-client",
+    "secret-commands": "apps/secret-commands",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }
