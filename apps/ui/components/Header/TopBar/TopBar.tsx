@@ -3,16 +3,22 @@ import {
   Button,
   HStack,
   useColorModeValue,
+  useMediaQuery,
   VisuallyHidden,
 } from '@chakra-ui/react';
 import { chakra, Flex } from '@chakra-ui/react';
+import { useLocaleLink, useTranslation } from '../../../hooks';
 import Image from 'next/image';
 
 export const TopBar = () => {
+  const localeLink = useLocaleLink();
+  const translation = useTranslation('TopBar');
   const bg = useColorModeValue('white', 'gray.800');
+  const [isLargerThan767] = useMediaQuery(['(min-width: 767px)']);
+
   return (
     <>
-      <chakra.header bg={bg} w="full" px={16} py={4}>
+      <chakra.header bg={bg} w="full" px={isLargerThan767 ? 16 : 6} py={4}>
         <Flex alignItems="center" justifyContent="space-between" mx="auto">
           <Flex>
             <chakra.a
@@ -26,12 +32,12 @@ export const TopBar = () => {
                   src="/assets/logo.svg"
                   width="25px"
                   height="25px"
-                  alt="Instant Search Icon"
+                  alt={translation.logoAlt}
                 />
               </Box>
-              <VisuallyHidden>Instant Secret</VisuallyHidden>
+              <VisuallyHidden>{translation.logoHiddenText}</VisuallyHidden>
               <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
-                InstantSecret
+                {translation.logoText}
               </chakra.h1>
             </chakra.a>
           </Flex>
@@ -49,19 +55,19 @@ export const TopBar = () => {
                 variant="ghost"
                 fontWeight="normal"
                 as="a"
-                href="/about"
+                href={localeLink`/security`}
                 rel="noopener"
               >
-                Security
+                {translation.SecurityLink}
               </Button>
               <Button
                 variant="ghost"
                 fontWeight="normal"
                 as="a"
-                href="/about"
+                href={localeLink`/about`}
                 rel="noopener"
               >
-                About
+                {translation.AboutLink}
               </Button>
               <Button
                 variant="ghost"
@@ -70,7 +76,7 @@ export const TopBar = () => {
                 href="/signin"
                 rel="noopener"
               >
-                Sign in
+                {translation.SignInLink}
               </Button>
               <Button
                 variant="ghost"
@@ -79,7 +85,7 @@ export const TopBar = () => {
                 href="/create-account"
                 rel="noopener"
               >
-                Create Account
+                {translation.CreateAccountLink}
               </Button>
             </HStack>
           </HStack>

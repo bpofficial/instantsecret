@@ -15,6 +15,12 @@ const nextConfig = {
     NEXT_PUBLIC_AUTH0_CLIENT_ID: "",
     NEXT_PUBLIC_AUTH0_REDIRECT_URI: ""
   },
+  i18n: {
+    locales: ['en-US'],
+    localeDetection: true,
+    defaultLocale: 'en-US'
+  },
+  trailingSlash: true,
 };
 
 module.exports = withNx(nextConfig);
