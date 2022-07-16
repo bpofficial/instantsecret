@@ -34,7 +34,7 @@ const CopyContent = () => {
           {translation.copy.subtitle}
         </Box>
 
-        <HStack>
+        <HStack spacing="8">
           <Button
             size="lg"
             bg="custom.400"
@@ -42,10 +42,12 @@ const CopyContent = () => {
             fontWeight="bold"
             px="8"
             py="6"
+            _hover={{ opacity: 0.7 }}
+            _active={{ opacity: 0.7 }}
           >
             {translation.copy.ctaButton}
           </Button>
-          <Button variant="ghost">{translation.copy.securityButton}</Button>
+          <Button variant="link">{translation.copy.securityButton}</Button>
         </HStack>
       </VStack>
     </Box>

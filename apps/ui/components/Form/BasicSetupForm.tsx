@@ -39,8 +39,8 @@ export const BasicSetupForm = () => {
         _focus={{
           border: 'none',
           borderRadius: '4px',
-          outline: 'none',
           boxShadow: 'none',
+          outline: 'none',
         }}
         style={{
           border: 'none',
@@ -65,12 +65,8 @@ export const BasicSetupForm = () => {
         color="white"
         size="lg"
         fontWeight="bold"
-        _active={{
-          bg: 'custom.300',
-        }}
-        _hover={{
-          bg: 'custom.300',
-        }}
+        _active={{ opacity: 0.7 }}
+        _hover={{ opacity: 0.7 }}
       >
         <HStack>
           <Box>{translation.createLinkButton}</Box>

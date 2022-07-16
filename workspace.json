@@ -3,7 +3,8 @@
   "version": 2,
   "projects": {
     "api-client": "libs/api-client",
-    "secret-commands": "apps/secret-commands",
+    "api-secret-commands": "apps/api-secret-commands",
+    "secret-queries": "apps/secret-queries",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }
