@@ -4,7 +4,8 @@
   "projects": {
     "api-client": "libs/api-client",
     "api-secret-commands": "apps/api-secret-commands",
-    "secret-queries": "apps/secret-queries",
+    "api-secret-queries": "apps/api-secret-queries",
+    "api-secret-stack": "apps/api-secret-stack",
     "ui": "apps/ui",
     "ui-e2e": "apps/ui-e2e"
   }
