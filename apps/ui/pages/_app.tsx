@@ -4,6 +4,13 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Banner, TopBar } from '../components';
 import { Helmet } from 'react-helmet';
+import { Amplify } from 'aws-amplify';
+import { config } from '../aws-exports';
+
+Amplify.configure({
+  ...config,
+  ssr: true,
+});
 
 function InstantSecret({ Component, pageProps }: AppProps) {
   return (

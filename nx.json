@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "instantsecret.com",
+  "npmScope": "instantsecret",
   "affected": {
     "defaultBase": "main"
   },
