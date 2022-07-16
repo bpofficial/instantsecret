@@ -5,7 +5,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { Banner, TopBar } from '../components';
 import Head from 'next/head';
 import { Amplify } from 'aws-amplify';
-import { config } from '../../aws-exports';
+import config from '../aws-exports';
 
 Amplify.configure({
   ...config,
