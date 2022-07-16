@@ -1,0 +1,17 @@
+
+  id: string
+  key: string
+  value: string
+  state: string
+  original_sesize: number
+  size: number
+  passphrase: string
+  paired_key: string
+  metadata_key: string
+  secret_key: string
+  userId: string
+  value_encryption: number
+  passphrase_encryption: number
+  entropy: string
+  viewed: number
+  shared: number
