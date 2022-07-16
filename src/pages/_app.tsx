@@ -3,7 +3,7 @@ import { chakra, extendTheme } from '@chakra-ui/react';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { Banner, TopBar } from '../components';
-import { Helmet } from 'react-helmet';
+import Head from 'next/head';
 import { Amplify } from 'aws-amplify';
 import { config } from '../../aws-exports';
 
@@ -31,7 +31,7 @@ function InstantSecret({ Component, pageProps }: AppProps) {
           },
         })}
       >
-        <Helmet>
+        <Head>
           <meta charSet="utf-8" />
           <title>Home | InstantSecret</title>
           <link rel="canonical" href="http://instantsecret.com/" />
@@ -56,7 +56,7 @@ function InstantSecret({ Component, pageProps }: AppProps) {
           <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
           <meta name="msapplication-TileColor" content="#da532c" />
           <meta name="theme-color" content="#ffffff" />
-        </Helmet>
+        </Head>
         <chakra.main w="100%" h="100%" overflowY="scroll">
           <Banner />
           <TopBar />

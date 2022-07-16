@@ -27,7 +27,7 @@ export const TopBar = () => {
               display="flex"
               alignItems="center"
             >
-              <Box>
+              <Box mt="1">
                 <Image
                   src="/assets/logo.svg"
                   width="25px"
