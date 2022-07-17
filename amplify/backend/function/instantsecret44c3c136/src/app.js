@@ -17,7 +17,7 @@ AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
-let tableName = "";
+let tableName = "Secret-ohh6toucyfestmtvwqjacgjram-staging";
 if (process.env.ENV && process.env.ENV !== "NONE") {
   tableName = tableName + '-' + process.env.ENV;
 }
@@ -171,10 +171,13 @@ app.post(path, function(req, res) {
     req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  req.body['originalSize'] = (req.body['value'] || '').length
+
   let putItemParams = {
     TableName: tableName,
     Item: req.body
   }
+
   dynamodb.put(putItemParams, (err, data) => {
     if (err) {
       res.statusCode = 500;
