@@ -54,7 +54,7 @@ const CopyContent = () => {
   );
 };
 
-export function Index() {
+export default function Index() {
   const [isLargerThan767, isLargerThan1199] = useMediaQuery([
     '(min-width: 767px)',
     '(min-width: 1199px)',
@@ -79,5 +79,3 @@ export function Index() {
     </Flex>
   );
 }
-
-export default Index;

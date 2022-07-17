@@ -11,69 +11,112 @@ import { ArrowForwardIcon } from '@chakra-ui/icons';
 import { useTranslation } from '../../hooks';
 import { PassphraseInput, PassphraseLabel } from './Inputs/Passphrase';
 import { LifetimeInput, LifetimeLabel } from './Inputs/Lifetime';
-import { Formik } from 'formik';
+import { Formik, useFormikContext } from 'formik';
+import { DataStore, API } from 'aws-amplify';
+import { customAlphabet } from 'nanoid';
+
+const generateKey = customAlphabet(
+  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+  32
+);
+
+const SubmitButton = () => {
+  const translation = useTranslation('BasicSetupForm');
+  const form = useFormikContext<any>();
+
+  const onClick = () => {
+    new Promise((resolve, reject) => {
+      const key = generateKey();
+      const value = form.values.value;
+      const passphrase = form.values.passphrase;
+      const ttl = form.values.ttl;
+      API.post('instantsecretrest', '/secrets', {
+        body: {
+          key,
+          value,
+          passphrase,
+          ttl,
+        },
+      })
+        .then(resolve)
+        .catch(reject);
+    })
+      .then(console.log)
+      .catch(console.warn);
+  };
+
+  return (
+    <Button
+      mt="2"
+      w="100%"
+      borderRadius="0"
+      bg="custom.400"
+      color="white"
+      size="lg"
+      fontWeight="bold"
+      _active={{ opacity: 0.7 }}
+      _hover={{ opacity: 0.7 }}
+      {...{ onClick }}
+    >
+      <HStack>
+        <Box>{translation.createLinkButton}</Box>
+        <ArrowForwardIcon mt="2" />
+      </HStack>
+    </Button>
+  );
+};
 
 export const BasicSetupForm = () => {
   const translation = useTranslation('BasicSetupForm');
 
   return (
-    <Box
-      w="100%"
-      maxW={'620px'}
-      borderColor="custom.400"
-      borderWidth="2px"
-      borderRadius="md"
-      alignSelf="center"
-    >
-      <Textarea
-        placeholder={translation.inputPlaceholder}
-        borderBottomColor="custom.300"
-        shadow="none"
-        w="100%"
-        h="40%"
-        minH="200px"
-        fontSize="lg"
-        bg="color.100"
-        p="4"
-        borderRadius="4"
-        _focus={{
-          border: 'none',
-          borderRadius: '4px',
-          boxShadow: 'none',
-          outline: 'none',
-        }}
-        style={{
-          border: 'none',
-          borderRadius: '4px',
-          boxShadow: 'none',
-        }}
-      />
-      <Box w="100%" h="2px" bg="custom.400" />
-      <Box>
-        <Heading size="sm" textAlign="center" p="6" color="custom.400">
-          {translation.privacyOptionsTitle}
-        </Heading>
-        <Formik onSubmit={console.log} initialValues={{}}>
-          <PrivacyOptionInputs />
-        </Formik>
-      </Box>
-      <Button
-        mt="2"
-        w="100%"
-        borderRadius="0"
-        bg="custom.400"
-        color="white"
-        size="lg"
-        fontWeight="bold"
-        _active={{ opacity: 0.7 }}
-        _hover={{ opacity: 0.7 }}
-      >
-        <HStack>
-          <Box>{translation.createLinkButton}</Box>
-          <ArrowForwardIcon mt="2" />
-        </HStack>
-      </Button>
-    </Box>
+    <Formik onSubmit={() => {}} initialValues={{} as any}>
+      {({ handleChange, values }) => (
+        <Box
+          w="100%"
+          maxW={'620px'}
+          borderColor="custom.400"
+          borderWidth="2px"
+          borderRadius="md"
+          alignSelf="center"
+        >
+          <Textarea
+            name="value"
+            placeholder={translation.inputPlaceholder}
+            borderBottomColor="custom.300"
+            shadow="none"
+            w="100%"
+            h="40%"
+            minH="200px"
+            fontSize="lg"
+            bg="color.100"
+            p="4"
+            borderRadius="4"
+            onChange={handleChange}
+            value={values['value'] ?? ''}
+            _focus={{
+              border: 'none',
+              borderRadius: '4px',
+              boxShadow: 'none',
+              outline: 'none',
+            }}
+            style={{
+              border: 'none',
+              borderRadius: '4px',
+              boxShadow: 'none',
+            }}
+          />
+          <Box w="100%" h="2px" bg="custom.400" />
+          <Box>
+            <Heading size="sm" textAlign="center" p="6" color="custom.400">
+              {translation.privacyOptionsTitle}
+            </Heading>
+            <PrivacyOptionInputs />
+          </Box>
+          <SubmitButton />
+        </Box>
+      )}
+    </Formik>
   );
 };
 

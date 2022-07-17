@@ -1,0 +1,26 @@
+type Secret @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  userID: ID! @index(name: "byUser")
+  key: String
+  value: String
+  state: String
+  originalSize: Int
+  size: Int
+  passphrase: String
+  pairedKey: String
+  metadataKey: String
+  secretKey: String
+  encyptedValue: String
+  valueEncryptionVersion: Int
+  passphraseEncryptionVersion: Int
+  entropy: String
+  viewed: Int
+  shared: Int
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  auth0UserId: String
+  auth0OrgId: String
+  secrets: [Secret] @hasMany(indexName: "byUser", fields: ["id"])
+}

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/secrets/{key}": {
+      "name": "/secrets/{key}",
+      "lambdaFunction": "instantsecret44c3c136",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
