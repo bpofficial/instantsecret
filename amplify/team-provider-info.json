@@ -43,7 +43,7 @@
       "function": {
         "instantsecret44c3c136": {
           "deploymentBucketName": "amplify-amplify46653991cb074-staging-124602-deployment",
-          "s3Key": "amplify-builds/instantsecret44c3c136-477a794b6134624c6849-build.zip"
+          "s3Key": "amplify-builds/instantsecret44c3c136-616b666d4d562f2f6172-build.zip"
         }
       }
     }

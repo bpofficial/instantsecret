@@ -20,20 +20,6 @@
           ]
         }
       }
-    },
-    "instantsecretrest": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "instantsecret44c3c136",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        }
-      ]
     }
   },
   "storage": {
