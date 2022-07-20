@@ -1,49 +1,25 @@
 {
   "staging": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-amplify46653991cb074-staging-124602-authRole",
-      "UnauthRoleArn": "arn:aws:iam::932627656937:role/amplify-amplify46653991cb074-staging-124602-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::932627656937:role/amplify-amplify46653991cb074-staging-124602-authRole",
+      "AuthRoleName": "amplify-amplify4fb919e1771c4-staging-110001-authRole",
+      "UnauthRoleArn": "arn:aws:iam::932627656937:role/amplify-amplify4fb919e1771c4-staging-110001-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::932627656937:role/amplify-amplify4fb919e1771c4-staging-110001-authRole",
       "Region": "ap-southeast-2",
-      "DeploymentBucketName": "amplify-amplify46653991cb074-staging-124602-deployment",
-      "UnauthRoleName": "amplify-amplify46653991cb074-staging-124602-unauthRole",
-      "StackName": "amplify-amplify46653991cb074-staging-124602",
-      "StackId": "arn:aws:cloudformation:ap-southeast-2:932627656937:stack/amplify-amplify46653991cb074-staging-124602/40097390-0505-11ed-ad4d-02a7eba5ab24",
-      "AmplifyAppId": "d38enpkylaxhx0"
+      "DeploymentBucketName": "amplify-amplify4fb919e1771c4-staging-110001-deployment",
+      "UnauthRoleName": "amplify-amplify4fb919e1771c4-staging-110001-unauthRole",
+      "StackName": "amplify-amplify4fb919e1771c4-staging-110001",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:932627656937:stack/amplify-amplify4fb919e1771c4-staging-110001/1a90cd70-081b-11ed-bc95-0a487f1440c6",
+      "AmplifyAppId": "da4liu15ot4fg"
     },
     "categories": {
       "storage": {
-        "AmplifyDataStoreohh6toucyfestmtvwqjacgjramstaging": {
-          "tableName": "AmplifyDataStore-ohh6toucyfestmtvwqjacgjram-staging",
+        "LinkModelq4ld7jvbnrfghia3mhjcsszwuqstaging": {
+          "tableName": "LinkModel-q4ld7jvbnrfghia3mhjcsszwuq-staging",
           "region": "ap-southeast-2",
-          "arn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/AmplifyDataStore-ohh6toucyfestmtvwqjacgjram-staging",
-          "streamArn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/AmplifyDataStore-ohh6toucyfestmtvwqjacgjram-staging/stream/2022-07-17T11:11:41.169",
-          "partitionKeyName": "ds_pk",
-          "partitionKeyType": "S",
-          "sortKeyName": "ds_sk",
-          "sortKeyType": "S"
-        },
-        "Secretohh6toucyfestmtvwqjacgjramstaging": {
-          "tableName": "Secret-ohh6toucyfestmtvwqjacgjram-staging",
-          "region": "ap-southeast-2",
-          "arn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/Secret-ohh6toucyfestmtvwqjacgjram-staging",
-          "streamArn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/Secret-ohh6toucyfestmtvwqjacgjram-staging/stream/2022-07-17T11:12:53.894",
+          "arn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/LinkModel-q4ld7jvbnrfghia3mhjcsszwuq-staging",
+          "streamArn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/LinkModel-q4ld7jvbnrfghia3mhjcsszwuq-staging/stream/2022-07-20T11:10:33.670",
           "partitionKeyName": "id",
           "partitionKeyType": "S"
-        },
-        "Userohh6toucyfestmtvwqjacgjramstaging": {
-          "tableName": "User-ohh6toucyfestmtvwqjacgjram-staging",
-          "region": "ap-southeast-2",
-          "arn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/User-ohh6toucyfestmtvwqjacgjram-staging",
-          "streamArn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/User-ohh6toucyfestmtvwqjacgjram-staging/stream/2022-07-17T11:14:14.981",
-          "partitionKeyName": "id",
-          "partitionKeyType": "S"
-        }
-      },
-      "function": {
-        "instantsecret44c3c136": {
-          "deploymentBucketName": "amplify-amplify46653991cb074-staging-124602-deployment",
-          "s3Key": "amplify-builds/instantsecret44c3c136-616b666d4d562f2f6172-build.zip"
         }
       }
     }

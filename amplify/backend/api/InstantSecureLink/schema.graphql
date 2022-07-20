@@ -1,0 +1,9 @@
+type LinkModel @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  key: String
+  value: String
+  creatorUserID: String
+  recipients: AWSJSON
+  views: String
+  burnt: String
+}

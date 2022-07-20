@@ -17,6 +17,7 @@
     "@emotion/server": "11.4.0",
     "@emotion/styled": "^11",
     "aws-amplify": "^4.3.27",
+    "aws-sdk": "^2.1178.0",
     "core-js": "^3.6.5",
     "formik": "^2.2.9",
     "framer-motion": "^6",

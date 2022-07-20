@@ -10,7 +10,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { BasicSetupForm } from '../components';
-import { useTranslation } from '../hooks/useTranslation';
+import { useTranslation } from '../hooks';
 
 const CopyContent = () => {
   const translation = useTranslation('index');

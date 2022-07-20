@@ -15,6 +15,7 @@ export interface TranslationObj {
     logoAlt: string;
     logoHiddenText: string;
     SecurityLink: string;
+    RoadMapLink: string;
     AboutLink: string;
     SignInLink: string;
     CreateAccountLink: string;

@@ -4,9 +4,8 @@ import { schema } from './schema';
 
 
 
-const { Secret, User } = initSchema(schema);
+const { LinkModel } = initSchema(schema);
 
 export {
-  Secret,
-  User
+  LinkModel
 };

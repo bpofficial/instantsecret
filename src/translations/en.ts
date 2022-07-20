@@ -17,6 +17,7 @@ export const en: TranslationObj = {
     logoAlt: 'Instant Secret Logo',
     logoHiddenText: 'InstantSecret',
     SecurityLink: 'Security',
+    RoadMapLink: 'Roadmap',
     AboutLink: 'About',
     SignInLink: 'Sign In',
     CreateAccountLink: 'Create Account'
