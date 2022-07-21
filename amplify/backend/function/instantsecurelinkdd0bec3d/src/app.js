@@ -23,12 +23,14 @@ AWS.config.update({ region: process.env.TABLE_REGION });
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
+let env = 'default'
 let tableName = "LinkModel-q4ld7jvbnrfghia3mhjcsszwuq";
 if (process.env.ENV && process.env.ENV !== "NONE") {
+    env = process.env.ENV;
   tableName = tableName + '-' + process.env.ENV;
 }
 
-const path = "/links/:linkId";
+const path = "/links";
 
 // declare a new express app
 const app = express()
@@ -38,16 +40,25 @@ app.use(awsServerlessExpressMiddleware.eventContext())
 // Enable CORS for all methods
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "*")
+  res.header("Access-Control-Allow-Headers", "OPTIONS,POST,DELETE")
   next()
 });
+
+/************************************
+* HTTP options method for cors       *
+*************************************/
+
+app.options(path, function(req, res) {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Headers", "OPTIONS,POST,DELETE")
+    res.send();
+})
 
 /************************************
 * HTTP post method for insert object *
 *************************************/
 
 app.post(path, async function(req, res) {
-
     // get user id
     let creatorUserID = null;
     const rawToken = req.headers['authorization'];
@@ -66,12 +77,12 @@ app.post(path, async function(req, res) {
     return;
   }
 
-  const key = generateKey();
+  const id = generateKey();
 
-  const result = await dynamodb.putItem({
+  const result = await dynamodb.put({
     TableName: tableName,
     Item: {
-        key,
+        id,
         views: 0,
         burnt: false,
         creatorUserID,
@@ -80,7 +91,7 @@ app.post(path, async function(req, res) {
         ttl: req.body.ttl || 1000 * 60 * 60 * 24 * 7, // 7 days default
         createdAt: new Date().toISOString()
     },
-    ConditionExpression: 'attribute_not_exists(key)'
+    ConditionExpression: 'attribute_not_exists(id)'
   }).promise()
 
   if (result.$response.error) {
@@ -92,8 +103,7 @@ app.post(path, async function(req, res) {
     })
   }
   // Using overwrite: true to enforce that someone trying to recreate a dummy secret with the same key doesn't get the original secret.
-  const secret = await (new AWS.SSM()).putParameter({ Name: `${result.Attributes['id']}-${key}`, Value: req.body.value, Type: "SecureString", Overwrite: true }).promise();
-
+  const secret = await (new AWS.SecretsManager()).createSecret({ Name: `/secrets/${env}/${id}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
   if (secret.$response.error) {
     res.statusCode = result.$response.httpResponse.statusCode;
     res.json({
@@ -105,8 +115,16 @@ app.post(path, async function(req, res) {
   }
 
     res.statusCode = 201;
-    res.json({ key })
+    res.json({ key: id })
 });
+
+/*************************************
+* HTTP delete method to remove object *
+**************************************/
+
+app.delete(path, async function(req, res) {
+
+})
 
 app.listen(3000, function() {
   console.log("App started")

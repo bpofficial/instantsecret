@@ -5,7 +5,7 @@ export type AmplifyDependentResourcesAttributes = {
             "GraphQLAPIIdOutput": "string",
             "GraphQLAPIEndpointOutput": "string"
         },
-        "linksapi": {
+        "LinksEndpoint": {
             "RootUrl": "string",
             "ApiName": "string",
             "ApiId": "string"

@@ -26,16 +26,16 @@ const SubmitButton = () => {
 
     const onClick = () => {
         new Promise((resolve, reject) => {
-            const key = generateKey();
             const value = form.values.value;
             const passphrase = form.values.passphrase;
             const ttl = form.values.ttl;
-            API.post('linksapi', '/links', {
+            API.post('LinksEndpoint', '/links', {
                 body: {
-                    key,
                     value,
                     passphrase,
                     ttl,
+                    internal: null,
+                    recipients: [],
                 },
             })
                 .then(resolve)

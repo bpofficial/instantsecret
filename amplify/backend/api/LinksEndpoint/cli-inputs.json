@@ -1,8 +1,8 @@
 {
   "version": 1,
   "paths": {
-    "/links/{key}": {
-      "name": "/links/{key}",
+    "/links": {
+      "name": "/links",
       "lambdaFunction": "instantsecurelinkdd0bec3d",
       "permissions": {
         "setting": "open"

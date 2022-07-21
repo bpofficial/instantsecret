@@ -9,7 +9,7 @@ import {
     useMediaQuery,
     VStack,
 } from '@chakra-ui/react';
-import { BasicSetupForm } from '../components';
+import { BasicSetupForm } from '../../components';
 
 export default function LinkIndexPage() {
     const [isLargerThan767, isLargerThan1199] = useMediaQuery([

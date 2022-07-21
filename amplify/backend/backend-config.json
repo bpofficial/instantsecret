@@ -21,7 +21,7 @@
         }
       }
     },
-    "linksapi": {
+    "LinksEndpoint": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
       "dependsOn": [
