@@ -10,15 +10,15 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "key": {
-                    "name": "key",
+                "secretId": {
+                    "name": "secretId",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "value": {
-                    "name": "value",
+                "secretKey": {
+                    "name": "secretKey",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -33,22 +33,44 @@ export const schema = {
                 },
                 "recipients": {
                     "name": "recipients",
-                    "isArray": false,
-                    "type": "AWSJSON",
+                    "isArray": true,
+                    "type": "String",
                     "isRequired": false,
-                    "attributes": []
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "views": {
                     "name": "views",
                     "isArray": false,
-                    "type": "String",
+                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
                 "burnt": {
                     "name": "burnt",
                     "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "ttl": {
+                    "name": "ttl",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "passphrase": {
+                    "name": "passphrase",
+                    "isArray": false,
                     "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "internal": {
+                    "name": "internal",
+                    "isArray": false,
+                    "type": "Boolean",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -77,6 +99,14 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "fields": [
+                            "id"
+                        ]
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
@@ -97,5 +127,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "adeb96179c5fcd9ed52222a9c8504095"
+    "version": "0c087aa72502a1335088d066b93c80e9"
 };

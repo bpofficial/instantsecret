@@ -10,12 +10,15 @@ type LinkModelMetaData = {
 
 export declare class LinkModel {
   readonly id: string;
-  readonly key?: string | null;
-  readonly value?: string | null;
+  readonly secretId?: string | null;
+  readonly secretKey?: string | null;
   readonly creatorUserID?: string | null;
-  readonly recipients?: string | null;
-  readonly views?: string | null;
-  readonly burnt?: string | null;
+  readonly recipients?: (string | null)[] | null;
+  readonly views?: number | null;
+  readonly burnt?: boolean | null;
+  readonly ttl?: number | null;
+  readonly passphrase?: string | null;
+  readonly internal?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
   constructor(init: ModelInit<LinkModel, LinkModelMetaData>);

@@ -13,6 +13,7 @@ const bodyParser = require('body-parser')
 const express = require('express');
 const { customAlphabet } = require('nanoid');
 const jwt = require('jsonwebtoken');
+const { RedshiftServerless } = require('aws-sdk');
 
 const generateKey = customAlphabet(
   'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
@@ -36,6 +37,19 @@ const path = "/links";
 const app = express()
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
+
+const getRedirectUrl = (linkId) => {
+    switch (env) {
+        case 'default':
+        case 'development':
+        case 'staging':
+            return `http://localhost:3000/newlink/${linkId}/`
+        case 'production':
+        case 'prod':
+        default:
+            return `https://instantsecurelink.com/newlink/${linkId}/`
+    }
+}
 
 // Enable CORS for all methods
 app.use(function(req, res, next) {
@@ -78,18 +92,22 @@ app.post(path, async function(req, res) {
   }
 
   const id = generateKey();
+  const secretId = generateKey();
+  const secretKey = generateKey();
 
   const result = await dynamodb.put({
     TableName: tableName,
     Item: {
-        id,
+        id, // linkId
+        secretId, // secretId
+        secretKey,
         views: 0,
         burnt: false,
         creatorUserID,
         recipients: req.body.recipients || [],
         passphrase: req.body.passphrase || null,
-        ttl: req.body.ttl || 1000 * 60 * 60 * 24 * 7, // 7 days default
-        createdAt: new Date().toISOString()
+        ttl: req.body.ttl || 1000 * 60 * 60 * 24 * 7, // 7 days default,
+        internal: req.body.internal === true
     },
     ConditionExpression: 'attribute_not_exists(id)'
   }).promise()
@@ -102,8 +120,9 @@ app.post(path, async function(req, res) {
         description: 'Failed to create link.'
     })
   }
+
   // Using overwrite: true to enforce that someone trying to recreate a dummy secret with the same key doesn't get the original secret.
-  const secret = await (new AWS.SecretsManager()).createSecret({ Name: `/secrets/${env}/${id}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
+  const secret = await (new AWS.SecretsManager()).createSecret({ Name: `/secrets/${env}/${secretId}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
   if (secret.$response.error) {
     res.statusCode = result.$response.httpResponse.statusCode;
     res.json({
@@ -114,16 +133,110 @@ app.post(path, async function(req, res) {
     return;
   }
 
-    res.statusCode = 201;
-    res.json({ key: id })
+  res.statusCode = 201;
+  res.json({
+    linkId: id
+  })
 });
 
 /*************************************
 * HTTP delete method to remove object *
 **************************************/
 
-app.delete(path, async function(req, res) {
+app.delete(path + '/:linkId', async function(req, res) {
+    const id = req.params['linkId'];
 
+    if (!id) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    }
+
+    const record = await dynamodb.get({
+      TableName: tableName,
+      Item: {
+          id,
+      }
+    }).promise()
+
+    console.log({ record, tableName, id })
+
+    if (!record || record.burnt || record.views) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    };
+
+    const result = await (new AWS.SecretsManager()).deleteSecret({ SecretId: `/secrets/${env}/${record.secretId}` }).promise();
+
+    if (result.$response.error) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    }
+
+    const update = await dynamodb.update({
+        TableName: tableName,
+        Key: {
+            id
+        },
+        UpdateExpression: 'SET burnt = True'
+    }).promise();
+
+    if (update.$response.error) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    }
+})
+
+/*************************************
+* HTTP get method to retrieve object  *
+**************************************/
+
+app.get(path + '/:linkId', async function(req, res) {
+    const id = req.params['linkId'];
+
+    if (!id) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    }
+
+    const record = await dynamodb.get({
+      TableName: tableName,
+      Key: {
+          id,
+      }
+    }).promise()
+
+    if (!record || !record.Item || record.Item.burnt || record.Item.views) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    }
+
+    let secret;
+    try {
+        secret = await (new AWS.SecretsManager()).getSecretValue({ SecretId: `/secrets/${env}/${record.Item.secretId}` }).promise();
+    } catch (err) {
+        console.log(err);
+        res.statusCode = 500
+        res.json()
+        return;
+    }
+
+    if (secret.$response.error) {
+        res.statusCode = 404;
+        res.send();
+        return;
+    }
+
+    res.statusCode = 200;
+    res.json({
+        key: record.Item.secretKey,
+        value: secret.SecretString
+    })
 })
 
 app.listen(3000, function() {
