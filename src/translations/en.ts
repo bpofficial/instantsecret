@@ -31,7 +31,7 @@ export const en: TranslationObj = {
     passphraseGenerator: 'Generate',
     lifetimeLabel: 'Lifetime',
     lifetimeOptions: [{ value: '24hr', label: '24 Hours' }],
-    createLinkButton: 'CREATE A SECRET LINK',
+    createLinkButton: 'CREATE A SECURE LINK',
     disclaimer: 'A secret link only works once and then it disappears forever.'
   },
   ShareLinkForm: {
