@@ -2,7 +2,7 @@ import { API } from "aws-amplify";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
-    console.log(req)
+    console.log(req, API)
     if (req.method === "POST") {
         const {
             value,
