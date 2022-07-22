@@ -62,54 +62,59 @@ export const CreateLinkForm = () => {
                         justifyContent: "center",
                     }}
                 >
-                    <Box
-                        w="100%"
-                        maxW={"620px"}
-                        borderColor="custom.400"
-                        borderWidth="2px"
-                        borderRadius="md"
-                        alignSelf="center"
-                    >
-                        <Textarea
-                            name="value"
-                            placeholder={translation.inputPlaceholder}
-                            borderBottomColor="custom.300"
-                            shadow="none"
+                    <VStack w="100%" spacing={4}>
+                        <Box
                             w="100%"
-                            h="40%"
-                            minH="200px"
-                            fontSize="lg"
-                            bg="color.100"
-                            p="4"
-                            borderRadius="4"
-                            onChange={handleChange}
-                            value={values["value"] ?? ""}
-                            _focus={{
-                                border: "none",
-                                borderRadius: "4px",
-                                boxShadow: "none",
-                                outline: "none",
-                            }}
-                            style={{
-                                border: "none",
-                                borderRadius: "4px",
-                                boxShadow: "none",
-                            }}
-                        />
-                        <Box w="100%" h="2px" bg="custom.400" />
-                        <Box>
-                            <Heading
-                                size="sm"
-                                textAlign="center"
-                                p="6"
-                                color="custom.400"
-                            >
-                                {translation.privacyOptionsTitle}
-                            </Heading>
-                            <PrivacyOptionInputs />
+                            maxW={"620px"}
+                            borderColor="custom.400"
+                            borderWidth="2px"
+                            borderRadius="md"
+                            alignSelf="center"
+                        >
+                            <Textarea
+                                name="value"
+                                placeholder={translation.inputPlaceholder}
+                                borderBottomColor="custom.300"
+                                shadow="none"
+                                w="100%"
+                                h="40%"
+                                minH="200px"
+                                fontSize="lg"
+                                bg="color.100"
+                                p="4"
+                                borderRadius="4"
+                                onChange={handleChange}
+                                value={values["value"] ?? ""}
+                                _focus={{
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    boxShadow: "none",
+                                    outline: "none",
+                                }}
+                                style={{
+                                    border: "none",
+                                    borderRadius: "4px",
+                                    boxShadow: "none",
+                                }}
+                            />
+                            <Box w="100%" h="2px" bg="custom.400" />
+                            <Box>
+                                <Heading
+                                    size="sm"
+                                    textAlign="center"
+                                    p="6"
+                                    color="custom.400"
+                                >
+                                    {translation.privacyOptionsTitle}
+                                </Heading>
+                                <PrivacyOptionInputs />
+                            </Box>
+                            <SubmitButton />
                         </Box>
-                        <SubmitButton />
-                    </Box>
+                        <Box fontSize="sm" fontStyle="italic">
+                            {translation.disclaimer}
+                        </Box>
+                    </VStack>
                 </Form>
             )}
         </Formik>
