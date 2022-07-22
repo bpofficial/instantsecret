@@ -7,8 +7,7 @@ const nextConfig = {
     localeDetection: true,
     defaultLocale: 'en-US'
   },
-  trailingSlash: true,
-  webpack5: false
+  trailingSlash: true
 };
 
 module.exports = nextConfig;
