@@ -1,9 +1,9 @@
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Heading, HStack, VStack, Input } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import { useTranslation } from '../../hooks';
-import { millisecondsToStr } from '../../utils/humanReadableTimeDiff';
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Box, Button, Heading, HStack, VStack, Input } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+import { useRouter } from "next/router";
+import { useTranslation } from "../../hooks";
+import { millisecondsToStr } from "../../utils/humanReadableTimeDiff";
 
 interface LinkReceivedFormProps {
     secretKey: string;
@@ -16,17 +16,17 @@ export const LinkReceivedForm = ({
     receivedAt,
     encrypted,
 }: LinkReceivedFormProps) => {
-    const translation = useTranslation('LinkReceivedForm');
+    const translation = useTranslation("LinkReceivedForm");
 
     const diff =
-        typeof window !== 'undefined'
+        typeof window !== "undefined"
             ? millisecondsToStr(
                   new Date().getTime() - new Date(receivedAt).getTime()
               )
             : null;
 
     const diffMessage =
-        typeof window !== 'undefined'
+        typeof window !== "undefined"
             ? `${translation.Received} ${diff} ago.`
             : null;
 
@@ -40,13 +40,13 @@ export const LinkReceivedForm = ({
     );
 
     return (
-        <VStack align="left" spacing={4} w="100%" maxW={'620px'}>
+        <VStack align="left" spacing={4} w="100%" maxW={"620px"}>
             <Heading size="md">
                 {translation.SecureLinkId} ({secretKey.slice(0, 8)})
             </Heading>
             <Input
                 w="100%"
-                maxW={'620px'}
+                maxW={"620px"}
                 borderColor="custom.400"
                 borderWidth="2px"
                 borderRadius="md"
@@ -58,7 +58,7 @@ export const LinkReceivedForm = ({
                 value={
                     encrypted
                         ? translation.EncryptedPlaceholder
-                        : '******************'
+                        : "******************"
                 }
             />
             <TimeDiff />
@@ -68,21 +68,21 @@ export const LinkReceivedForm = ({
 };
 
 const CreateNewLinkButton = () => {
-    const translation = useTranslation('LinkReceivedForm');
+    const translation = useTranslation("LinkReceivedForm");
     const router = useRouter();
 
     return (
         <Button
             mt="2"
             w="100%"
-            borderRadius="0"
+            borderRadius="md"
             bg="custom.400"
             color="white"
             size="lg"
             fontWeight="bold"
             _active={{ opacity: 0.7 }}
             _hover={{ opacity: 0.7 }}
-            onClick={() => router.push('/links')}
+            onClick={() => router.push("/links")}
             type="submit"
         >
             <HStack>

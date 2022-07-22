@@ -6,16 +6,16 @@ import {
     Textarea,
     useMediaQuery,
     VStack,
-} from '@chakra-ui/react';
-import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { useTranslation } from '../../hooks';
-import { PassphraseInput, PassphraseLabel } from './Inputs/Passphrase';
-import { LifetimeInput, LifetimeLabel } from './Inputs/Lifetime';
-import { Formik, useFormikContext, Form } from 'formik';
-import { useRef } from 'react';
+} from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useTranslation } from "../../hooks";
+import { PassphraseInput, PassphraseLabel } from "./Inputs/Passphrase";
+import { LifetimeInput, LifetimeLabel } from "./Inputs/Lifetime";
+import { Formik, useFormikContext, Form } from "formik";
+import { useRef } from "react";
 
 const SubmitButton = () => {
-    const translation = useTranslation('CreateLinkForm');
+    const translation = useTranslation("CreateLinkForm");
     const form = useFormikContext<any>();
 
     return (
@@ -41,11 +41,11 @@ const SubmitButton = () => {
 };
 
 export const CreateLinkForm = () => {
-    const translation = useTranslation('CreateLinkForm');
+    const translation = useTranslation("CreateLinkForm");
     const formEl = useRef<HTMLFormElement>(null);
 
     const onSubmit = () => {
-        console.log('submiting');
+        console.log("submiting");
         formEl.current?.submit();
     };
 
@@ -53,18 +53,18 @@ export const CreateLinkForm = () => {
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             {({ handleChange, values }) => (
                 <Form
-                    action="/links"
+                    action="/api/links"
                     method="POST"
                     ref={formEl}
                     style={{
-                        width: '100%',
-                        display: 'flex',
-                        justifyContent: 'center',
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
                     }}
                 >
                     <Box
                         w="100%"
-                        maxW={'620px'}
+                        maxW={"620px"}
                         borderColor="custom.400"
                         borderWidth="2px"
                         borderRadius="md"
@@ -83,17 +83,17 @@ export const CreateLinkForm = () => {
                             p="4"
                             borderRadius="4"
                             onChange={handleChange}
-                            value={values['value'] ?? ''}
+                            value={values["value"] ?? ""}
                             _focus={{
-                                border: 'none',
-                                borderRadius: '4px',
-                                boxShadow: 'none',
-                                outline: 'none',
+                                border: "none",
+                                borderRadius: "4px",
+                                boxShadow: "none",
+                                outline: "none",
                             }}
                             style={{
-                                border: 'none',
-                                borderRadius: '4px',
-                                boxShadow: 'none',
+                                border: "none",
+                                borderRadius: "4px",
+                                boxShadow: "none",
                             }}
                         />
                         <Box w="100%" h="2px" bg="custom.400" />
@@ -117,7 +117,7 @@ export const CreateLinkForm = () => {
 };
 
 const PrivacyOptionInputs = () => {
-    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)'], {
+    const [isLargerThan767] = useMediaQuery(["(min-width: 767px)"], {
         fallback: [true],
         ssr: true,
     });
@@ -149,20 +149,20 @@ const PrivacyOptionInputs = () => {
     return (
         <ContainerComponent
             spacing="1"
-            justifyContent={isLargerThan767 ? 'center' : undefined}
+            justifyContent={isLargerThan767 ? "center" : undefined}
             px="6"
             pb="6"
             w="100%"
         >
             <SubComponent
-                w={isLargerThan767 ? undefined : '100%'}
-                align={isLargerThan767 ? 'flex-end' : undefined}
+                w={isLargerThan767 ? undefined : "100%"}
+                align={isLargerThan767 ? "flex-end" : undefined}
             >
                 {FirstComponent}
             </SubComponent>
             <SubComponent
-                w={isLargerThan767 ? '60%' : '100%'}
-                align={isLargerThan767 ? 'flex-end' : undefined}
+                w={isLargerThan767 ? "60%" : "100%"}
+                align={isLargerThan767 ? "flex-end" : undefined}
             >
                 {SecondComponent}
             </SubComponent>

@@ -1,14 +1,15 @@
-import { AppProps } from 'next/app';
-import { chakra, extendTheme } from '@chakra-ui/react';
-import { Auth0Provider } from '@auth0/auth0-react';
-import { ChakraProvider } from '@chakra-ui/react';
-import { Banner, TopBar } from '../components';
-import Head from 'next/head';
-import { Amplify, Auth } from 'aws-amplify';
-import { config } from '../config';
+import { AppProps } from "next/app";
+import { chakra, extendTheme } from "@chakra-ui/react";
+import { Auth0Provider } from "@auth0/auth0-react";
+import { ChakraProvider } from "@chakra-ui/react";
+import { Banner, TopBar } from "../components";
+import Head from "next/head";
+import { Amplify, Auth } from "aws-amplify";
+import { config } from "../config";
 
 Amplify.configure(config);
 Auth.configure(config);
+Amplify.Logger.LOG_LEVEL = "DEBUG";
 
 function InstantSecret({ Component, pageProps }: AppProps) {
     return (
@@ -21,11 +22,11 @@ function InstantSecret({ Component, pageProps }: AppProps) {
                 theme={extendTheme({
                     colors: {
                         custom: {
-                            50: '#6b798e',
-                            100: '#F1FAEE',
-                            200: '#A8DADC',
-                            300: '#457B9D',
-                            400: '#1D3557',
+                            50: "#6b798e",
+                            100: "#F1FAEE",
+                            200: "#A8DADC",
+                            300: "#457B9D",
+                            400: "#1D3557",
                         },
                     },
                 })}
