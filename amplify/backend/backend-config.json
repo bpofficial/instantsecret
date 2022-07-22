@@ -42,12 +42,6 @@
       "serviceType": "imported",
       "providerPlugin": "awscloudformation",
       "dependsOn": []
-    },
-    "AmplifyDataStoreq4ld7jvbnrfghia3mhjcsszwuqstaging": {
-      "service": "DynamoDB",
-      "serviceType": "imported",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
     }
   },
   "function": {

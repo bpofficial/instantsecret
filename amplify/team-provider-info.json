@@ -20,16 +20,6 @@
           "streamArn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/LinkModel-q4ld7jvbnrfghia3mhjcsszwuq-staging/stream/2022-07-20T11:10:33.670",
           "partitionKeyName": "id",
           "partitionKeyType": "S"
-        },
-        "AmplifyDataStoreq4ld7jvbnrfghia3mhjcsszwuqstaging": {
-          "tableName": "AmplifyDataStore-q4ld7jvbnrfghia3mhjcsszwuq-staging",
-          "region": "ap-southeast-2",
-          "arn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/AmplifyDataStore-q4ld7jvbnrfghia3mhjcsszwuq-staging",
-          "streamArn": "arn:aws:dynamodb:ap-southeast-2:932627656937:table/AmplifyDataStore-q4ld7jvbnrfghia3mhjcsszwuq-staging/stream/2022-07-20T11:09:22.431",
-          "partitionKeyName": "ds_pk",
-          "partitionKeyType": "S",
-          "sortKeyName": "ds_sk",
-          "sortKeyType": "S"
         }
       },
       "function": {
