@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/links": {
+      "name": "/links",
+      "lambdaFunction": "instantsecurelinkdd0bec3d",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}

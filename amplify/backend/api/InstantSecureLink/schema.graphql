@@ -1,0 +1,13 @@
+type LinkModel @model @auth(rules: [{ allow: public }]) {
+    id: ID! @primaryKey
+    secretId: String
+    secretKey: String
+    creatorUserID: String
+    recipient: String
+    ttl: Int
+    passphrase: String
+    internal: Boolean
+    burntAt: AWSDateTime
+    viewedByCreatorAt: AWSDateTime
+    viewedByRecipientAt: AWSDateTime
+}
