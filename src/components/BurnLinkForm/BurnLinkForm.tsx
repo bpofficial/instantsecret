@@ -50,7 +50,7 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             <Form
-                action={`/api/links/${linkId}/burn`}
+                action={`/links/${linkId}/burn`}
                 method="POST"
                 ref={formEl}
                 style={{

@@ -4,11 +4,6 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Banner, TopBar } from "../components";
 import Head from "next/head";
-import { Amplify } from "aws-amplify";
-import { config } from "../config";
-
-Amplify.configure(config);
-Amplify.Logger.LOG_LEVEL = "DEBUG";
 
 function InstantSecret({ Component, pageProps }: AppProps) {
     return (

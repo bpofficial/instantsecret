@@ -1,13 +1,14 @@
-import { Flex, useMediaQuery } from '@chakra-ui/react';
-import { Amplify } from 'aws-amplify';
-import { GetServerSidePropsContext } from 'next';
+import { Flex, useMediaQuery } from "@chakra-ui/react";
+import { Amplify } from "aws-amplify";
+import { GetServerSidePropsContext } from "next";
 import {
     LinkBurntForm,
     LinkReceivedForm,
     NeverExisted,
     PageWrapper,
-} from '../../../components';
-import { ShareLinkForm } from '../../../components/ShareLinkForm';
+} from "../../../components";
+import { ShareLinkForm } from "../../../components/ShareLinkForm";
+import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 interface NewLinkIdPageProps {
     linkId?: string;
@@ -53,25 +54,33 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
     );
 }
 
-export async function getServerSideProps(opts: GetServerSidePropsContext) {
-    const { id } = opts.params ?? {};
-    if (!id) return { props: {} };
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+    const { id } = ctx.params ?? {};
 
-    let secret;
-    try {
-        secret = await Amplify.API.get(
-            'LinksEndpoint',
-            `/links/${id}?creator=true`
-        );
-    } catch (err: any) {
+    if (!id || !id.toString().trim().length) {
         return {
-            props: {
-                error: err.message,
+            redirect: {
+                destination: "/404",
+                permanent: false,
             },
         };
     }
 
-    return {
-        props: { secret, linkId: id },
-    };
-}
+    try {
+        const link = await getLinkFromApi(id.toString(), {
+            creator: true,
+            host: ctx.req.headers["host"] || "",
+        });
+
+        if (!link) return { props: {} };
+
+        return {
+            props: {
+                linkId: id,
+                secret: link,
+            },
+        };
+    } catch (err: any) {
+        return { props: { error: err.message } };
+    }
+};

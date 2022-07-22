@@ -53,7 +53,7 @@ export const CreateLinkForm = () => {
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             {({ handleChange, values }) => (
                 <Form
-                    action="/api/links"
+                    action="/links"
                     method="POST"
                     ref={formEl}
                     style={{

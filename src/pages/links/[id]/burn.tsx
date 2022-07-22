@@ -1,7 +1,7 @@
-import { GetServerSidePropsContext } from 'next';
-import { Amplify } from 'aws-amplify';
-import { BurnLinkForm } from '../../../components/BurnLinkForm';
-import { PageWrapper } from '../../../components';
+import { GetServerSidePropsContext } from "next";
+import { BurnLinkForm } from "../../../components/BurnLinkForm";
+import { NeverExisted, PageWrapper } from "../../../components";
+import { getProtocol } from "../../../utils/getProtocol";
 
 interface BurnLinkPageProps {
     id: string;
@@ -11,30 +11,46 @@ interface BurnLinkPageProps {
 export default function BurnLinkPage(props: BurnLinkPageProps) {
     return (
         <PageWrapper>
-            <BurnLinkForm linkId={props.id} />
+            {props.id ? <BurnLinkForm linkId={props.id} /> : <NeverExisted />}
         </PageWrapper>
     );
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const { id } = ctx.params ?? {};
-    if (ctx.req.method === 'POST') {
-        try {
-            await Amplify.API.del('LinksEndpoint', `/links/${id}`, {});
+
+    if (!id || !id.toString().trim().length) {
+        return {
+            redirect: {
+                destination: "/404",
+                permanent: false,
+            },
+        };
+    }
+
+    try {
+        if (ctx.req.method === "POST") {
+            await fetch(
+                `${getProtocol()}://${ctx.req.headers["host"]}/api/links/${id}`,
+                {
+                    method: "DELETE",
+                }
+            );
             return {
                 redirect: {
-                    permanent: false,
                     destination: `/links/${id}`,
+                    permanent: false,
                 },
             };
-        } catch (err: any) {
+        } else {
             return {
-                redirect: {
-                    permanent: false,
-                    destination: `/links/${id}`,
+                props: {
+                    id,
                 },
             };
         }
+    } catch (err: any) {
+        console.log(err);
+        return { props: { error: err.message } };
     }
-    return { props: { id } };
 };
