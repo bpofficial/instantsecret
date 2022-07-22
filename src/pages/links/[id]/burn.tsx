@@ -1,17 +1,12 @@
-import { GetServerSidePropsContext } from "next";
 import { BurnLinkForm } from "../../../components/BurnLinkForm";
 import { NeverExisted, PageWrapper } from "../../../components";
-import { getProtocol } from "../../../utils/getProtocol";
+import { getLinkFromApi } from "../../../utils/getLinkFromApi";
+import { GetServerSidePropsContext } from "next";
 
-interface BurnLinkPageProps {
-    id: string;
-    error?: string;
-}
-
-export default function BurnLinkPage(props: BurnLinkPageProps) {
+export default function BurnLinkPage({ id = "" }) {
     return (
         <PageWrapper>
-            {props.id ? <BurnLinkForm linkId={props.id} /> : <NeverExisted />}
+            {id ? <BurnLinkForm linkId={id} /> : <NeverExisted />}
         </PageWrapper>
     );
 }
@@ -28,29 +23,24 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         };
     }
 
+    const link = await getLinkFromApi(id.toString(), {
+        creator: true,
+        host: ctx.req.headers["host"] || "",
+    });
+
+    if (link.burntAt) {
+        return {
+            redirect: { destination: `/links/${id}`, permanent: false },
+        };
+    }
+
     try {
-        if (ctx.req.method === "POST") {
-            await fetch(
-                `${getProtocol()}://${ctx.req.headers["host"]}/api/links/${id}`,
-                {
-                    method: "DELETE",
-                }
-            );
-            return {
-                redirect: {
-                    destination: `/links/${id}`,
-                    permanent: false,
-                },
-            };
-        } else {
-            return {
-                props: {
-                    id,
-                },
-            };
-        }
+        return {
+            props: {
+                id,
+            },
+        };
     } catch (err: any) {
-        console.log(err);
         return { props: { error: err.message } };
     }
 };

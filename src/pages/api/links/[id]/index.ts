@@ -3,56 +3,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { AwsService, getDynamodb } from "../../../../aws";
 
-async function DeleteLink(req: NextApiRequest, res: NextApiResponse) {
-    const { dynamodb, tableName, env } = getDynamodb()
-    const id = req.query['id'];
-
-    if (!id) {
-        res.statusCode = 404;
-        res.end();
-        return;
-    }
-
-    const record = await dynamodb.get({
-        TableName: tableName,
-        Key: {
-            id,
-        }
-    }).promise()
-
-    if (!record || !record.Item || record.Item.burntAt) {
-        res.statusCode = 404;
-        res.end();
-        return;
-    }
-
-    const result = await (new AwsService.SecretsManager()).deleteSecret({ SecretId: `/secrets/${env}/${record.Item.secretId}` }).promise();
-
-    if (result.$response.error) {
-        res.statusCode = 404;
-        res.end();
-        return;
-    }
-
-    const update = await dynamodb.update({
-        TableName: tableName,
-        Key: {
-            id
-        },
-        UpdateExpression: 'SET burntAt = :burntAt',
-        ExpressionAttributeValues: { ':burntAt': new Date().toISOString() }
-    }).promise();
-
-    if (update.$response.error) {
-        res.statusCode = 404;
-        res.end();
-        return;
-    }
-
-    res.statusCode = 204;
-    res.end();
-}
-
 async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     const { dynamodb, tableName, env } = getDynamodb()
     const id = decodeURIComponent(req.query?.['id']?.toString?.() ?? '');
@@ -169,9 +119,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
 }
 
 export default async function Handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === "DELETE") {
-        return DeleteLink(req, res)
-    } else if (req.method === 'GET') {
+    if (req.method === 'GET') {
         return GetLink(req, res)
     } else {
         res.statusCode = 404;

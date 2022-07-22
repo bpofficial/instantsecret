@@ -10,7 +10,6 @@ const generateKey = customAlphabet(
 export default async function CreateLinkHandler(req: NextApiRequest, res: NextApiResponse) {
     const { dynamodb, tableName, env } = getDynamodb()
     if (req.method === "POST") {
-        req.body = JSON.parse(req.body);
         let creatorUserID = null;
         const rawToken = req.headers['authorization'];
         if (rawToken) {
@@ -19,12 +18,10 @@ export default async function CreateLinkHandler(req: NextApiRequest, res: NextAp
         }
 
         if (!req.body || !req.body.value) {
-            res.statusCode = 400
-            res.json({
-                code: 400,
-                error: 'Bad Request',
-                description: `Expected body to not be empty. Missing required 'value' property.`
-            })
+            const url = new URL(req.headers['referer'] || '')
+            url.searchParams.set('error', 'Bad Request')
+            url.searchParams.set('error_description', 'Expected body to not be empty. Missing required \'value\' property.')
+            res.redirect(url.toString())
             return;
         }
 
@@ -48,30 +45,24 @@ export default async function CreateLinkHandler(req: NextApiRequest, res: NextAp
         }).promise()
 
         if (result.$response.error) {
-            res.statusCode = result.$response.httpResponse.statusCode;
-            res.json({
-                code: result.$response.httpResponse.statusCode,
-                error: 'Internal Server Error',
-                description: 'Failed to create link.'
-            })
+            const url = new URL(req.headers['referer'] || '')
+            url.searchParams.set('error', 'Internal Server Error')
+            url.searchParams.set('error_description', 'Failed to create link.')
+            res.redirect(url.toString())
+            return;
         }
 
         // Using overwrite: true to enforce that someone trying to recreate a dummy secret with the same key doesn't get the original secret.
         const secret = await (new AwsService.SecretsManager()).createSecret({ Name: `/secrets/${env}/${secretId}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
         if (secret.$response.error) {
-            res.statusCode = result.$response.httpResponse.statusCode;
-            res.json({
-                code: result.$response.httpResponse.statusCode,
-                error: 'Internal Server Error',
-                description: 'Failed to create link.'
-            })
+            const url = new URL(req.headers['referer'] || '')
+            url.searchParams.set('error', 'Internal Server Error')
+            url.searchParams.set('error_description', 'Failed to create link.')
+            res.redirect(url.toString())
             return;
         }
 
-        res.statusCode = 201;
-        res.json({
-            linkId: id
-        })
+        res.redirect(308, `/links/${id}`)
     } else {
         res.statusCode = 404;
         res.end();
