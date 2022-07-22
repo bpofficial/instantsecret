@@ -22,11 +22,7 @@ export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
         }).then((result: any) => {
             res.redirect(`/links/${result.linkId}`);
         }).catch((err: any) => {
-            res.statusCode = 500
-            res.json({
-                code: 500,
-                error: err.message || err,
-            })
+            res.redirect(`/links?error=${(err.message || err)}&error_code=500`);
         });
     } else {
         res.statusCode = 204;
