@@ -1,4 +1,4 @@
-import { Amplify } from "aws-amplify";
+import { API } from "aws-amplify";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
@@ -11,7 +11,7 @@ export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
             internal = null,
         } = req.body ?? {}
 
-        return Amplify.API.post("LinksEndpoint", "/links", {
+        return API.post("LinksEndpoint", "/links", {
             body: {
                 value,
                 passphrase,
@@ -23,7 +23,10 @@ export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
             res.redirect(`/links/${result.linkId}`);
         }).catch((err: any) => {
             res.statusCode = 500
-            res.json(err)
+            res.json({
+                code: 500,
+                error: err.message || err,
+            })
         });
     } else {
         res.statusCode = 204;
