@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext } from 'next';
 import { API } from 'aws-amplify';
-import { parseBody } from 'next/dist/server/api-utils/node';
 import { Flex, useMediaQuery } from '@chakra-ui/react';
 import { CreateLinkForm } from '../../components';
+import { parseBody } from '../../utils/parseBody';
 
 export default function LinkIndexPage() {
     const [isLargerThan767, isLargerThan1199] = useMediaQuery(
@@ -32,7 +32,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
             ttl = null,
             recipients = [],
             internal = null,
-        } = await parseBody(ctx.req, '1mb');
+        } = await parseBody(ctx.req as any, '1mb');
 
         try {
             const result = await API.post('LinksEndpoint', '/links', {
