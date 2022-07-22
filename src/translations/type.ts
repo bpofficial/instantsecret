@@ -19,8 +19,9 @@ export interface TranslationObj {
     AboutLink: string;
     SignInLink: string;
     CreateAccountLink: string;
+    CreateLink: string;
   },
-  BasicSetupForm: {
+  CreateLinkForm: {
     inputPlaceholder: string;
     privacyOptionsTitle: string;
     passphraseLabel: string;
@@ -35,5 +36,47 @@ export interface TranslationObj {
     ],
     createLinkButton: string;
     disclaimer: string;
+  },
+  ShareLinkForm: {
+    title: string;
+    CopyCTA: string;
+    SecureLinkId: string;
+    Expiry: string;
+    BurnButton: string;
+    Disclaimer: string;
+    CreateAnotherButton: string;
+    EncryptedPlaceholder: string;
+  }
+  BurnLinkForm: {
+    SecureLinkId: string;
+    ConfirmButton: string;
+    CancelButton: string;
+    Disclaimer: string;
+  }
+  LinkReceivedForm: {
+    SecureLinkId: string
+    Received: string;
+    CreateNewLinkButton: string
+    EncryptedPlaceholder: string
+  }
+  RevealSecretValueForm: {
+    ClickToContinue: string;
+    ContinueButton: string;
+    Disclaimer: string;
+  }
+  NeverExisted: {
+    Title: string
+    NeverExistedPlaceholder: string
+    CreateNewLinkButton: string
+  }
+  ViewSecretValueForm: {
+    Title: string
+    Disclaimer: string
+    CreateNewLinkButton: string
+  }
+  LinkBurntForm: {
+    Title: string
+    LinkBurntPlaceholder: string
+    CreateNewLinkButton: string
   }
 }

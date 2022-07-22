@@ -2,32 +2,32 @@ import {
     Box,
     Button,
     chakra,
-    Flex,
     Heading,
     HStack,
     Spacer,
     useMediaQuery,
     VStack,
 } from '@chakra-ui/react';
-import { API } from 'aws-amplify';
-import { GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { BasicSetupForm } from '../components';
-import { parseBody } from 'next/dist/server/api-utils/node';
+import { CreateLinkForm, PageWrapper } from '../components';
 import { useTranslation } from '../hooks';
 
-const CopyContent = () => {
+export const IndexCopyContent = () => {
     const translation = useTranslation('index');
-    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)']);
+    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)'], {
+        fallback: [true],
+        ssr: true,
+    });
 
     return (
-        <Box maxW={isLargerThan767 ? '680px' : undefined}>
+        <Box maxW={isLargerThan767 ? '720px' : undefined}>
             <VStack spacing={isLargerThan767 ? '8' : '6'} align="flext-start">
                 <Heading fontSize={isLargerThan767 ? '5xl' : '3xl'}>
                     <chakra.span color="custom.300">
-                        {translation.copy.coloredTitle}&nbsp;
+                        {translation.copy.coloredTitle}
                     </chakra.span>
+                    &nbsp;
                     {translation.copy.remainingTitle}
                 </Heading>
 
@@ -67,10 +67,10 @@ interface IndexProps {
 }
 
 export default function Index({ redirect }: IndexProps) {
-    const [isLargerThan767, isLargerThan1199] = useMediaQuery([
-        '(min-width: 767px)',
-        '(min-width: 1199px)',
-    ]);
+    const [isLargerThan1199] = useMediaQuery(['(min-width: 1199px)'], {
+        fallback: [true],
+        ssr: true,
+    });
     const router = useRouter();
 
     useEffect(() => {
@@ -81,58 +81,14 @@ export default function Index({ redirect }: IndexProps) {
     }, [redirect]);
 
     return (
-        <Flex
-            mt={isLargerThan1199 ? '20' : undefined}
-            w="100%"
-            px={isLargerThan767 ? '24' : '6'}
-            py={isLargerThan767 ? '12' : '4'}
-            direction={isLargerThan1199 ? 'row' : 'column-reverse'}
-            justifyContent="space-between"
-        >
-            <CopyContent />
+        <PageWrapper>
+            <IndexCopyContent />
             {isLargerThan1199 ? null : (
                 <Box>
                     <Spacer h="12" />
                 </Box>
             )}
-            <BasicSetupForm />
-        </Flex>
+            <CreateLinkForm />
+        </PageWrapper>
     );
 }
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    if (ctx.req.method === 'POST') {
-        const {
-            value,
-            passphrase = null,
-            ttl = null,
-            recipients = [],
-            internal = null,
-        } = await parseBody(ctx.req, '1mb');
-
-        try {
-            const result = await API.post('LinksEndpoint', '/links', {
-                body: {
-                    value,
-                    passphrase,
-                    ttl,
-                    internal,
-                    recipients,
-                },
-            });
-            return {
-                props: {
-                    redirect: `/newlink/${result.linkId}`,
-                },
-            };
-        } catch (err: any) {
-            return {
-                props: {
-                    error: err.message,
-                },
-            };
-        }
-    }
-
-    return { props: {} };
-};

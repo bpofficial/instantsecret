@@ -35,7 +35,7 @@
       "function": {
         "instantsecurelinkdd0bec3d": {
           "deploymentBucketName": "amplify-amplify4fb919e1771c4-staging-110001-deployment",
-          "s3Key": "amplify-builds/instantsecurelinkdd0bec3d-3273487158677a304c7a-build.zip"
+          "s3Key": "amplify-builds/instantsecurelinkdd0bec3d-434e7532784769646e50-build.zip"
         }
       }
     }

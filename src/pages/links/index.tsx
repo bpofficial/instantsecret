@@ -1,21 +1,14 @@
-import {
-    Box,
-    Button,
-    chakra,
-    Flex,
-    Heading,
-    HStack,
-    Spacer,
-    useMediaQuery,
-    VStack,
-} from '@chakra-ui/react';
-import { BasicSetupForm } from '../../components';
+import { GetServerSidePropsContext } from 'next';
+import { API } from 'aws-amplify';
+import { parseBody } from 'next/dist/server/api-utils/node';
+import { Flex, useMediaQuery } from '@chakra-ui/react';
+import { CreateLinkForm } from '../../components';
 
 export default function LinkIndexPage() {
-    const [isLargerThan767, isLargerThan1199] = useMediaQuery([
-        '(min-width: 767px)',
-        '(min-width: 1199px)',
-    ]);
+    const [isLargerThan767, isLargerThan1199] = useMediaQuery(
+        ['(min-width: 767px)', '(min-width: 1199px)'],
+        { fallback: [false, true], ssr: true }
+    );
 
     return (
         <Flex
@@ -26,7 +19,45 @@ export default function LinkIndexPage() {
             direction={isLargerThan1199 ? 'row' : 'column-reverse'}
             justifyContent="center"
         >
-            <BasicSetupForm />
+            <CreateLinkForm />
         </Flex>
     );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+    if (ctx.req.method === 'POST') {
+        const {
+            value,
+            passphrase = null,
+            ttl = null,
+            recipients = [],
+            internal = null,
+        } = await parseBody(ctx.req, '1mb');
+
+        try {
+            const result = await API.post('LinksEndpoint', '/links', {
+                body: {
+                    value,
+                    passphrase,
+                    ttl,
+                    internal,
+                    recipients,
+                },
+            });
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: `/links/${result.linkId}`,
+                },
+            };
+        } catch (err: any) {
+            return {
+                props: {
+                    error: err.message,
+                },
+            };
+        }
+    }
+
+    return { props: {} };
+};

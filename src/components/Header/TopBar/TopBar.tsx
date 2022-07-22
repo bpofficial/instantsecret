@@ -14,7 +14,10 @@ export const TopBar = () => {
     const localeLink = useLocaleLink();
     const translation = useTranslation('TopBar');
     const bg = useColorModeValue('white', 'gray.800');
-    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)']);
+    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)'], {
+        fallback: [true],
+        ssr: true,
+    });
 
     return (
         <>
@@ -79,6 +82,15 @@ export const TopBar = () => {
                                 rel="noopener"
                             >
                                 {translation.RoadMapLink}
+                            </Button>
+                            <Button
+                                variant="ghost"
+                                fontWeight="normal"
+                                as="a"
+                                href={localeLink`/links`}
+                                rel="noopener"
+                            >
+                                {translation.CreateLink}
                             </Button>
                             {/* <Button
                                 variant="ghost"

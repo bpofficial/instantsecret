@@ -15,7 +15,7 @@ import { Formik, useFormikContext, Form } from 'formik';
 import { useRef } from 'react';
 
 const SubmitButton = () => {
-    const translation = useTranslation('BasicSetupForm');
+    const translation = useTranslation('CreateLinkForm');
     const form = useFormikContext<any>();
 
     return (
@@ -40,8 +40,8 @@ const SubmitButton = () => {
     );
 };
 
-export const BasicSetupForm = () => {
-    const translation = useTranslation('BasicSetupForm');
+export const CreateLinkForm = () => {
+    const translation = useTranslation('CreateLinkForm');
     const formEl = useRef<HTMLFormElement>(null);
 
     const onSubmit = () => {
@@ -52,7 +52,16 @@ export const BasicSetupForm = () => {
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             {({ handleChange, values }) => (
-                <Form action="/" method="POST" ref={formEl}>
+                <Form
+                    action="/links"
+                    method="POST"
+                    ref={formEl}
+                    style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center',
+                    }}
+                >
                     <Box
                         w="100%"
                         maxW={'620px'}
@@ -108,7 +117,10 @@ export const BasicSetupForm = () => {
 };
 
 const PrivacyOptionInputs = () => {
-    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)']);
+    const [isLargerThan767] = useMediaQuery(['(min-width: 767px)'], {
+        fallback: [true],
+        ssr: true,
+    });
 
     const ContainerComponent = isLargerThan767 ? HStack : VStack;
     const SubComponent = isLargerThan767 ? VStack : HStack;

@@ -38,19 +38,6 @@ const app = express()
 app.use(bodyParser.json())
 app.use(awsServerlessExpressMiddleware.eventContext())
 
-const getRedirectUrl = (linkId) => {
-    switch (env) {
-        case 'default':
-        case 'development':
-        case 'staging':
-            return `http://localhost:3000/newlink/${linkId}/`
-        case 'production':
-        case 'prod':
-        default:
-            return `https://instantsecurelink.com/newlink/${linkId}/`
-    }
-}
-
 // Enable CORS for all methods
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -101,8 +88,6 @@ app.post(path, async function(req, res) {
         id, // linkId
         secretId, // secretId
         secretKey,
-        views: 0,
-        burnt: false,
         creatorUserID,
         recipients: req.body.recipients || [],
         passphrase: req.body.passphrase || null,
@@ -153,21 +138,19 @@ app.delete(path + '/:linkId', async function(req, res) {
     }
 
     const record = await dynamodb.get({
-      TableName: tableName,
-      Item: {
-          id,
-      }
+        TableName: tableName,
+        Key: {
+            id,
+        }
     }).promise()
 
-    console.log({ record, tableName, id })
-
-    if (!record || record.burnt || record.views) {
+    if (!record || !record.Item || record.Item.burntAt) {
         res.statusCode = 404;
         res.send();
         return;
-    };
+    }
 
-    const result = await (new AWS.SecretsManager()).deleteSecret({ SecretId: `/secrets/${env}/${record.secretId}` }).promise();
+    const result = await (new AWS.SecretsManager()).deleteSecret({ SecretId: `/secrets/${env}/${record.Item.secretId}` }).promise();
 
     if (result.$response.error) {
         res.statusCode = 404;
@@ -180,7 +163,8 @@ app.delete(path + '/:linkId', async function(req, res) {
         Key: {
             id
         },
-        UpdateExpression: 'SET burnt = True'
+        UpdateExpression: 'SET burntAt = :burntAt',
+        ExpressionAttributeValues: { ':burntAt': new Date().toISOString() }
     }).promise();
 
     if (update.$response.error) {
@@ -188,6 +172,9 @@ app.delete(path + '/:linkId', async function(req, res) {
         res.send();
         return;
     }
+
+    res.statusCode = 204;
+    res.send();
 })
 
 /*************************************
@@ -195,7 +182,10 @@ app.delete(path + '/:linkId', async function(req, res) {
 **************************************/
 
 app.get(path + '/:linkId', async function(req, res) {
-    const id = req.params['linkId'];
+    const id = decodeURIComponent(req.params['linkId'].toString());
+    const viewedByCreator = req.query['creator'] === 'true';
+    const viewedByRecipient = req.query['recipient'] === 'true';
+    const passphrase = req.body['passphrase'] || null;
 
     if (!id) {
         res.statusCode = 404;
@@ -203,22 +193,77 @@ app.get(path + '/:linkId', async function(req, res) {
         return;
     }
 
-    const record = await dynamodb.get({
-      TableName: tableName,
-      Key: {
-          id,
-      }
-    }).promise()
+    let record;
+    if (viewedByCreator) {
+        record = await dynamodb.get({
+            TableName: tableName,
+            Key: {
+                id,
+            }
+          }).promise()
+    } else {
+        // Need to scan since we're not using a primary key :sigh:
+        // deepcode ignore NoSqli: ?
+        record = await dynamodb.scan({
+            TableName: tableName,
+            FilterExpression: 'secretKey = :secretKey',
+            ExpressionAttributeValues: { ':secretKey': id }
+          }).promise()
 
-    if (!record || !record.Item || record.Item.burnt || record.Item.views) {
+        if (record.$response.error || record.Count === 0) {
+            res.statusCode = 404;
+            res.send();
+            return;
+        }
+
+        if (record.Count > 1) {
+            console.log('More than 1 secret found with id', id);
+            res.statusCode = 404;
+            res.send();
+            return;
+        }
+
+        record = { Item: record.Items[0] }
+    }
+
+    if (!record || !record.Item || (record.Item.burntAt && !viewedByCreator)) {
         res.statusCode = 404;
         res.send();
         return;
     }
 
+    let canViewSecretValue = false;
+    if ((viewedByCreator && !record.Item.viewedByCreatorAt) || (viewedByRecipient && !record.Item.viewedByRecipientAt)) {
+        canViewSecretValue = true;
+        try {
+            const update = await dynamodb.update({
+                TableName: tableName,
+                Key: {
+                    id: record.Item.id
+                },
+                UpdateExpression: 'SET #viewTimeProp = :viewedAt',
+                ExpressionAttributeValues: { ':viewedAt': new Date().toISOString() },
+                ExpressionAttributeNames: { '#viewTimeProp': viewedByCreator ? 'viewedByCreatorAt' : 'viewedByRecipientAt' }
+            }).promise();
+            if (update.$response.error) {
+                console.log(update.$response);
+                res.statusCode = 500
+                res.json()
+                return;
+            }
+        } catch (err) {
+            console.log(err);
+            res.statusCode = 500
+            res.json()
+            return;
+        }
+    }
+
     let secret;
     try {
-        secret = await (new AWS.SecretsManager()).getSecretValue({ SecretId: `/secrets/${env}/${record.Item.secretId}` }).promise();
+        if (canViewSecretValue) {
+            secret = await (new AWS.SecretsManager()).getSecretValue({ SecretId: `/secrets/${env}/${record.Item.secretId}` }).promise();
+        }
     } catch (err) {
         console.log(err);
         res.statusCode = 500
@@ -226,7 +271,7 @@ app.get(path + '/:linkId', async function(req, res) {
         return;
     }
 
-    if (secret.$response.error) {
+    if (secret && secret.$response.error) {
         res.statusCode = 404;
         res.send();
         return;
@@ -234,8 +279,14 @@ app.get(path + '/:linkId', async function(req, res) {
 
     res.statusCode = 200;
     res.json({
-        key: record.Item.secretKey,
-        value: secret.SecretString
+        secretKey: record.Item.secretKey,
+        value: secret ? secret.SecretString : null,
+        ttl: record.Item.ttl,
+        encrypted: !!record.Item.passphrase,
+        burntAt: record.Item.burntAt,
+        createdAt: record.Item.createdAt,
+        viewedByCreatorAt: record.Item.viewedByCreatorAt,
+        viewedByRecipientAt: record.Item.viewedByRecipientAt,
     })
 })
 
