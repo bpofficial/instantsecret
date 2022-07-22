@@ -1,8 +1,0 @@
-{
-  "httpMethod": "POST",
-  "path": "/links",
-  "headers": {
-    "Content-Type": "application/json"
-  },
-  "body": ""
-}

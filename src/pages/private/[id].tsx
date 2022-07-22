@@ -1,15 +1,15 @@
-import { Amplify } from 'aws-amplify';
-import { GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext } from "next";
 import {
     NeverExisted,
     PageWrapper,
     ViewSecretValueForm,
-} from '../../components';
-import { RevealSecretValueForm } from '../../components/RevealSecretValueForm';
+} from "../../components";
+import { RevealSecretValueForm } from "../../components/RevealSecretValueForm";
+import { getLinkFromApi } from "../../utils/getLinkFromApi";
 
 interface PrivateSecretPageProps {
     secret?: {
-        id?: string;
+        secretKey?: string;
         value?: string;
     };
 }
@@ -17,10 +17,10 @@ interface PrivateSecretPageProps {
 export default function PrivateSecretPage(props: PrivateSecretPageProps) {
     return (
         <PageWrapper>
-            {!props.secret || !props.secret.id ? (
+            {!props.secret || !props.secret.secretKey ? (
                 <NeverExisted />
             ) : !props.secret.value ? (
-                <RevealSecretValueForm secretKey={props.secret.id} />
+                <RevealSecretValueForm secretKey={props.secret.secretKey} />
             ) : (
                 <ViewSecretValueForm secretValue={props.secret.value} />
             )}
@@ -28,40 +28,45 @@ export default function PrivateSecretPage(props: PrivateSecretPageProps) {
     );
 }
 
-export async function getServerSideProps(ctx: GetServerSidePropsContext) {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const { id } = ctx.params ?? {};
-    const method = ctx.req.method;
-    let secret;
+
+    if (!id || !id.toString().trim().length) {
+        return {
+            redirect: {
+                destination: "/404",
+                permanent: false,
+            },
+        };
+    }
+
+    const link = await getLinkFromApi(id.toString(), {
+        recipient: ctx.req.method === "POST",
+        host: ctx.req.headers["host"] || "",
+    });
+
+    if (!link || link.viewedByRecipientAt || link.burntAt) return { props: {} };
 
     try {
-        secret = await Amplify.API.get(
-            'LinksEndpoint',
-            `/links/${id}?recipient=${method === 'POST'}`
-        );
-    } catch (err) {
-        return {
-            props: {},
-        };
-    }
-
-    if (secret.viewedByRecipientAt || secret.burntAt) return { props: {} };
-
-    if (method === 'POST') {
-        return {
-            props: {
-                secret: {
-                    id: secret.secretKey,
-                    value: secret.value,
+        if (ctx.req.method === "POST") {
+            return {
+                props: {
+                    secret: {
+                        secretKey: link.secretKey,
+                        value: link.value,
+                    },
                 },
-            },
-        };
-    } else {
-        return {
-            props: {
-                secret: {
-                    id: secret.secretKey,
+            };
+        } else {
+            return {
+                props: {
+                    secret: {
+                        secretKey: id,
+                    },
                 },
-            },
-        };
+            };
+        }
+    } catch (err: any) {
+        return { props: { error: err.message } };
     }
-}
+};

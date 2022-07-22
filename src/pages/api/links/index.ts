@@ -1,34 +1,70 @@
-import { API } from "aws-amplify";
 import { NextApiRequest, NextApiResponse } from "next";
+import { AwsService, getDynamodb } from "../../../aws";
+import { customAlphabet } from 'nanoid';
+const jwt = require('jsonwebtoken');
+const generateKey = customAlphabet(
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789',
+    32
+);
 
-export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
-    console.log(req, API)
+export default async function CreateLinkHandler(req: NextApiRequest, res: NextApiResponse) {
+    const { dynamodb, tableName, env } = getDynamodb()
     if (req.method === "POST") {
-        const {
-            value,
-            passphrase = null,
-            ttl = null,
-            recipients = [],
-            internal = null,
-        } = req.body ?? {}
+        let creatorUserID = null;
+        const rawToken = req.headers['authorization'];
+        if (rawToken) {
+            const token = jwt.decode(rawToken.slice(7));
+            creatorUserID = token.sub;
+        }
 
-        return API.post("LinksEndpoint", "/links", {
-            body: {
-                value,
-                passphrase,
-                ttl,
-                internal,
-                recipients,
+        if (!req.body || !req.body.value) {
+            const url = new URL(req.headers['referer'] || '')
+            url.searchParams.set('error', 'Bad Request')
+            url.searchParams.set('error_description', 'Expected body to not be empty. Missing required \'value\' property.')
+            res.redirect(url.toString())
+            return;
+        }
+
+        const id = generateKey();
+        const secretId = generateKey();
+        const secretKey = generateKey();
+
+        const result = await dynamodb.put({
+            TableName: tableName,
+            Item: {
+                id, // linkId
+                secretId, // secretId
+                secretKey,
+                creatorUserID,
+                recipients: req.body.recipients || [],
+                passphrase: req.body.passphrase || null,
+                ttl: req.body.ttl || 1000 * 60 * 60 * 24 * 7, // 7 days default,
+                internal: req.body.internal === true
             },
-        }).then((result: any) => {
-            console.log(result)
-            res.redirect(303, `/links/${result.linkId}`);
-        }).catch((err: any) => {
-            console.log(err)
-            res.redirect(303, `/links?error=${(err.message || err)}&error_code=500`);
-        });
+            ConditionExpression: 'attribute_not_exists(id)'
+        }).promise()
+
+        if (result.$response.error) {
+            const url = new URL(req.headers['referer'] || '')
+            url.searchParams.set('error', 'Internal Server Error')
+            url.searchParams.set('error_description', 'Failed to create link.')
+            res.redirect(url.toString())
+            return;
+        }
+
+        // Using overwrite: true to enforce that someone trying to recreate a dummy secret with the same key doesn't get the original secret.
+        const secret = await (new AwsService.SecretsManager()).createSecret({ Name: `/secrets/${env}/${secretId}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
+        if (secret.$response.error) {
+            const url = new URL(req.headers['referer'] || '')
+            url.searchParams.set('error', 'Internal Server Error')
+            url.searchParams.set('error_description', 'Failed to create link.')
+            res.redirect(url.toString())
+            return;
+        }
+
+        res.redirect(308, `/links/${id}`)
     } else {
-        res.statusCode = 204;
+        res.statusCode = 404;
         res.end();
     }
 }

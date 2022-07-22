@@ -1,40 +1,46 @@
-import { GetServerSidePropsContext } from 'next';
-import { Amplify } from 'aws-amplify';
-import { BurnLinkForm } from '../../../components/BurnLinkForm';
-import { PageWrapper } from '../../../components';
+import { BurnLinkForm } from "../../../components/BurnLinkForm";
+import { NeverExisted, PageWrapper } from "../../../components";
+import { getLinkFromApi } from "../../../utils/getLinkFromApi";
+import { GetServerSidePropsContext } from "next";
 
-interface BurnLinkPageProps {
-    id: string;
-    error?: string;
-}
-
-export default function BurnLinkPage(props: BurnLinkPageProps) {
+export default function BurnLinkPage({ id = "" }) {
     return (
         <PageWrapper>
-            <BurnLinkForm linkId={props.id} />
+            {id ? <BurnLinkForm linkId={id} /> : <NeverExisted />}
         </PageWrapper>
     );
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     const { id } = ctx.params ?? {};
-    if (ctx.req.method === 'POST') {
-        try {
-            await Amplify.API.del('LinksEndpoint', `/links/${id}`, {});
-            return {
-                redirect: {
-                    permanent: false,
-                    destination: `/links/${id}`,
-                },
-            };
-        } catch (err: any) {
-            return {
-                redirect: {
-                    permanent: false,
-                    destination: `/links/${id}`,
-                },
-            };
-        }
+
+    if (!id || !id.toString().trim().length) {
+        return {
+            redirect: {
+                destination: "/404",
+                permanent: false,
+            },
+        };
     }
-    return { props: { id } };
+
+    const link = await getLinkFromApi(id.toString(), {
+        creator: true,
+        host: ctx.req.headers["host"] || "",
+    });
+
+    if (link.burntAt) {
+        return {
+            redirect: { destination: `/links/${id}`, permanent: false },
+        };
+    }
+
+    try {
+        return {
+            props: {
+                id,
+            },
+        };
+    } catch (err: any) {
+        return { props: { error: err.message } };
+    }
 };
