@@ -22,10 +22,10 @@ export default function linksReq(req: NextApiRequest, res: NextApiResponse) {
             },
         }).then((result: any) => {
             console.log(result)
-            res.redirect(`/links/${result.linkId}`);
+            res.redirect(303, `/links/${result.linkId}`);
         }).catch((err: any) => {
             console.log(err)
-            res.redirect(`/links?error=${(err.message || err)}&error_code=500`);
+            res.redirect(303, `/links?error=${(err.message || err)}&error_code=500`);
         });
     } else {
         res.statusCode = 204;
