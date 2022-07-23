@@ -2,8 +2,9 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, Button, Heading, HStack, VStack, Input } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useTranslation } from "../../hooks";
-import { millisecondsToStr } from "../../utils/humanReadableTimeDiff";
+import { useTranslation } from "../../../hooks";
+import { millisecondsToStr } from "../../../utils/humanReadableTimeDiff";
+import {FormButton} from "../../FormButton";
 
 interface LinkReceivedFormProps {
     secretKey: string;
@@ -16,6 +17,7 @@ export const LinkReceivedForm = ({
     receivedAt,
     encrypted,
 }: LinkReceivedFormProps) => {
+    const router = useRouter()
     const translation = useTranslation("LinkReceivedForm");
 
     const diff =
@@ -62,33 +64,11 @@ export const LinkReceivedForm = ({
                 }
             />
             <TimeDiff />
-            <CreateNewLinkButton />
+            <FormButton
+                text={translation.CreateNewLinkButton}
+                rightElement={<ArrowForwardIcon mt="2" />}
+                onSubmit={() => router.push('/links')}
+            />
         </VStack>
-    );
-};
-
-const CreateNewLinkButton = () => {
-    const translation = useTranslation("LinkReceivedForm");
-    const router = useRouter();
-
-    return (
-        <Button
-            mt="2"
-            w="100%"
-            borderRadius="md"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ opacity: 0.7 }}
-            _hover={{ opacity: 0.7 }}
-            onClick={() => router.push("/links")}
-            type="submit"
-        >
-            <HStack>
-                <Box>{translation.CreateNewLinkButton}</Box>
-                <ArrowForwardIcon mt="2" />
-            </HStack>
-        </Button>
     );
 };

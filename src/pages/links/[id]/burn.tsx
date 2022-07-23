@@ -1,4 +1,4 @@
-import { BurnLinkForm } from "../../../components/BurnLinkForm";
+import { BurnLinkForm } from "../../../components/Forms/BurnLinkForm";
 import { NeverExisted, PageWrapper } from "../../../components";
 import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 import { GetServerSidePropsContext } from "next";

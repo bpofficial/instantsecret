@@ -3,50 +3,25 @@ import {
     Button,
     Heading,
     HStack,
-    Textarea,
+    Textarea, useBoolean,
     useMediaQuery,
     VStack,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { useTranslation } from "../../hooks";
+import { useTranslation } from "../../../hooks";
 import { PassphraseInput, PassphraseLabel } from "./Inputs/Passphrase";
 import { LifetimeInput, LifetimeLabel } from "./Inputs/Lifetime";
-import { Formik, useFormikContext, Form } from "formik";
+import {Formik, useFormikContext, Form, FormikHelpers, FormikValues} from "formik";
 import { useRef } from "react";
-
-const SubmitButton = () => {
-    const translation = useTranslation("CreateLinkForm");
-    const form = useFormikContext<any>();
-
-    return (
-        <Button
-            mt="2"
-            w="100%"
-            borderRadius="0"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ opacity: 0.7 }}
-            _hover={{ opacity: 0.7 }}
-            onClick={() => form.handleSubmit()}
-            type="submit"
-        >
-            <HStack>
-                <Box>{translation.createLinkButton}</Box>
-                <ArrowForwardIcon mt="2" />
-            </HStack>
-        </Button>
-    );
-};
+import {FormButton} from "../../FormButton";
 
 export const CreateLinkForm = () => {
     const translation = useTranslation("CreateLinkForm");
     const formEl = useRef<HTMLFormElement>(null);
 
-    const onSubmit = () => {
-        console.log("submiting");
+    const onSubmit = (values: FormikValues, { resetForm }: FormikHelpers<any>) => {
         formEl.current?.submit();
+        setTimeout(resetForm)
     };
 
     return (
@@ -109,7 +84,13 @@ export const CreateLinkForm = () => {
                                 </Heading>
                                 <PrivacyOptionInputs />
                             </Box>
-                            <SubmitButton />
+                            <FormButton
+                                text={translation.createLinkButton}
+                                rightElement={<ArrowForwardIcon mt="2" />}
+                                buttonProps={{
+                                    borderRadius: "0"
+                                }}
+                            />
                         </Box>
                         <Box fontSize="sm" fontStyle="italic">
                             {translation.disclaimer}
@@ -155,8 +136,8 @@ const PrivacyOptionInputs = () => {
         <ContainerComponent
             spacing="1"
             justifyContent={isLargerThan767 ? "center" : undefined}
-            px="6"
-            pb="6"
+            px={[4, 6]}
+            pb={[2, 6]}
             w="100%"
         >
             <SubComponent

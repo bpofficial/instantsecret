@@ -1,6 +1,6 @@
 import { FormControl, Input } from '@chakra-ui/react';
 import { useFormikContext } from 'formik';
-import { useTranslation } from '../../../../hooks';
+import { useTranslation } from '../../../../../hooks';
 import { LifetimeLabel } from './LifetimeLabel';
 
 export const LifetimeInput = () => {

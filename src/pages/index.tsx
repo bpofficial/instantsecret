@@ -1,12 +1,12 @@
 import {
-  Box,
-  Button,
-  chakra,
-  Heading,
-  HStack,
-  Spacer,
-  useMediaQuery,
-  VStack,
+    Box,
+    Button,
+    chakra, Flex,
+    Heading,
+    HStack,
+    Spacer,
+    useMediaQuery,
+    VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -15,15 +15,11 @@ import { useTranslation } from "../hooks";
 
 export const IndexCopyContent = () => {
   const translation = useTranslation("index");
-  const [isLargerThan767] = useMediaQuery(["(min-width: 767px)"], {
-    fallback: [true],
-    ssr: true,
-  });
 
   return (
-    <Box maxW={isLargerThan767 ? "720px" : undefined}>
-      <VStack spacing={isLargerThan767 ? "8" : "6"} align="flext-start">
-        <Heading fontSize={isLargerThan767 ? "5xl" : "3xl"}>
+    <Box maxW={{ base: '100%', lg: '60%' }} mt={["8", "4"]}>
+      <VStack align="flext-start" spacing={6}>
+        <Heading fontSize={{ base: '3xl', md: '5xl' }}>
           <chakra.span color="custom.300">
             {translation.copy.coloredTitle}
           </chakra.span>
@@ -32,7 +28,6 @@ export const IndexCopyContent = () => {
         </Heading>
 
         <Box
-          fontSize={isLargerThan767 ? "xl" : "lg"}
           color="custom.400"
           fontWeight="600"
         >
@@ -65,26 +60,12 @@ interface IndexProps {
 }
 
 export default function Index({ redirect }: IndexProps) {
-  const [isLargerThan1199] = useMediaQuery(["(min-width: 1199px)"], {
-    fallback: [true],
-    ssr: true,
-  });
-  const router = useRouter();
-
-  useEffect(() => {
-    if (redirect) {
-      router.push(redirect);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [redirect]);
-
   return (
     <PageWrapper>
-      <IndexCopyContent />
-      <Box display={{ base: "none", md: "block", sm: "block" }}>
-        <Spacer h="12" />
-      </Box>
-      <CreateLinkForm />
+        <Flex direction={["column-reverse", "column-reverse", "row"]} justify={"left"} mb={8}>
+          <IndexCopyContent />
+          {/*<CreateLinkForm />*/}
+        </Flex>
     </PageWrapper>
   );
 }

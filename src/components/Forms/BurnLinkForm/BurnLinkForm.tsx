@@ -1,34 +1,10 @@
-import { Box, Button, Heading, HStack, VStack } from "@chakra-ui/react";
-import { Form, Formik, useFormikContext } from "formik";
+import { Box, Button, Heading, VStack } from "@chakra-ui/react";
+import {Form, Formik, FormikHelpers, FormikValues} from "formik";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import { ImFire } from "react-icons/im";
-import { useTranslation } from "../../hooks";
-
-const ConfirmBurnButton = () => {
-    const translation = useTranslation("BurnLinkForm");
-    const form = useFormikContext<any>();
-
-    return (
-        <Button
-            w="100%"
-            borderRadius="md"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ bg: "custom.50" }}
-            _hover={{ bg: "custom.50" }}
-            onClick={() => form.handleSubmit()}
-            type="submit"
-        >
-            <HStack>
-                <ImFire />
-                <Box>{translation.ConfirmButton}</Box>
-            </HStack>
-        </Button>
-    );
-};
+import { useTranslation } from "../../../hooks";
+import {FormButton} from "../../FormButton";
 
 interface BurnLinkFormProps {
     linkId: string;
@@ -39,12 +15,15 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
     const formEl = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
-    const onSubmit = () => {
+    const onSubmit = (values: FormikValues, { resetForm }: FormikHelpers<any>) => {
         formEl.current?.submit();
+        setTimeout(resetForm)
     };
 
     const onCancel = () => {
-        router.replace(`/links/${linkId}/`);
+        router.replace(`/links/${linkId}/`)
+            .then(console.debug)
+            .catch(console.debug);
     };
 
     return (
@@ -63,7 +42,10 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
                     <Heading size="md">
                         {translation.SecureLinkId} ({linkId?.slice(0, 8)})
                     </Heading>
-                    <ConfirmBurnButton />
+                    <FormButton
+                        text={translation.ConfirmButton}
+                        leftElement={<ImFire />}
+                    />
                     <Box
                         textAlign="center"
                         fontSize="sm"

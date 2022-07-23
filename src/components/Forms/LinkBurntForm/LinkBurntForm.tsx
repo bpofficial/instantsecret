@@ -8,7 +8,8 @@ import {
     Textarea,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useTranslation } from '../../hooks';
+import { useTranslation } from '../../../hooks';
+import {FormButton} from "../../FormButton";
 
 interface LinkBurntFormProps {
     linkId: string;
@@ -17,6 +18,7 @@ interface LinkBurntFormProps {
 
 export const LinkBurntForm = ({ linkId, burntAt }: LinkBurntFormProps) => {
     const translation = useTranslation('LinkBurntForm');
+    const router = useRouter()
 
     return (
         <VStack align="left" spacing={4} w="100%" maxW={'620px'}>
@@ -36,33 +38,11 @@ export const LinkBurntForm = ({ linkId, burntAt }: LinkBurntFormProps) => {
                 readOnly
                 value={translation.LinkBurntPlaceholder}
             />
-            <CreateNewLinkButton />
+            <FormButton
+                text={translation.CreateNewLinkButton}
+                rightElement={<ArrowForwardIcon mt="2" />}
+                onSubmit={() => router.push('/links')}
+            />
         </VStack>
-    );
-};
-
-const CreateNewLinkButton = () => {
-    const translation = useTranslation('LinkBurntForm');
-    const router = useRouter();
-
-    return (
-        <Button
-            mt="2"
-            w="100%"
-            borderRadius="md"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ opacity: 0.7 }}
-            _hover={{ opacity: 0.7 }}
-            onClick={() => router.push('/links')}
-            type="submit"
-        >
-            <HStack>
-                <Box>{translation.CreateNewLinkButton}</Box>
-                <ArrowForwardIcon mt="2" />
-            </HStack>
-        </Button>
     );
 };

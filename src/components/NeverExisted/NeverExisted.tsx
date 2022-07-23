@@ -5,13 +5,10 @@ import {
     Heading,
     HStack,
     VStack,
-    Input,
     Textarea,
 } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useTranslation } from '../../hooks';
-import { millisecondsToStr } from '../../utils/humanReadableTimeDiff';
 
 export const NeverExisted = () => {
     const translation = useTranslation('NeverExisted');

@@ -1,14 +1,13 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
 import {
     Box,
-    Button,
     Heading,
-    HStack,
     VStack,
     Textarea,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useTranslation } from '../../hooks';
+import { useTranslation } from '../../../hooks';
+import {FormButton} from "../../FormButton";
+import {useRouter} from "next/router";
 
 interface ViewSecretValueFormProps {
     secretValue: string;
@@ -17,6 +16,7 @@ interface ViewSecretValueFormProps {
 export const ViewSecretValueForm = ({
     secretValue,
 }: ViewSecretValueFormProps) => {
+    const router = useRouter()
     const translation = useTranslation('ViewSecretValueForm');
 
     return (
@@ -43,33 +43,11 @@ export const ViewSecretValueForm = ({
             >
                 {translation.Disclaimer}
             </Box>
-            <CreateNewLinkButton />
+            <FormButton
+                text={translation.CreateNewLinkButton}
+                rightElement={<ArrowForwardIcon mt="2" />}
+                onSubmit={() => router.push('/links')}
+            />
         </VStack>
-    );
-};
-
-const CreateNewLinkButton = () => {
-    const translation = useTranslation('ViewSecretValueForm');
-    const router = useRouter();
-
-    return (
-        <Button
-            mt="2"
-            w="100%"
-            borderRadius="md"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ opacity: 0.7 }}
-            _hover={{ opacity: 0.7 }}
-            onClick={() => router.push('/links')}
-            type="submit"
-        >
-            <HStack>
-                <Box>{translation.CreateNewLinkButton}</Box>
-                <ArrowForwardIcon mt="2" />
-            </HStack>
-        </Button>
     );
 };

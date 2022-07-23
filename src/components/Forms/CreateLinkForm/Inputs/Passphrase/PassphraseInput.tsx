@@ -5,8 +5,8 @@ import {
     InputGroup,
     InputRightElement,
 } from '@chakra-ui/react';
-import { generatePassphrase } from '../../../../utils/generatePassphrase';
-import { useTranslation } from '../../../../hooks';
+import { generatePassphrase } from '../../../../../utils/generatePassphrase';
+import { useTranslation } from '../../../../../hooks';
 import { PassphraseLabel } from './PassphraseLabel';
 import { useFormikContext } from 'formik';
 

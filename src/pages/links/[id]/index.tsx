@@ -7,7 +7,7 @@ import {
     NeverExisted,
     PageWrapper,
 } from "../../../components";
-import { ShareLinkForm } from "../../../components/ShareLinkForm";
+import { ShareLinkForm } from "../../../components/Forms/ShareLinkForm";
 import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 interface NewLinkIdPageProps {

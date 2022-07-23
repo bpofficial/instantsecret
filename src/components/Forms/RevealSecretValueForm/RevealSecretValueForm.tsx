@@ -1,8 +1,9 @@
 import { ArrowForwardIcon } from '@chakra-ui/icons';
-import { Box, Button, Heading, HStack, VStack } from '@chakra-ui/react';
-import { Form, Formik, useFormikContext } from 'formik';
+import { Box, Heading, VStack } from '@chakra-ui/react';
+import { Form, Formik } from 'formik';
 import { useRef } from 'react';
-import { useTranslation } from '../../hooks';
+import { useTranslation } from '../../../hooks';
+import {FormButton} from "../../FormButton";
 
 interface RevealSecretValueFormProps {
     secretKey: string;
@@ -32,7 +33,10 @@ export const RevealSecretValueForm = ({
             >
                 <VStack align="left" spacing={4} w="100%" maxW={'620px'}>
                     <Heading size="md">{translation.ClickToContinue}</Heading>
-                    <ContinueButton />
+                    <FormButton
+                        text={translation.ContinueButton}
+                        rightElement={<ArrowForwardIcon mt="2" />}
+                    />
                     <Box
                         textAlign="center"
                         fontSize="sm"
@@ -44,30 +48,5 @@ export const RevealSecretValueForm = ({
                 </VStack>
             </Form>
         </Formik>
-    );
-};
-
-const ContinueButton = () => {
-    const translation = useTranslation('RevealSecretValueForm');
-    const form = useFormikContext<any>();
-
-    return (
-        <Button
-            w="100%"
-            borderRadius="md"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ bg: 'custom.50' }}
-            _hover={{ bg: 'custom.50' }}
-            onClick={() => form.handleSubmit()}
-            type="submit"
-        >
-            <HStack>
-                <Box>{translation.ContinueButton}</Box>
-                <ArrowForwardIcon mt="2" />
-            </HStack>
-        </Button>
     );
 };

@@ -4,7 +4,7 @@ import {
     PageWrapper,
     ViewSecretValueForm,
 } from "../../components";
-import { RevealSecretValueForm } from "../../components/RevealSecretValueForm";
+import { RevealSecretValueForm } from "../../components/Forms/RevealSecretValueForm";
 import { getLinkFromApi } from "../../utils/getLinkFromApi";
 
 interface PrivateSecretPageProps {

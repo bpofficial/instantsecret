@@ -15,9 +15,10 @@ import { Form, Formik, useFormikContext } from 'formik';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 import { ImFire } from 'react-icons/im';
-import { useOrigin, useTranslation } from '../../hooks';
-import { copyTextToClipboard } from '../../utils/copyToClipboard';
-import { millisecondsToStr } from '../../utils/humanReadableTimeDiff';
+import { useOrigin, useTranslation } from '../../../hooks';
+import { copyTextToClipboard } from '../../../utils/copyToClipboard';
+import { millisecondsToStr } from '../../../utils/humanReadableTimeDiff';
+import {FormButton} from "../../FormButton";
 
 interface ShareLinkFormProps {
     linkId: string;
@@ -127,7 +128,7 @@ export const ShareLinkForm = ({
                             </Box>
                         </Flex>
                     </Box>
-                    <BurnButton />
+                    <FormButton text={translation.BurnButton} leftElement={<ImFire />} />
                     <Box
                         textAlign="center"
                         fontSize="sm"
@@ -221,30 +222,5 @@ const SecretValue = ({
                 }}
             />
         </Box>
-    );
-};
-
-const BurnButton = () => {
-    const translation = useTranslation('ShareLinkForm');
-    const form = useFormikContext<any>();
-
-    return (
-        <Button
-            w="100%"
-            borderRadius="md"
-            bg="custom.400"
-            color="white"
-            size="lg"
-            fontWeight="bold"
-            _active={{ bg: 'custom.50' }}
-            _hover={{ bg: 'custom.50' }}
-            onClick={() => form.handleSubmit()}
-            type="submit"
-        >
-            <HStack>
-                <ImFire />
-                <Box>{translation.BurnButton}</Box>
-            </HStack>
-        </Button>
     );
 };
