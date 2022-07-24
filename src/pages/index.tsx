@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { CreateLinkForm, PageWrapper } from "../components";
 import { useTranslation } from "../hooks";
+import {GetServerSidePropsContext} from "next";
 
 export const IndexCopyContent = () => {
   const translation = useTranslation("index");
@@ -68,4 +69,15 @@ export default function Index({ redirect }: IndexProps) {
         </Flex>
     </PageWrapper>
   );
+}
+
+export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
+    if (ctx.req.method === 'POST') {
+        return {
+            redirect: {
+                permanent: false,
+                destination: '/hellopost'
+            }
+        }
+    }
 }

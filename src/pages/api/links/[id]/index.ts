@@ -61,7 +61,8 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     }
 
     let canViewSecretValue = false;
-    if ((viewedByCreator && !record.Item.viewedByCreatorAt) || (viewedByRecipient && !record.Item.viewedByRecipientAt)) {
+    const passphraseMatch = record.Item.passphrase ? passphrase === record.Item.passphrase : true
+    if ((viewedByCreator && !record.Item.viewedByCreatorAt) || (viewedByRecipient && !record.Item.viewedByRecipientAt && passphraseMatch)) {
         canViewSecretValue = true;
         try {
             const update = await dynamodb.update({
