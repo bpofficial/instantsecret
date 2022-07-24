@@ -22,7 +22,7 @@ import {
     HamburgerIcon,
     CloseIcon,
     ChevronDownIcon,
-    ChevronRightIcon,
+    ChevronRightIcon, ArrowForwardIcon,
 } from '@chakra-ui/icons';
 import {useLocaleLink, useTranslation} from "../../../hooks";
 import Image from 'next/image';
@@ -105,6 +105,24 @@ const DesktopNav = () => {
     const linkHoverColor = useColorModeValue('gray.800', 'white');
     const popoverContentBgColor = useColorModeValue('white', 'gray.800');
 
+    const ctaProps = {
+        bg: "custom.400",
+        color: "white",
+        borderRadius: "md",
+        _hover: {
+            textDecoration: 'none',
+            bg: "custom.50"
+        }
+    }
+
+    const defaultProps = {
+        color: linkColor,
+        _hover: {
+            textDecoration: 'none',
+            color: linkHoverColor
+        }
+    }
+
     return (
         <Stack direction={'row'} spacing={4}>
             {NavItems.map((navItem) => (
@@ -116,12 +134,10 @@ const DesktopNav = () => {
                                 href={navItem.href ?? '#'}
                                 fontSize={'sm'}
                                 fontWeight={500}
-                                color={linkColor}
-                                _hover={{
-                                    textDecoration: 'none',
-                                    color: linkHoverColor,
-                                }}>
+                                {...(navItem.cta ? ctaProps : defaultProps)}
+                            >
                                 {navItem.label}
+                                {navItem.cta ? <ArrowForwardIcon ml={"1"} mb={"0.5"}/> : null}
                             </Link>
                         </PopoverTrigger>
 
@@ -253,6 +269,7 @@ interface NavItem {
     subLabel?: string;
     children?: Array<NavItem>;
     href?: string;
+    cta?: boolean
 }
 
 const getNavItems = (translations: Record<string, string>, localeLink: ReturnType<typeof useLocaleLink>) => {
@@ -267,7 +284,8 @@ const getNavItems = (translations: Record<string, string>, localeLink: ReturnTyp
         },
         {
             label: translations['CreateLink'],
-            href: localeLink`/links`
+            href: localeLink`/links`,
+            cta: true
         },
     ] as NavItem[];
 };
