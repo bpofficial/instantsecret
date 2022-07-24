@@ -53,14 +53,14 @@ export default async function CreateLinkHandler(req: NextApiRequest, res: NextAp
         }
 
         // Using overwrite: true to enforce that someone trying to recreate a dummy secret with the same key doesn't get the original secret.
-        const secret = await (new AwsService.SecretsManager()).createSecret({ Name: `/secrets/${env}/${secretId}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
-        if (secret.$response.error) {
-            const url = new URL(req.headers['referer'] || '')
-            url.searchParams.set('error', 'Internal Server Error')
-            url.searchParams.set('error_description', 'Failed to create link.')
-            res.redirect(url.toString())
-            return;
-        }
+        // const secret = await (new AwsService.SecretsManager()).createSecret({ Name: `/secrets/${env}/${secretId}`, SecretString: req.body.value, ForceOverwriteReplicaSecret: false }).promise();
+        // if (secret.$response.error) {
+        //     const url = new URL(req.headers['referer'] || '')
+        //     url.searchParams.set('error', 'Internal Server Error')
+        //     url.searchParams.set('error_description', 'Failed to create link.')
+        //     res.redirect(url.toString())
+        //     return;
+        // }
 
         res.redirect(308, `/links/${id}`)
     } else {

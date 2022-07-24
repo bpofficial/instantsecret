@@ -4,26 +4,34 @@ import {
     PageWrapper,
     ViewSecretValueForm,
 } from "../../components";
-import { RevealSecretValueForm } from "../../components/Forms/RevealSecretValueForm";
+import { RevealSecretValueForm, EnterPassphraseForm } from "../../components";
 import { getLinkFromApi } from "../../utils/getLinkFromApi";
 
 interface PrivateSecretPageProps {
     secret?: {
         secretKey?: string;
         value?: string;
+        encrypted?: boolean
     };
 }
 
 export default function PrivateSecretPage(props: PrivateSecretPageProps) {
+    let component;
+    if (!props.secret || !props.secret.secretKey) {
+        component = <NeverExisted />
+    } else if (!props.secret.value) {
+        if (props.secret.encrypted) {
+            component = <EnterPassphraseForm secretKey={props.secret.secretKey} />
+        } else {
+            component = <RevealSecretValueForm secretKey={props.secret.secretKey} />
+        }
+    } else if (props.secret.value) {
+        component = <ViewSecretValueForm secretValue={props.secret.value} />
+    }
+
     return (
         <PageWrapper>
-            {!props.secret || !props.secret.secretKey ? (
-                <NeverExisted />
-            ) : !props.secret.value ? (
-                <RevealSecretValueForm secretKey={props.secret.secretKey} />
-            ) : (
-                <ViewSecretValueForm secretValue={props.secret.value} />
-            )}
+            {component}
         </PageWrapper>
     );
 }
@@ -47,26 +55,11 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     if (!link || link.viewedByRecipientAt || link.burntAt) return { props: {} };
 
-    try {
-        if (ctx.req.method === "POST") {
-            return {
-                props: {
-                    secret: {
-                        secretKey: link.secretKey,
-                        value: link.value,
-                    },
-                },
-            };
-        } else {
-            return {
-                props: {
-                    secret: {
-                        secretKey: id,
-                    },
-                },
-            };
-        }
-    } catch (err: any) {
-        return { props: { error: err.message } };
-    }
+    return {
+        props: {
+            secret: {
+                secretKey: id,
+            },
+        },
+    };
 };
