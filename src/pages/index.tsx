@@ -60,7 +60,7 @@ interface IndexProps {
   error?: string;
 }
 
-export default function Index({ redirect }: IndexProps) {
+export default function Index() {
   return (
     <PageWrapper>
         <Flex direction={["column-reverse", "column-reverse", "row"]} justify={"left"} mb={8}>
@@ -76,8 +76,11 @@ export const getServerSideProps = (ctx: GetServerSidePropsContext) => {
         return {
             redirect: {
                 permanent: false,
-                destination: '/hellopost'
+                destination: '/links'
             }
         }
+    }
+    return {
+        props: {}
     }
 }

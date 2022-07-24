@@ -27,8 +27,8 @@ function InstantSecret({ Component, pageProps }: AppProps) {
             >
                 <Head>
                     <meta charSet="utf-8" />
-                    <title>Home | InstantSecret</title>
-                    <link rel="canonical" href="http://instantsecret.com/" />
+                    <title>Home | Instant Secure Link</title>
+                    <link rel="canonical" href="http://instantsecurelink.com/" />
                     <link
                         rel="apple-touch-icon"
                         sizes="180x180"
