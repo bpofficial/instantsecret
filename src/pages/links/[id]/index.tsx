@@ -39,7 +39,7 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
                 shallow: true,
             });
         }
-    }, [router, props?.linkId]);
+    }, [id, router, props?.linkId]);
 
     return (
         <PageWrapper>
