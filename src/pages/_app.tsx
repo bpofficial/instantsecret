@@ -3,8 +3,9 @@ import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { Banner, TopBar } from "../components";
+import { CounterProvider } from "../hooks";
 
-function InstantSecret({ Component, pageProps }: AppProps) {
+export default function InstantSecret({ Component, pageProps }: AppProps) {
     return (
         <Auth0Provider
             domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
@@ -57,14 +58,14 @@ function InstantSecret({ Component, pageProps }: AppProps) {
                     <meta name="msapplication-TileColor" content="#da532c" />
                     <meta name="theme-color" content="#ffffff" />
                 </Head>
-                <chakra.main w="100%" h="100%" overflowY="scroll">
-                    <Banner />
-                    <TopBar />
-                    <Component {...pageProps} />
-                </chakra.main>
+                <CounterProvider>
+                    <chakra.main w="100%" h="100%" overflowY="scroll">
+                        <Banner />
+                        <TopBar />
+                        <Component {...pageProps} />
+                    </chakra.main>
+                </CounterProvider>
             </ChakraProvider>
         </Auth0Provider>
     );
 }
-
-export default InstantSecret;
