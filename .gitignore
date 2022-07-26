@@ -41,7 +41,7 @@ Thumbs.db
 .dccache
 coverage
 .next
-
+.swc
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
 amplify/.config/local-*
