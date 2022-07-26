@@ -1,5 +1,11 @@
 import { Auth0Provider } from "@auth0/auth0-react";
-import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
+import {
+    Box,
+    Button,
+    chakra,
+    ChakraProvider,
+    extendTheme,
+} from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
 import { Banner, TopBar } from "../components";
@@ -59,10 +65,27 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     <meta name="theme-color" content="#ffffff" />
                 </Head>
                 <CounterProvider>
-                    <chakra.main w="100%" h="100%" overflowY="scroll">
+                    <chakra.main
+                        w="100%"
+                        h="100%"
+                        display="flex"
+                        style={{ flexDirection: "column" }}
+                    >
                         <Banner />
                         <TopBar />
                         <Component {...pageProps} />
+                        <Box textAlign="center" p="2">
+                            Made with ❤️ by{" "}
+                            <Button
+                                href="https://whitepeakdigital.com.au"
+                                as="a"
+                                target="_blank"
+                                rel="noreferrer"
+                                variant="link"
+                            >
+                                White Peak Digital
+                            </Button>
+                        </Box>
                     </chakra.main>
                 </CounterProvider>
             </ChakraProvider>
