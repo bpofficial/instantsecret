@@ -15,21 +15,23 @@ export async function parseBody(req: any, limit: string) {
 
     let contentType;
     try {
-        contentType = _contentType.parse(req.headers["content-type"] || "text/plain");
-    } catch  {
+        contentType = _contentType.parse(
+            req.headers["content-type"] || "text/plain"
+        );
+    } catch {
         contentType = _contentType.parse("text/plain");
     }
-    const { type , parameters  } = contentType;
+    const { type, parameters } = contentType;
     const encoding = parameters?.charset || "utf-8";
     let buffer;
     try {
         const getRawBody = require("next/dist/compiled/raw-body");
         buffer = await getRawBody(req, {
             encoding,
-            limit
+            limit,
         });
     } catch (e) {
-        console.log(e)
+        console.log(e);
         throw new Error("Invalid body");
     }
     const body = buffer.toString();

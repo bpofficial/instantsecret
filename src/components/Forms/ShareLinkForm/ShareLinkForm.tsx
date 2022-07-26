@@ -4,21 +4,20 @@ import {
     chakra,
     Flex,
     Heading,
-    HStack,
     Input,
     InputGroup,
     InputRightElement,
     Textarea,
     VStack,
-} from '@chakra-ui/react';
-import { Form, Formik, useFormikContext } from 'formik';
-import { useRouter } from 'next/router';
-import { useRef } from 'react';
-import { ImFire } from 'react-icons/im';
-import { useOrigin, useTranslation } from '../../../hooks';
-import { copyTextToClipboard } from '../../../utils/copyToClipboard';
-import { millisecondsToStr } from '../../../utils/humanReadableTimeDiff';
-import {FormButton} from "../../FormButton";
+} from "@chakra-ui/react";
+import { Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import { useRef } from "react";
+import { ImFire } from "react-icons/im";
+import { useOrigin, useTranslation } from "../../../hooks";
+import { copyTextToClipboard } from "../../../utils/copyToClipboard";
+import { millisecondsToStr } from "../../../utils/humanReadableTimeDiff";
+import { FormButton } from "../../FormButton";
 
 interface ShareLinkFormProps {
     linkId: string;
@@ -38,7 +37,7 @@ export const ShareLinkForm = ({
     createdAt,
 }: ShareLinkFormProps) => {
     const router = useRouter();
-    const translation = useTranslation('ShareLinkForm');
+    const translation = useTranslation("ShareLinkForm");
     const formEl = useRef<HTMLFormElement>(null);
     const origin = useOrigin();
     const inputRef = useRef<HTMLInputElement>(null);
@@ -49,8 +48,9 @@ export const ShareLinkForm = ({
 
     const link = `${origin}/private/${secretKey}`;
 
+    console.log(createdAt, ttl);
     const expiry = millisecondsToStr(
-        new Date(createdAt ?? null).getTime() + ttl
+        new Date(createdAt).getTime() + ttl - new Date().getTime()
     );
 
     const onCopy = () => {
@@ -59,7 +59,7 @@ export const ShareLinkForm = ({
     };
 
     const createAnother = () => {
-        router.push('/links');
+        router.push("/links");
     };
 
     return (
@@ -69,17 +69,17 @@ export const ShareLinkForm = ({
                 method="GET"
                 ref={formEl}
                 style={{
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
                 }}
             >
-                <VStack align="left" spacing={4} w="100%" maxW={'620px'}>
+                <VStack align="left" spacing={4} w="100%" maxW={"620px"}>
                     <Heading size="md">{translation.title}</Heading>
                     <InputGroup>
                         <Input
                             w="100%"
-                            maxW={'620px'}
+                            maxW={"620px"}
                             borderColor="custom.400"
                             borderWidth="2px"
                             borderRadius="md"
@@ -102,8 +102,8 @@ export const ShareLinkForm = ({
                                 borderTopRightRadius="md"
                                 borderBottomLeftRadius="none"
                                 borderTopLeftRadius="none"
-                                _active={{ bg: 'custom.50' }}
-                                _hover={{ bg: 'custom.50' }}
+                                _active={{ bg: "custom.50" }}
+                                _hover={{ bg: "custom.50" }}
                                 onClick={onCopy}
                             >
                                 {translation.CopyCTA}
@@ -128,7 +128,10 @@ export const ShareLinkForm = ({
                             </Box>
                         </Flex>
                     </Box>
-                    <FormButton text={translation.BurnButton} leftElement={<ImFire />} />
+                    <FormButton
+                        text={translation.BurnButton}
+                        leftElement={<ImFire />}
+                    />
                     <Box
                         textAlign="center"
                         fontSize="sm"
@@ -158,12 +161,12 @@ const SecretValue = ({
     value?: string;
     encrypted?: boolean;
 }) => {
-    const translation = useTranslation('ShareLinkForm');
+    const translation = useTranslation("ShareLinkForm");
     if (!value || encrypted) {
         return (
             <Input
                 w="100%"
-                maxW={'620px'}
+                maxW={"620px"}
                 borderColor="custom.400"
                 borderWidth="2px"
                 readOnly
@@ -176,7 +179,7 @@ const SecretValue = ({
                 value={
                     encrypted
                         ? translation.EncryptedPlaceholder
-                        : '******************'
+                        : "******************"
                 }
             />
         );
@@ -204,10 +207,10 @@ const SecretValue = ({
                 disabled
                 value={value}
                 _focus={{
-                    border: 'none',
-                    borderRadius: '4px',
-                    boxShadow: 'none',
-                    outline: 'none',
+                    border: "none",
+                    borderRadius: "4px",
+                    boxShadow: "none",
+                    outline: "none",
                 }}
                 _disabled={{
                     opacity: 1,
@@ -216,9 +219,9 @@ const SecretValue = ({
                     opacity: 1,
                 }}
                 style={{
-                    border: 'none',
-                    borderRadius: '4px',
-                    boxShadow: 'none',
+                    border: "none",
+                    borderRadius: "4px",
+                    boxShadow: "none",
                 }}
             />
         </Box>

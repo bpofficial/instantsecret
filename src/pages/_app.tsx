@@ -1,9 +1,8 @@
-import { AppProps } from "next/app";
-import { chakra, extendTheme } from "@chakra-ui/react";
 import { Auth0Provider } from "@auth0/auth0-react";
-import { ChakraProvider } from "@chakra-ui/react";
-import { Banner, TopBar } from "../components";
+import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { AppProps } from "next/app";
 import Head from "next/head";
+import { Banner, TopBar } from "../components";
 
 function InstantSecret({ Component, pageProps }: AppProps) {
     return (
@@ -28,7 +27,10 @@ function InstantSecret({ Component, pageProps }: AppProps) {
                 <Head>
                     <meta charSet="utf-8" />
                     <title>Home | Instant Secure Link</title>
-                    <link rel="canonical" href="http://instantsecurelink.com/" />
+                    <link
+                        rel="canonical"
+                        href="http://instantsecurelink.com/"
+                    />
                     <link
                         rel="apple-touch-icon"
                         sizes="180x180"

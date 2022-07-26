@@ -63,4 +63,8 @@ amplifytools.xcconfig
 **.sample
 #amplify-do-not-edit-end
 
-.env.local
+.env.*
+!.env.example
+.serverless*
+.swc
+next.config.original.*.js

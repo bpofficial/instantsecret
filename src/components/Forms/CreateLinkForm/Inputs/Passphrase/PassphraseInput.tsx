@@ -4,19 +4,19 @@ import {
     Input,
     InputGroup,
     InputRightElement,
-} from '@chakra-ui/react';
-import { generatePassphrase } from '../../../../../utils/generatePassphrase';
-import { useTranslation } from '../../../../../hooks';
-import { PassphraseLabel } from './PassphraseLabel';
-import { useFormikContext } from 'formik';
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useTranslation } from "../../../../../hooks";
+import { generatePassphrase } from "../../../../../utils/generatePassphrase";
+import { PassphraseLabel } from "./PassphraseLabel";
 
 export const PassphraseInput = () => {
-    const form = useFormikContext<any>();
-    const translation = useTranslation('CreateLinkForm');
+    const translation = useTranslation("CreateLinkForm");
+    const [value, setValue] = useState("");
 
     const onClick = () => {
         const pwd = generatePassphrase();
-        form.setFieldValue('passphrase', pwd);
+        setValue(pwd);
     };
 
     return (
@@ -24,11 +24,10 @@ export const PassphraseInput = () => {
             <PassphraseLabel shown="(max-width: 768px)" />
             <InputGroup>
                 <Input
+                    name="passphrase"
+                    value={value}
+                    onChange={(evt) => setValue(evt.target.value)}
                     placeholder={translation.passphrasePlaceholder}
-                    value={form.values['passphrase'] ?? ''}
-                    onChange={(evt) =>
-                        form.setFieldValue('passphrase', evt.target.value)
-                    }
                 />
                 <InputRightElement width="5rem" pr="1">
                     <Button size="xs" {...{ onClick }}>

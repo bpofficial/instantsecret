@@ -1,14 +1,12 @@
-
-
 import { NextApiRequest, NextApiResponse } from "next";
 import { AwsService, getDynamodb } from "../../../../aws";
 
 async function GetLink(req: NextApiRequest, res: NextApiResponse) {
-    const { dynamodb, tableName, env } = getDynamodb()
-    const id = decodeURIComponent(req.query?.['id']?.toString?.() ?? '');
-    const viewedByCreator = req.query['creator'] === 'true';
-    const viewedByRecipient = req.query['recipient'] === 'true';
-    const passphrase = req.body['passphrase'] || null;
+    const { dynamodb, tableName, env } = getDynamodb();
+    const id = decodeURIComponent(req.query?.["id"]?.toString?.() ?? "");
+    const viewedByCreator = req.query["creator"] === "true";
+    const viewedByRecipient = req.query["recipient"] === "true";
+    const passphrase = req.query["passphrase"] || null;
 
     if (!id) {
         res.statusCode = 404;
@@ -19,20 +17,24 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     let record;
     try {
         if (viewedByCreator) {
-            record = await dynamodb.get({
-                TableName: tableName,
-                Key: {
-                    id,
-                }
-            }).promise()
+            record = await dynamodb
+                .get({
+                    TableName: tableName,
+                    Key: {
+                        id,
+                    },
+                })
+                .promise();
         } else {
             // Need to scan since we're not using a primary key :sigh:
             // deepcode ignore NoSqli: ?
-            record = await dynamodb.scan({
-                TableName: tableName,
-                FilterExpression: 'secretKey = :secretKey',
-                ExpressionAttributeValues: { ':secretKey': id }
-            }).promise()
+            record = await dynamodb
+                .scan({
+                    TableName: tableName,
+                    FilterExpression: "secretKey = :secretKey",
+                    ExpressionAttributeValues: { ":secretKey": id },
+                })
+                .promise();
 
             if (!record || record.$response.error || record.Count === 0) {
                 res.statusCode = 404;
@@ -41,17 +43,17 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             }
 
             if (record && record.Count && record.Count > 1) {
-                console.log('More than 1 secret found with id', id);
+                console.log("More than 1 secret found with id", id);
                 res.statusCode = 404;
                 res.end();
                 return;
             }
 
-            record = { Item: record.Items?.[0] ?? null }
+            record = { Item: record.Items?.[0] ?? null };
         }
     } catch (err) {
         console.log(err);
-        record = {}
+        record = {};
     }
 
     if (!record || !record.Item || (record.Item.burntAt && !viewedByCreator)) {
@@ -61,41 +63,79 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     }
 
     let canViewSecretValue = false;
-    const passphraseMatch = record.Item.passphrase ? passphrase === record.Item.passphrase : true
-    if ((viewedByCreator && !record.Item.viewedByCreatorAt) || (viewedByRecipient && !record.Item.viewedByRecipientAt && passphraseMatch)) {
+    const passphraseMatch = record.Item.passphrase
+        ? passphrase === record.Item.passphrase
+        : true;
+
+    console.log(record.Item.passphrase, passphrase);
+    if (
+        (viewedByCreator && !record.Item.viewedByCreatorAt) ||
+        (viewedByRecipient &&
+            !record.Item.viewedByRecipientAt &&
+            passphraseMatch)
+    ) {
         canViewSecretValue = true;
         try {
-            const update = await dynamodb.update({
-                TableName: tableName,
-                Key: {
-                    id: record.Item.id
-                },
-                UpdateExpression: 'SET #viewTimeProp = :viewedAt',
-                ExpressionAttributeValues: { ':viewedAt': new Date().toISOString() },
-                ExpressionAttributeNames: { '#viewTimeProp': viewedByCreator ? 'viewedByCreatorAt' : 'viewedByRecipientAt' }
-            }).promise();
+            const update = await dynamodb
+                .update({
+                    TableName: tableName,
+                    Key: {
+                        id: record.Item.id,
+                    },
+                    UpdateExpression: "SET #viewTimeProp = :viewedAt",
+                    ExpressionAttributeValues: {
+                        ":viewedAt": new Date().toISOString(),
+                    },
+                    ExpressionAttributeNames: {
+                        "#viewTimeProp": viewedByCreator
+                            ? "viewedByCreatorAt"
+                            : "viewedByRecipientAt",
+                    },
+                })
+                .promise();
             if (update.$response.error) {
                 console.log(update.$response);
-                res.statusCode = 500
+                res.statusCode = 500;
                 res.end();
                 return;
             }
         } catch (err) {
             console.log(err);
-            res.statusCode = 500
+            res.statusCode = 500;
             res.end();
             return;
         }
     }
 
+    // Passphrase didn't match
+    if (
+        viewedByRecipient &&
+        !record.Item.viewedByRecipientAt &&
+        !passphraseMatch
+    ) {
+        res.statusCode = 401;
+        res.json({
+            code: 401,
+            error: "Unauthorized",
+            description: "The passphrase didn't match.",
+            meta: {
+                fieldError: true,
+            },
+        });
+    }
+
     let secret;
     try {
         if (canViewSecretValue) {
-            secret = await (new AwsService.SecretsManager()).getSecretValue({ SecretId: `/secrets/${env}/${record.Item.secretId}` }).promise();
+            secret = await new AwsService.SecretsManager()
+                .getSecretValue({
+                    SecretId: `/secrets/${env}/${record.Item.secretId}`,
+                })
+                .promise();
         }
     } catch (err) {
         console.log(err);
-        res.statusCode = 500
+        res.statusCode = 500;
         res.end();
         return;
     }
@@ -116,12 +156,15 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         createdAt: record.Item.createdAt,
         viewedByCreatorAt: record.Item.viewedByCreatorAt,
         viewedByRecipientAt: record.Item.viewedByRecipientAt,
-    })
+    });
 }
 
-export default async function Handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'GET') {
-        return GetLink(req, res)
+export default async function Handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
+    if (req.method === "GET") {
+        return GetLink(req, res);
     } else {
         res.statusCode = 404;
         res.end();

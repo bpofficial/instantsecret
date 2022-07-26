@@ -1,36 +1,36 @@
 import {
     Box,
     Button,
-    chakra, Flex,
+    chakra,
+    Flex,
     Heading,
     HStack,
-    Spacer,
-    useMediaQuery,
     VStack,
 } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { CreateLinkForm, PageWrapper } from "../components";
+import { PageWrapper } from "../components";
 import { useTranslation } from "../hooks";
-import {GetServerSidePropsContext} from "next"
 
 export default function Index() {
-  return (
-    <PageWrapper>
-        <Flex direction={["column-reverse", "column-reverse", "row"]} justify={"left"} mb={8}>
-          <IndexCopyContent />
-        </Flex>
-    </PageWrapper>
-  );
+    return (
+        <PageWrapper>
+            <Flex
+                direction={["column-reverse", "column-reverse", "row"]}
+                justify={"left"}
+                mb={8}
+            >
+                <IndexCopyContent />
+            </Flex>
+        </PageWrapper>
+    );
 }
 
 export const IndexCopyContent = () => {
     const translation = useTranslation("index");
 
     return (
-        <Box maxW={{ base: '100%', lg: '60%' }} mt={["8", "4"]}>
+        <Box maxW={{ base: "100%", lg: "60%" }} mt={["8", "4"]}>
             <VStack align="flext-start" spacing={6}>
-                <Heading fontSize={{ base: '3xl', md: '5xl' }}>
+                <Heading fontSize={{ base: "3xl", md: "5xl" }}>
                     <chakra.span color="custom.300">
                         {translation.copy.coloredTitle}
                     </chakra.span>
@@ -38,10 +38,7 @@ export const IndexCopyContent = () => {
                     {translation.copy.remainingTitle}
                 </Heading>
 
-                <Box
-                    color="custom.400"
-                    fontWeight="600"
-                >
+                <Box color="custom.400" fontWeight="600">
                     {translation.copy.subtitle}
                 </Box>
 
@@ -58,7 +55,9 @@ export const IndexCopyContent = () => {
                     >
                         {translation.copy.ctaButton}
                     </Button>
-                    <Button variant="link">{translation.copy.securityButton}</Button>
+                    <Button variant="link">
+                        {translation.copy.securityButton}
+                    </Button>
                 </HStack>
             </VStack>
         </Box>

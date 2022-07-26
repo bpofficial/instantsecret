@@ -1,6 +1,7 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
-import { Amplify } from "aws-amplify";
 import { GetServerSidePropsContext } from "next";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { createLinkFromClient } from "../../../api/create-link";
 import {
     LinkBurntForm,
     LinkReceivedForm,
@@ -25,6 +26,21 @@ interface NewLinkIdPageProps {
 }
 
 export default function NewLinkIdPage(props: NewLinkIdPageProps) {
+    const router = useRouter();
+    const id = router.query["id"] || null;
+
+    useEffect(() => {
+        if (
+            id &&
+            id.toString().toLowerCase() === "create-link" &&
+            props.linkId
+        ) {
+            router.replace({ pathname: `/links/${props.linkId}` }, undefined, {
+                shallow: true,
+            });
+        }
+    }, [router, props?.linkId]);
+
     return (
         <PageWrapper>
             {!props.secret || !props.linkId ? (
@@ -66,6 +82,23 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         };
     }
 
+    if (ctx.req.method === "POST") {
+        const result = await createLinkFromClient(ctx);
+        if ("code" in result) {
+            return {
+                props: {
+                    error: result,
+                },
+            };
+        } else {
+            return {
+                props: {
+                    ...result,
+                },
+            };
+        }
+    }
+
     try {
         const link = await getLinkFromApi(id.toString(), {
             creator: true,
@@ -73,6 +106,8 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         });
 
         if (!link) return { props: {} };
+
+        console.log(link);
 
         return {
             props: {

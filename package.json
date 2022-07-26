@@ -1,39 +1,43 @@
 {
-  "name": "instant-secure-link",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@auth0/auth0-react": "^1.10.2",
-    "@auth0/nextjs-auth0": "^1.9.1",
-    "@chakra-ui/icons": "^2.0.4",
-    "@chakra-ui/react": "^2.2.4",
-    "@emotion/react": "^11.9.3",
-    "@emotion/server": "^11.4.0",
-    "@emotion/styled": "^11.9.3",
-    "aws-amplify": "^4.3.28",
-    "aws-sdk": "^2.1180.0",
-    "formik": "^2.2.9",
-    "framer-motion": "^6.5.1",
-    "jsonwebtoken": "^8.5.1",
-    "nanoid": "^4.0.0",
-    "next": "12.2.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.4.0",
-    "winston": "^3.8.1"
-  },
-  "devDependencies": {
-    "@types/node": "18.0.6",
-    "@types/react": "18.0.15",
-    "@types/react-dom": "18.0.6",
-    "eslint": "8.20.0",
-    "eslint-config-next": "12.2.3",
-    "typescript": "4.7.4"
-  }
+    "name": "instant-secure-link",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@auth0/auth0-react": "^1.10.2",
+        "@auth0/nextjs-auth0": "^1.9.1",
+        "@chakra-ui/icons": "^2.0.4",
+        "@chakra-ui/react": "^2.2.4",
+        "@emotion/react": "^11.9.3",
+        "@emotion/server": "^11.4.0",
+        "@emotion/styled": "^11.9.3",
+        "aws-amplify": "^4.3.28",
+        "aws-sdk": "^2.1180.0",
+        "formik": "^2.2.9",
+        "framer-motion": "^6.5.1",
+        "jsonwebtoken": "^8.5.1",
+        "nanoid": "^4.0.0",
+        "next": "^12.2.0",
+        "react": "18.2.0",
+        "react-dom": "18.2.0",
+        "react-icons": "^4.4.0",
+        "react-select": "^5.4.0",
+        "winston": "^3.8.1"
+    },
+    "devDependencies": {
+        "@sls-next/aws-cloudfront": "^3.7.0",
+        "@sls-next/aws-lambda": "^3.7.0",
+        "@sls-next/aws-sqs": "^3.7.0",
+        "@types/node": "18.0.6",
+        "@types/react": "^18.0.15",
+        "@types/react-dom": "^18.0.6",
+        "eslint": "8.20.0",
+        "eslint-config-next": "12.2.3",
+        "typescript": "4.7.4"
+    }
 }

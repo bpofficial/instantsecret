@@ -1,34 +1,36 @@
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
     Box,
-    Button,
     Heading,
     HStack,
-    Textarea, useBoolean,
+    Textarea,
     useMediaQuery,
     VStack,
 } from "@chakra-ui/react";
-import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { useTranslation } from "../../../hooks";
-import { PassphraseInput, PassphraseLabel } from "./Inputs/Passphrase";
-import { LifetimeInput, LifetimeLabel } from "./Inputs/Lifetime";
-import {Formik, useFormikContext, Form, FormikHelpers, FormikValues} from "formik";
+import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import { useRef } from "react";
-import {FormButton} from "../../FormButton";
+import { useTranslation } from "../../../hooks";
+import { FormButton } from "../../FormButton";
+import { LifetimeInput, LifetimeLabel } from "./Inputs/Lifetime";
+import { PassphraseInput, PassphraseLabel } from "./Inputs/Passphrase";
 
 export const CreateLinkForm = () => {
     const translation = useTranslation("CreateLinkForm");
     const formEl = useRef<HTMLFormElement>(null);
 
-    const onSubmit = (values: FormikValues, { resetForm }: FormikHelpers<any>) => {
+    const onSubmit = (
+        values: FormikValues,
+        { resetForm }: FormikHelpers<any>
+    ) => {
         formEl.current?.submit();
-        setTimeout(resetForm)
+        setTimeout(resetForm);
     };
 
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             {({ handleChange, values }) => (
                 <Form
-                    action="/api/links"
+                    action="/links/create-link"
                     method="POST"
                     ref={formEl}
                     style={{
@@ -88,7 +90,7 @@ export const CreateLinkForm = () => {
                                 text={translation.createLinkButton}
                                 rightElement={<ArrowForwardIcon mt="2" />}
                                 buttonProps={{
-                                    borderRadius: "0"
+                                    borderRadius: "0",
                                 }}
                             />
                         </Box>
