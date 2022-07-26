@@ -1,16 +1,16 @@
 import { Flex } from "@chakra-ui/react";
 
-export const PageWrapper = ({ children }: any) => {
+export const PageWrapper = ({ children, align = "center" }: any) => {
     return (
         <Flex
             data-type={"page-wrapper"}
             w="100%"
             px={[4, 12, 16]}
-            alignItems="center"
+            alignItems={align}
             maxW={"1200px"}
             margin={"auto"}
             mt={[4, 6, 10, 12]}
-            justifyContent={"center"}
+            justifyContent={align}
         >
             {children}
             <style global jsx>{`
