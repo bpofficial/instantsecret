@@ -24,6 +24,8 @@ export const LifetimeInput = () => {
         },
     ];
 
+    //
+
     const [value, setValue] = useState(options[1].value);
 
     return (
