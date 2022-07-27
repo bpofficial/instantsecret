@@ -41,6 +41,7 @@ export const en: TranslationObj = {
         CopyCTA: "Copy",
         SecureLinkId: "Secure Link",
         Expiry: "Expires in",
+        Expired: "Expired",
         BurnButton: "BURN THIS LINK",
         Disclaimer:
             "Burning a secret will delete it before it has been read, you'll need to confirm this action.",

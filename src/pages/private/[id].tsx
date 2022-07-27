@@ -77,6 +77,13 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     if (!link || link.viewedByRecipientAt || link.burntAt) return { props: {} };
 
+    const now = new Date().getTime();
+    const created = new Date(link.createdAt).getTime();
+    const ttl = Number(link.ttl);
+    if (created + ttl <= now) {
+        return { props: {} };
+    }
+
     return {
         props: {
             secret: link,

@@ -11,6 +11,10 @@ export const LifetimeInput = () => {
 
     const options = [
         {
+            label: "1 minute",
+            value: 1000 * 60 + 1,
+        },
+        {
             label: "1 hour",
             value: ONE_HOUR + OFFSET,
         },

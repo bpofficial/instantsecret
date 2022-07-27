@@ -42,6 +42,7 @@ export interface TranslationObj {
         CopyCTA: string;
         SecureLinkId: string;
         Expiry: string;
+        Expired: string;
         BurnButton: string;
         Disclaimer: string;
         CreateAnotherButton: string;

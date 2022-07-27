@@ -48,9 +48,8 @@ export const ShareLinkForm = ({
 
     const link = `${origin}/private/${secretKey}`;
 
-    const expiry = millisecondsToStr(
-        new Date(createdAt).getTime() + ttl - new Date().getTime()
-    );
+    const expires = new Date(createdAt).getTime() + ttl - new Date().getTime();
+    const expiry = millisecondsToStr(expires);
 
     const onCopy = () => {
         inputRef.current?.select();
@@ -121,9 +120,13 @@ export const ShareLinkForm = ({
                                 )
                             </Box>
                             <Box>
-                                <chakra.b>
-                                    {translation.Expiry}&nbsp;{expiry}
-                                </chakra.b>
+                                {expires > 0 ? (
+                                    <chakra.b>
+                                        {translation.Expiry}&nbsp;{expiry}
+                                    </chakra.b>
+                                ) : (
+                                    <chakra.b>{translation.Expired}</chakra.b>
+                                )}
                             </Box>
                         </Flex>
                     </Box>
