@@ -1,5 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { AwsService, getDynamodb } from "../../../../aws";
+import {
+    comparePassword,
+    decryptValue,
+    hash,
+} from "../../../../api/encryption";
+import { getDynamodb } from "../../../../aws";
 
 async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     const { dynamodb, tableName, env } = getDynamodb();
@@ -21,7 +26,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                 .get({
                     TableName: tableName,
                     Key: {
-                        id,
+                        id: hash(id),
                     },
                 })
                 .promise();
@@ -31,8 +36,8 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             record = await dynamodb
                 .scan({
                     TableName: tableName,
-                    FilterExpression: "secretKey = :secretKey",
-                    ExpressionAttributeValues: { ":secretKey": id },
+                    FilterExpression: "secretId = :secretId",
+                    ExpressionAttributeValues: { ":secretId": hash(id) },
                 })
                 .promise();
 
@@ -43,7 +48,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             }
 
             if (record && record.Count && record.Count > 1) {
-                console.log("More than 1 secret found with id", id);
+                console.log("More than 1 secret found with id", hash(id));
                 res.statusCode = 404;
                 res.end();
                 return;
@@ -63,11 +68,13 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     }
 
     let canViewSecretValue = false;
-    const passphraseMatch = record.Item.passphrase
-        ? passphrase === record.Item.passphrase
+    const passphraseMatch = record.Item.secure.passphrase
+        ? comparePassword(
+              passphrase?.toString() || "",
+              record.Item.secure.passphrase
+          )
         : true;
 
-    console.log(record.Item.passphrase, passphrase);
     if (
         (viewedByCreator && !record.Item.viewedByCreatorAt) ||
         (viewedByRecipient &&
@@ -127,11 +134,15 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     let secret;
     try {
         if (canViewSecretValue) {
-            secret = await new AwsService.SecretsManager()
-                .getSecretValue({
-                    SecretId: `/secrets/${env}/${record.Item.secretId}`,
-                })
-                .promise();
+            const secure = record.Item.secure;
+            const createdAt = new Date(record.Item.createdAt).getTime();
+            secret = decryptValue(
+                secure.value,
+                secure.iv,
+                id,
+                createdAt,
+                passphrase?.toString()
+            );
         }
     } catch (err) {
         console.log(err);
@@ -140,18 +151,20 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
-    if (secret && secret.$response.error) {
-        res.statusCode = 404;
+    if (secret && secret.length !== record.Item.originalSize) {
+        // bad decipher
+        console.log("Failed to properly decipher");
+        res.statusCode = 500;
         res.end();
         return;
     }
 
     res.statusCode = 200;
     res.json({
-        secretKey: record.Item.secretKey,
-        value: secret ? secret.SecretString : null,
+        secretKey: id,
+        value: secret ? secret : null,
         ttl: record.Item.ttl,
-        encrypted: !!record.Item.passphrase,
+        encrypted: !!record.Item.secure.passphrase,
         burntAt: record.Item.burntAt,
         createdAt: record.Item.createdAt,
         viewedByCreatorAt: record.Item.viewedByCreatorAt,

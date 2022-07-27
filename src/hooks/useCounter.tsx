@@ -26,7 +26,7 @@ export const CounterProvider = ({ children }: CounterProviderProps) => {
 
     useEffect(() => {
         fetchCounter().then((val) => setCounter(val));
-    }, []);
+    }, [setCounter]);
 
     return (
         <CounterContext.Provider value={{ counter }}>

@@ -1,5 +1,5 @@
-import {Box, Button, ButtonProps, HStack, useBoolean} from "@chakra-ui/react";
-import {useFormikContext} from "formik";
+import { Box, Button, ButtonProps, HStack, useBoolean } from "@chakra-ui/react";
+import { Formik, useFormikContext } from "formik";
 
 interface FormButtonProps {
     text: string;
@@ -10,18 +10,24 @@ interface FormButtonProps {
      * Only required if not inside a Formik form already.
      */
     onSubmit?: () => void;
-    buttonProps?: ButtonProps
+    buttonProps?: ButtonProps;
 }
 
-export const FormButton = ({ text = '', leftElement = null, rightElement = null, onSubmit, buttonProps = {} }: FormButtonProps) => {
-    const [isLoading, loading] = useBoolean(false)
-    const form = useFormikContext()
+export const FormButton = ({
+    text = "",
+    leftElement = null,
+    rightElement = null,
+    onSubmit,
+    buttonProps = {},
+}: FormButtonProps) => {
+    const [isLoading, loading] = useBoolean(false);
+    const form = useFormikContext();
 
     const onClick = () => {
         loading.on();
         onSubmit?.() || form?.handleSubmit?.();
         setTimeout(loading.off, 5000);
-    }
+    };
 
     return (
         <Button
@@ -35,7 +41,7 @@ export const FormButton = ({ text = '', leftElement = null, rightElement = null,
             _active={{ bg: "custom.50" }}
             _hover={{ bg: "custom.50" }}
             type="submit"
-            {...{onClick, isLoading}}
+            {...{ onClick, isLoading }}
             {...buttonProps}
         >
             <HStack>
@@ -44,5 +50,13 @@ export const FormButton = ({ text = '', leftElement = null, rightElement = null,
                 {rightElement}
             </HStack>
         </Button>
-    )
-}
+    );
+};
+
+export const NextButton = (props: FormButtonProps) => {
+    return (
+        <Formik initialValues={{}} onSubmit={() => {}}>
+            <FormButton {...props} />
+        </Formik>
+    );
+};

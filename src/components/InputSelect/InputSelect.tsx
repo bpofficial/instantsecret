@@ -44,6 +44,7 @@ const chakraStyles = {
         ...provided,
         color: "inherit",
         lineHeight: 1,
+        autocomplete: "off",
     }),
     menu: (provided: any) => ({
         ...provided,
@@ -59,6 +60,7 @@ const chakraStyles = {
         return {
             ...provided,
             padding: `0.125rem ${px[size]}`,
+            autocomplete: "off",
         };
     },
     loadingMessage: (provided: any, { selectProps: { size } }: any) => {
@@ -105,7 +107,10 @@ const chakraComponents = {
             selectProps: { size },
         } = props;
 
-        const ownProps = omitThemingProps(props as any);
+        const ownProps = omitThemingProps({
+            ...props,
+            autocomplete: "off",
+        } as any);
         const input = useFormControlProps<HTMLInputElement>(ownProps);
         const inputStyles = useMultiStyleConfig("Input", props);
         const { isInvalid = false } = input;
@@ -142,6 +147,7 @@ const chakraComponents = {
                         "aria-invalid": true,
                         "data-invalid": true,
                     })}
+                    autocomplete="off"
                 >
                     {children}
                 </Flex>
@@ -347,6 +353,7 @@ const InputSelectComponent = ({
         styles: {
             ...chakraStyles,
             ...styles,
+            autocomplete: "off",
         },
         theme: (baseTheme: any) => {
             const propTheme = theme(baseTheme);
@@ -366,6 +373,7 @@ const InputSelectComponent = ({
                 },
             };
         },
+        autocomplete: "off",
         colorScheme,
         size: realSize,
         multiValueRemoveFocusStyle,

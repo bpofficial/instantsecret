@@ -5,8 +5,9 @@ import {
     NextApiRequest,
     NextApiResponse,
 } from "next";
-import { AwsService, getDynamodb } from "../aws";
+import { getDynamodb } from "../aws";
 import { parseBody } from "../utils/parseBody";
+import { encryptValue, hash, hashPassword } from "./encryption";
 const jwt = require("jsonwebtoken");
 const generateKey = customAlphabet(
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -48,7 +49,6 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
 
         if (endpoint === "client") {
             req.body = await parseBody(req, "1mb");
-            console.log(req.body);
         }
 
         if (!req.body || !req.body.value) {
@@ -62,25 +62,38 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
         }
 
         const id = generateKey();
+        const idHash = hash(id);
+
         const secretId = generateKey();
-        const secretKey = generateKey();
+        const secretIdHash = hash(secretId);
+
+        const passphrase = req.body.passphrase
+            ? hashPassword(req.body.passphrase)
+            : null;
+        const createdAt = new Date();
+        const { iv, value } = encryptValue(
+            req.body.value,
+            createdAt.getTime(),
+            secretId,
+            req.body.passphrase
+        );
 
         const ttl = Number(req.body.ttl);
 
         const item = {
-            id, // linkId
-            secretId, // secretId
-            secretKey,
+            id: idHash, // linkId
+            secretId: secretIdHash, // secretId
             creatorUserID,
+            originalSize: req.body.value.length,
             recipients: req.body.recipients || [],
-            passphrase: req.body.passphrase || null,
             ttl: Number.isNaN(ttl) ? 1000 * 60 * 60 * 24 * 7 : ttl, // 7 days default,
             internal: req.body.internal === true,
-            createdAt: new Date().toISOString(),
-            viewedByCreatorAt:
-                endpoint === "client"
-                    ? new Date(new Date().getTime() + 1000 * 30) // +30s
-                    : null,
+            createdAt: createdAt.toISOString(),
+            secure: {
+                iv,
+                value,
+                passphrase,
+            },
         };
 
         const record = await dynamodb
@@ -100,23 +113,6 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
             });
         }
 
-        // Using overwrite: true to enforce that someone trying to recreate a dummy secret with the same key doesn't get the original secret.
-        const secret = await new AwsService.SecretsManager()
-            .createSecret({
-                Name: `/secrets/${env}/${secretId}`,
-                SecretString: req.body.value,
-                ForceOverwriteReplicaSecret: false,
-            })
-            .promise();
-        if (secret.$response.error) {
-            return handleError({
-                code: 500,
-                error: "Internal Server Error",
-                description: "Failed to create link.",
-                res,
-            });
-        }
-
         if (endpoint === "api") {
             return {
                 secretId,
@@ -125,10 +121,10 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
             return {
                 linkId: id,
                 secret: {
-                    secretKey: item.secretKey,
+                    secretKey: secretId,
                     value: req.body.value,
                     ttl: item.ttl,
-                    encrypted: !!item.passphrase,
+                    encrypted: !!item.secure.passphrase,
                     createdAt: item.createdAt,
                 },
             };

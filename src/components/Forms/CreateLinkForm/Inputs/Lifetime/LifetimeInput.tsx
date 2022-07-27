@@ -1,6 +1,6 @@
-import { FormControl } from "@chakra-ui/react";
+import { FormControl, Select } from "@chakra-ui/react";
+import { useState } from "react";
 import { useTranslation } from "../../../../../hooks";
-import { InputSelect } from "../../../../InputSelect";
 import { LifetimeLabel } from "./LifetimeLabel";
 
 const ONE_HOUR = 3.6e6; //ms
@@ -28,17 +28,21 @@ export const LifetimeInput = () => {
         },
     ];
 
+    const [value, setValue] = useState(options[1].value);
+
     return (
         <FormControl>
             <LifetimeLabel shown="(max-width: 768px)" />
-            <InputSelect
+            <Select
                 name="ttl"
                 placeholder="Select a lifetime"
-                defaultValue={options[2]}
-                options={options}
+                value={value}
+                onChange={(evt) => setValue(Number(evt.target.value))}
             >
-                <></>
-            </InputSelect>
+                {options.map(({ label, value }) => (
+                    <option {...{ value }}>{label}</option>
+                ))}
+            </Select>
         </FormControl>
     );
 };
