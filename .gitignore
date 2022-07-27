@@ -68,3 +68,4 @@ amplifytools.xcconfig
 .serverless*
 .swc
 next.config.original.*.js
+.vercel

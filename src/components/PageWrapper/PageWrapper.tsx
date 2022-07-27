@@ -5,7 +5,7 @@ export const PageWrapper = ({ children, align = "center" }: any) => {
         <Flex
             data-type={"page-wrapper"}
             w="100%"
-            px={[4, 12, 16]}
+            px={[4, 4, 4]}
             alignItems={align}
             maxW={"1200px"}
             margin={"auto"}
