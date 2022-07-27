@@ -11,9 +11,9 @@ export default function Security() {
                         Page Under Construction
                     </Heading>
                     <Text align="center" opacity="0.9">
-                        We're still writing this page for you to read, make sure
-                        to check back in regularly so you don't miss when this
-                        page is finished.
+                        We&apos;re still writing this page for you to read, make
+                        sure to check back in regularly so you don&apos;t miss
+                        when this page is finished.
                     </Text>
                 </VStack>
             </Box>

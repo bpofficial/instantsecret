@@ -243,6 +243,7 @@ const MobileNav = () => {
 
 const MobileNavItem = ({ label, children, href, cta }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure();
+    const color = useColorModeValue("gray.600", "gray.200");
 
     return (
         <Stack spacing={4} onClick={children && onToggle}>
@@ -272,10 +273,7 @@ const MobileNavItem = ({ label, children, href, cta }: NavItem) => {
                     </>
                 ) : (
                     <>
-                        <Text
-                            fontWeight={600}
-                            color={useColorModeValue("gray.600", "gray.200")}
-                        >
+                        <Text fontWeight={600} color={color}>
                             {label}
                         </Text>
                         {children && (
