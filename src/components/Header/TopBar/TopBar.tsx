@@ -7,6 +7,7 @@ import {
 } from "@chakra-ui/icons";
 import {
     Box,
+    Button,
     chakra,
     Collapse,
     Flex,
@@ -240,7 +241,7 @@ const MobileNav = () => {
     );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href, cta }: NavItem) => {
     const { isOpen, onToggle } = useDisclosure();
 
     return (
@@ -255,20 +256,38 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
                     textDecoration: "none",
                 }}
             >
-                <Text
-                    fontWeight={600}
-                    color={useColorModeValue("gray.600", "gray.200")}
-                >
-                    {label}
-                </Text>
-                {children && (
-                    <Icon
-                        as={ChevronDownIcon}
-                        transition={"all .25s ease-in-out"}
-                        transform={isOpen ? "rotate(180deg)" : ""}
-                        w={6}
-                        h={6}
-                    />
+                {cta ? (
+                    <>
+                        <Button
+                            w="100%"
+                            bg="custom.400"
+                            _hover={{ bg: "custom.50" }}
+                            color="white"
+                        >
+                            <Flex align="center">
+                                <Text fontWeight={600}>{label}</Text>
+                                <ArrowForwardIcon ml="2" mt="0.5" />
+                            </Flex>
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <Text
+                            fontWeight={600}
+                            color={useColorModeValue("gray.600", "gray.200")}
+                        >
+                            {label}
+                        </Text>
+                        {children && (
+                            <Icon
+                                as={ChevronDownIcon}
+                                transition={"all .25s ease-in-out"}
+                                transform={isOpen ? "rotate(180deg)" : ""}
+                                w={6}
+                                h={6}
+                            />
+                        )}
+                    </>
                 )}
             </Flex>
 
