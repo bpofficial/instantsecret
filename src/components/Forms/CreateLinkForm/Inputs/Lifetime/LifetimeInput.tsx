@@ -22,10 +22,6 @@ export const LifetimeInput = () => {
             label: "1 week",
             value: ONE_HOUR * 24 * 7 + OFFSET,
         },
-        {
-            label: "1 month",
-            value: ONE_HOUR * 24 * 7 * 30 + OFFSET,
-        },
     ];
 
     const [value, setValue] = useState(options[1].value);
