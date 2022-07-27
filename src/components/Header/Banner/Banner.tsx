@@ -9,7 +9,7 @@ export const Banner = () => {
             <Flex w="100%" h="8" justifyContent="center">
                 <Box color="white" alignSelf="center" fontWeight="bold">
                     <Counter data={{ startNum: 0, endNum: value, delay: 0 }} />
-                    &nbsp;secrets shared since launch
+                    &nbsp;secure links created and shared since launch
                 </Box>
             </Flex>
         </Box>
