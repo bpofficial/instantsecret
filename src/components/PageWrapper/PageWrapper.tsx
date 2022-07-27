@@ -7,8 +7,8 @@ export const PageWrapper = ({ children, align = "center" }: any) => {
             w="100%"
             px={[4, 4, 4]}
             alignItems={align}
-            maxW={"1200px"}
-            margin={"auto"}
+            maxW={"1400px"}
+            mx={"auto"}
             mt={[4, 6, 10, 12]}
             justifyContent={align}
         >

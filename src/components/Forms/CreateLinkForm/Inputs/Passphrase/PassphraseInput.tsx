@@ -30,7 +30,7 @@ export const PassphraseInput = () => {
                     placeholder={translation.passphrasePlaceholder}
                     autoComplete="off"
                 />
-                <InputRightElement width="5rem" pr="1">
+                <InputRightElement width="5rem" pr="0.4">
                     <Button size="xs" {...{ onClick }}>
                         {translation.passphraseGenerator}
                     </Button>

@@ -74,7 +74,7 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                         <Banner />
                         <TopBar />
                         <Component {...pageProps} />
-                        <Box textAlign="center" p="2">
+                        <Box textAlign="center" p="2" marginTop={"auto"}>
                             Made with ❤️ by{" "}
                             <Button
                                 href="https://whitepeakdigital.com.au"
