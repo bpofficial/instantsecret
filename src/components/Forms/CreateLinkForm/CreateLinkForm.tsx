@@ -20,15 +20,23 @@ export const CreateLinkForm = () => {
 
     const onSubmit = (
         values: FormikValues,
-        { resetForm }: FormikHelpers<any>
+        { resetForm, setFieldError, setErrors }: FormikHelpers<any>
     ) => {
-        formEl.current?.submit();
-        setTimeout(resetForm);
+        if (!values?.value?.trim()) {
+            setFieldError(
+                "value",
+                "Secret content is required to create a link."
+            );
+        } else {
+            setErrors({});
+            formEl.current?.submit();
+            setTimeout(resetForm);
+        }
     };
 
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>
-            {({ handleChange, values }) => (
+            {({ handleChange, values, errors }) => (
                 <Form
                     action="/links/create-link"
                     method="POST"
@@ -86,6 +94,13 @@ export const CreateLinkForm = () => {
                                 </Heading>
                                 <PrivacyOptionInputs />
                             </Box>
+                            {errors["value"] ? (
+                                <Box textAlign="center" py="2" color="red.500">
+                                    {errors["value"].toString()}
+                                </Box>
+                            ) : (
+                                <></>
+                            )}
                             <FormButton
                                 text={translation.createLinkButton}
                                 rightElement={<ArrowForwardIcon mt="2" />}

@@ -1,3 +1,4 @@
+import * as Crypto from "crypto";
 import { NextApiRequest, NextApiResponse } from "next";
 import {
     comparePassword,
@@ -159,9 +160,14 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
+    const secretId = Crypto.createHash("md5")
+        .update(id + record.Item.createdAt)
+        .digest()
+        .toString("hex");
+
     res.statusCode = 200;
     res.json({
-        secretKey: id,
+        secretKey: viewedByCreator ? secretId : id,
         value: secret ? secret : null,
         ttl: record.Item.ttl,
         encrypted: !!record.Item.secure.passphrase,

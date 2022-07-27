@@ -2,12 +2,12 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, Heading, Input, VStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { useTranslation } from "../../../hooks";
+import { useLocalStorage, useTranslation } from "../../../hooks";
 import { millisecondsToStr } from "../../../utils/humanReadableTimeDiff";
 import { NextButton } from "../../FormButton";
 
 interface LinkReceivedFormProps {
-    secretKey: string;
+    linkId: string;
     receivedAt: string;
     encrypted: boolean;
 }
@@ -15,12 +15,14 @@ interface LinkReceivedFormProps {
 const Stack: any = VStack;
 
 export const LinkReceivedForm = ({
-    secretKey,
+    linkId,
     receivedAt,
     encrypted,
 }: LinkReceivedFormProps) => {
     const router = useRouter();
     const translation = useTranslation("LinkReceivedForm");
+
+    const [secretId, setSecretId] = useLocalStorage(linkId, "");
 
     const diff =
         typeof window !== "undefined"
@@ -50,7 +52,7 @@ export const LinkReceivedForm = ({
     return (
         <Stack align="left" spacing={4} w="100%" maxW={"620px"}>
             <Heading size="md">
-                {translation.SecureLinkId} ({secretKey.slice(0, 8)})
+                {translation.SecureLinkId} ({secretId.slice(0, 8)})
             </Heading>
             <Input
                 w="100%"

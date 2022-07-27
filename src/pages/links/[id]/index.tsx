@@ -52,7 +52,7 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
                 />
             ) : props.secret.viewedByRecipientAt ? (
                 <LinkReceivedForm
-                    secretKey={props.secret.secretKey}
+                    linkId={props.linkId}
                     encrypted={props.secret.encrypted}
                     receivedAt={props.secret.viewedByRecipientAt}
                 />
@@ -106,8 +106,6 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         });
 
         if (!link) return { props: {} };
-
-        console.log(link);
 
         return {
             props: {

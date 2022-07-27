@@ -1,3 +1,4 @@
+import * as Crypto from "crypto";
 import { ServerResponse } from "http";
 import { customAlphabet } from "nanoid";
 import {
@@ -61,16 +62,21 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
             });
         }
 
+        const createdAt = new Date();
+
         const id = generateKey();
         const idHash = hash(id);
 
-        const secretId = generateKey();
+        const secretId = Crypto.createHash("md5")
+            .update(id + createdAt.toISOString())
+            .digest()
+            .toString("hex");
+
         const secretIdHash = hash(secretId);
 
         const passphrase = req.body.passphrase
             ? hashPassword(req.body.passphrase)
             : null;
-        const createdAt = new Date();
         const { iv, value } = encryptValue(
             req.body.value,
             createdAt.getTime(),
@@ -94,6 +100,10 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
                 value,
                 passphrase,
             },
+            viewedByCreatorAt:
+                endpoint === "client"
+                    ? new Date(createdAt.getTime() + 1000 * 30) // +30s
+                    : null,
         };
 
         const record = await dynamodb
