@@ -69,8 +69,7 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
 
         const secretId = Crypto.createHash("md5")
             .update(id + createdAt.toISOString())
-            .digest()
-            .toString("hex");
+            .digest("hex");
 
         const secretIdHash = hash(secretId);
 

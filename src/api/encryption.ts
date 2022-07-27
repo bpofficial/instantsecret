@@ -9,7 +9,10 @@ const algorithm = "aes-256-ctr";
  * @returns An SHA512 hash of the `value`
  */
 export const hash = (value: string) => {
-    return Crypto.createHash("SHA512").update(value).digest().toString("hex");
+    return Crypto.createHash("SHA512")
+        .update(value || "")
+        .digest()
+        .toString("hex");
 };
 
 /**
