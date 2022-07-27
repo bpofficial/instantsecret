@@ -39,8 +39,10 @@ export const LifetimeInput = () => {
                 value={value}
                 onChange={(evt) => setValue(Number(evt.target.value))}
             >
-                {options.map(({ label, value }) => (
-                    <option {...{ value }}>{label}</option>
+                {options.map(({ label, value }, key) => (
+                    <option key={key} {...{ value }}>
+                        {label}
+                    </option>
                 ))}
             </Select>
         </FormControl>

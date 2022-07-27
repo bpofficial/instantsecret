@@ -1,8 +1,7 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Heading, Textarea, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { useLocalStorage, useTranslation } from "../../../hooks";
+import { useTranslation } from "../../../hooks";
 import { FormButton } from "../../FormButton";
 
 interface LinkBurntFormProps {
@@ -13,14 +12,6 @@ interface LinkBurntFormProps {
 export const LinkBurntForm = ({ linkId, burntAt }: LinkBurntFormProps) => {
     const translation = useTranslation("LinkBurntForm");
     const router = useRouter();
-
-    const [secretId, setSecretId] = useLocalStorage(linkId, "");
-
-    useEffect(() => {
-        if (secretId) {
-            setSecretId(null);
-        }
-    }, [secretId]);
 
     return (
         <VStack align="left" spacing={4} w="100%" maxW={"620px"}>

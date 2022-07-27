@@ -86,7 +86,6 @@ export const encryptValue = (
 ) => {
     const iv = Crypto.randomBytes(16);
     const secretKey = createSecretKey(iv, createdAt, keyId, passphrase);
-    console.log(reduceKey(secretKey, 32));
     const cipher = Crypto.createCipheriv(
         algorithm,
         reduceKey(secretKey, 32),
@@ -121,7 +120,6 @@ export const decryptValue = (
 ) => {
     const iv = Buffer.from(ivHex, "hex");
     const secretKey = createSecretKey(iv, createdAt, keyId, passphrase);
-    console.log(reduceKey(secretKey, 32));
     const decipher = Crypto.createDecipheriv(
         algorithm,
         reduceKey(secretKey, 32),

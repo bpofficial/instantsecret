@@ -12,9 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { ImFire } from "react-icons/im";
-import { useLocalStorage, useOrigin, useTranslation } from "../../../hooks";
+import { useOrigin, useTranslation } from "../../../hooks";
 import { copyTextToClipboard } from "../../../utils/copyToClipboard";
 import { millisecondsToStr } from "../../../utils/humanReadableTimeDiff";
 import { FormButton } from "../../FormButton";
@@ -42,13 +42,11 @@ export const ShareLinkForm = ({
     const origin = useOrigin();
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [secretId, setSecretId] = useLocalStorage(linkId, secretKey);
-
     const onSubmit = () => {
         formEl.current?.submit();
     };
 
-    const link = `${origin}/private/${secretId}`;
+    const link = `${origin}/private/${secretKey}`;
 
     const expiry = millisecondsToStr(
         new Date(createdAt).getTime() + ttl - new Date().getTime()
@@ -62,10 +60,6 @@ export const ShareLinkForm = ({
     const createAnother = () => {
         router.push("/links");
     };
-
-    useEffect(() => {
-        setSecretId(secretKey);
-    }, []);
 
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>

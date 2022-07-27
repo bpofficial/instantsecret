@@ -52,7 +52,7 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
                 />
             ) : props.secret.viewedByRecipientAt ? (
                 <LinkReceivedForm
-                    linkId={props.linkId}
+                    secretId={props.secret.secretKey}
                     encrypted={props.secret.encrypted}
                     receivedAt={props.secret.viewedByRecipientAt}
                 />
