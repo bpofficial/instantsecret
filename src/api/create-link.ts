@@ -1,3 +1,4 @@
+import { getSession } from "@auth0/nextjs-auth0";
 import * as Crypto from "crypto";
 import { ServerResponse } from "http";
 import { customAlphabet } from "nanoid";
@@ -39,14 +40,10 @@ export async function createLinkFromClient(ctx: GetServerSidePropsContext) {
 }
 
 async function createLink(req: any, res: any, endpoint: "client" | "api") {
-    const { dynamodb, tableName, env } = getDynamodb();
+    const { dynamodb, tableName } = getDynamodb();
     if (req.method === "POST") {
-        let creatorUserID = null;
-        const rawToken = req.headers["authorization"];
-        if (rawToken) {
-            const token = jwt.decode(rawToken.slice(7));
-            creatorUserID = token.sub;
-        }
+        let creatorUser = getSession(req, res);
+        const creatorUserID = creatorUser?.user?.sub ?? null;
 
         if (endpoint === "client") {
             req.body = await parseBody(req, "1mb");
@@ -104,6 +101,8 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
                     ? new Date(createdAt.getTime() + 1000 * 30) // +30s
                     : null,
         };
+
+        console.log(item);
 
         const record = await dynamodb
             .put({

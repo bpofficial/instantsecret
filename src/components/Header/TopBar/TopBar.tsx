@@ -1,3 +1,4 @@
+import { useUser } from "@auth0/nextjs-auth0";
 import {
     ArrowForwardIcon,
     ChevronDownIcon,
@@ -113,7 +114,12 @@ export const TopBar = () => {
 const DesktopNav = () => {
     const translations = useTranslation("TopBar");
     const localLink = useLocaleLink();
-    const NavItems = getNavItems(translations, localLink);
+    const user = useUser();
+    const NavItems = getNavItems(
+        translations,
+        localLink,
+        user.user && !user.isLoading && !user.error
+    );
 
     const linkColor = useColorModeValue("gray.600", "gray.200");
     const linkHoverColor = useColorModeValue("gray.800", "white");
@@ -232,7 +238,12 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
 const MobileNav = () => {
     const translations = useTranslation("TopBar");
     const localLink = useLocaleLink();
-    const NavItems = getNavItems(translations, localLink);
+    const user = useUser();
+    const NavItems = getNavItems(
+        translations,
+        localLink,
+        user.user && !user.isLoading && !user.error
+    );
 
     return (
         <Stack
@@ -330,7 +341,8 @@ interface NavItem {
 
 const getNavItems = (
     translations: Record<string, string>,
-    localeLink: ReturnType<typeof useLocaleLink>
+    localeLink: ReturnType<typeof useLocaleLink>,
+    loggedIn = false
 ) => {
     return [
         {
@@ -341,6 +353,15 @@ const getNavItems = (
             label: translations["RoadMapLink"],
             href: localeLink`/roadmap`,
         },
+        loggedIn
+            ? {
+                  label: translations["Account"],
+                  href: localeLink`/account`,
+              }
+            : {
+                  label: translations["SignInLink"],
+                  href: "/api/auth/login",
+              },
         {
             label: translations["CreateLink"],
             href: localeLink`/links`,

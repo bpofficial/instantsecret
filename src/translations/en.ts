@@ -22,6 +22,7 @@ export const en: TranslationObj = {
         AboutLink: "About",
         SignInLink: "Sign In",
         CreateAccountLink: "Create Account",
+        Account: "Account",
         CreateLink: "Create a Secure Link",
     },
     CreateLinkForm: {

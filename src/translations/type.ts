@@ -20,6 +20,7 @@ export interface TranslationObj {
         SignInLink: string;
         CreateAccountLink: string;
         CreateLink: string;
+        Account: string;
     };
     CreateLinkForm: {
         inputPlaceholder: string;

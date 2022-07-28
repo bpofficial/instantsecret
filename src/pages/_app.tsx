@@ -1,4 +1,4 @@
-import { Auth0Provider } from "@auth0/auth0-react";
+import { UserProvider } from "@auth0/nextjs-auth0";
 import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
@@ -7,11 +7,7 @@ import { CounterProvider } from "../hooks";
 
 export default function InstantSecret({ Component, pageProps }: AppProps) {
     return (
-        <Auth0Provider
-            domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN!}
-            clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID!}
-            redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI!}
-        >
+        <UserProvider>
             <ChakraProvider
                 theme={extendTheme({
                     colors: {
@@ -76,6 +72,6 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     </chakra.main>
                 </CounterProvider>
             </ChakraProvider>
-        </Auth0Provider>
+        </UserProvider>
     );
 }
