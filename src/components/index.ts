@@ -1,3 +1,4 @@
+export * from "./Footer";
 export * from "./Forms/BurnLinkForm";
 export * from "./Forms/CreateLinkForm";
 export * from "./Forms/LinkBurntForm";

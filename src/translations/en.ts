@@ -8,7 +8,7 @@ export const en: TranslationObj = {
             subtitle:
                 "Keep sensitive information out of your email and chat logs with a secret encrypted link that can only be viewed once and then it's gone forever.",
             ctaButton: "WATCH A DEMO",
-            securityButton: "How is it secure?",
+            securityButton: "How is it secured?",
         },
     },
 

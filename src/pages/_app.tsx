@@ -1,14 +1,8 @@
 import { Auth0Provider } from "@auth0/auth0-react";
-import {
-    Box,
-    Button,
-    chakra,
-    ChakraProvider,
-    extendTheme,
-} from "@chakra-ui/react";
+import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { Banner, TopBar } from "../components";
+import { Banner, Footer, TopBar } from "../components";
 import { CounterProvider } from "../hooks";
 
 export default function InstantSecret({ Component, pageProps }: AppProps) {
@@ -28,6 +22,10 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                             300: "#457B9D",
                             400: "#1D3557",
                         },
+                    },
+                    fonts: {
+                        heading: `'Inter', sans-serif`,
+                        body: `'Inter', sans-serif`,
                     },
                 })}
             >
@@ -74,18 +72,7 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                         <Banner />
                         <TopBar />
                         <Component {...pageProps} />
-                        <Box textAlign="center" p="2" marginTop={"auto"}>
-                            Made with ❤️ by{" "}
-                            <Button
-                                href="https://whitepeakdigital.com.au"
-                                as="a"
-                                target="_blank"
-                                rel="noreferrer"
-                                variant="link"
-                            >
-                                White Peak Digital
-                            </Button>
-                        </Box>
+                        <Footer />
                     </chakra.main>
                 </CounterProvider>
             </ChakraProvider>

@@ -65,6 +65,7 @@ const RoadmapSection = ({ title, items }: RoadmapSectionProps) => {
                 maxW="1400px"
                 overflow="auto"
                 mt="4"
+                pb="12"
                 {...(items?.length
                     ? {}
                     : {
@@ -95,7 +96,23 @@ export const RoadmapContent = () => {
                 <Spacer h={["20px", "40px"]} />
             </Box>
             <VStack align="flext-start" spacing={8}>
-                <RoadmapSection title="Complete" items={[]} />
+                <RoadmapSection
+                    title="Complete"
+                    items={[
+                        {
+                            title: "Banner",
+                            description:
+                                "Add a banner to keep track of the total number of links created since we launched",
+                            createdAt: new Date("08/04/2022"),
+                        },
+                        {
+                            title: "Passphrases",
+                            description:
+                                "Implemented the ability to add a passphrase to a secured link in order to augment the secret's encryption further.",
+                            createdAt: new Date("08/02/2022"),
+                        },
+                    ]}
+                />
                 <RoadmapSection
                     title="In Progress"
                     items={[

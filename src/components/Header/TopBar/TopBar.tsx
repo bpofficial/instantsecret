@@ -68,7 +68,12 @@ export const TopBar = () => {
                             <VisuallyHidden>
                                 {translation.logoHiddenText}
                             </VisuallyHidden>
-                            <chakra.h1 fontSize="xl" fontWeight="medium" ml="2">
+                            <chakra.h1
+                                fontSize="xl"
+                                fontWeight="semibold"
+                                ml="2"
+                                color="custom.400"
+                            >
                                 {translation.logoText}
                             </chakra.h1>
                         </chakra.a>
@@ -118,6 +123,7 @@ const DesktopNav = () => {
         bg: "custom.400",
         color: "white",
         borderRadius: "md",
+        fontWeight: "500",
         _hover: {
             textDecoration: "none",
             bg: "custom.50",
@@ -266,7 +272,7 @@ const MobileNavItem = ({ label, children, href, cta }: NavItem) => {
                             color="white"
                         >
                             <Flex align="center">
-                                <Text fontWeight={600}>{label}</Text>
+                                <Text fontWeight="bold">{label}</Text>
                                 <ArrowForwardIcon ml="2" mt="0.5" />
                             </Flex>
                         </Button>
@@ -335,11 +341,11 @@ const getNavItems = (
             label: translations["RoadMapLink"],
             href: localeLink`/roadmap`,
         },
-        {
-            label: translations["CreateLink"],
-            href: localeLink`/links`,
-            cta: true,
-        },
+        // {
+        //     label: translations["CreateLink"],
+        //     href: localeLink`/links`,
+        //     cta: true,
+        // },
     ] as NavItem[];
 };
 
