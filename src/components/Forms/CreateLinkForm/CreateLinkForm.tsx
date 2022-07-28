@@ -153,7 +153,7 @@ const PrivacyOptionInputs = () => {
         <ContainerComponent
             spacing="1"
             justifyContent={isLargerThan767 ? "center" : undefined}
-            px={[4, 6]}
+            px={[4, 2]}
             pb={[2, 6]}
             w="100%"
         >
@@ -164,7 +164,7 @@ const PrivacyOptionInputs = () => {
                 {FirstComponent}
             </SubComponent>
             <SubComponent
-                w={isLargerThan767 ? "60%" : "100%"}
+                w={isLargerThan767 ? "70%" : "100%"}
                 align={isLargerThan767 ? "flex-end" : undefined}
             >
                 {SecondComponent}

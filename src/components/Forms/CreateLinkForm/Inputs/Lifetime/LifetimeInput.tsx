@@ -36,6 +36,7 @@ export const LifetimeInput = () => {
                 placeholder="Select a lifetime"
                 value={value}
                 onChange={(evt) => setValue(Number(evt.target.value))}
+                borderColor="custom.400"
             >
                 {options.map(({ label, value }, key) => (
                     <option key={key} {...{ value }}>

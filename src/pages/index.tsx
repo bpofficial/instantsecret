@@ -26,11 +26,12 @@ export default function Index() {
                         "row",
                     ]}
                     justify={["center", "center", "center", "space-between"]}
-                    mb={8}
+                    mb={["8", "12", "16"]}
+                    mt={["4", "8", "24"]}
                     align={["center", "initial"]}
                 >
                     <IndexCopyContent />
-                    <Box maxW={["92%", "520px"]} w="100%">
+                    <Box maxW={["92%", "500px"]} w="100%">
                         <CreateLinkForm />
                     </Box>
                 </Flex>
@@ -93,7 +94,7 @@ export const IndexCopyContent = () => {
     const router = useRouter();
 
     return (
-        <Box maxW={{ base: "100%", lg: "60%" }} mt={["8", "4"]}>
+        <Box maxW={{ base: "100%", lg: "60%" }} mt={["8"]}>
             <VStack align="flext-start" spacing={6}>
                 <Heading
                     fontSize={["36px", "48px"]}
@@ -111,7 +112,7 @@ export const IndexCopyContent = () => {
                     {translation.copy.subtitle}
                 </Box>
 
-                <Flex w="100%" justify="center">
+                <Flex w="100%" justify={["center", "left"]} px="4">
                     <HStack spacing="8" maxW="92%">
                         <Button
                             size="lg"

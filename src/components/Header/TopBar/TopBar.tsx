@@ -131,7 +131,7 @@ const DesktopNav = () => {
     };
 
     const defaultProps = {
-        color: linkColor,
+        color: "custom.400",
         _hover: {
             textDecoration: "none",
             color: linkHoverColor,
@@ -148,7 +148,7 @@ const DesktopNav = () => {
                                 p={2}
                                 href={navItem.href ?? "#"}
                                 fontSize={"sm"}
-                                fontWeight={500}
+                                fontWeight={600}
                                 {...(navItem.cta ? ctaProps : defaultProps)}
                             >
                                 {navItem.label}
@@ -341,11 +341,10 @@ const getNavItems = (
             label: translations["RoadMapLink"],
             href: localeLink`/roadmap`,
         },
-        // {
-        //     label: translations["CreateLink"],
-        //     href: localeLink`/links`,
-        //     cta: true,
-        // },
+        {
+            label: translations["CreateLink"],
+            href: localeLink`/links`,
+        },
     ] as NavItem[];
 };
 

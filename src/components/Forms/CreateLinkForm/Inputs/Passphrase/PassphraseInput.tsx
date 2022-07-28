@@ -29,6 +29,7 @@ export const PassphraseInput = () => {
                     onChange={(evt) => setValue(evt.target.value)}
                     placeholder={translation.passphrasePlaceholder}
                     autoComplete="off"
+                    borderColor="custom.400"
                 />
                 <InputRightElement width="5rem" pr="0.4">
                     <Button size="xs" {...{ onClick }}>

@@ -26,21 +26,44 @@ type RoadmapItem = {
     createdAt: Date;
 };
 
-const RoadmapItem = ({ title, description, createdAt }: RoadmapItem) => {
+const RoadmapItem = ({
+    title,
+    description,
+    createdAt,
+    status,
+}: RoadmapItem) => {
     const date = `${createdAt.getDate()}/${createdAt.getMonth()}/${createdAt.getFullYear()}`;
+
+    const bg =
+        status === "COMPLETED"
+            ? "#F3FBEF"
+            : status === "IN-PROGRESS"
+            ? "#EFF5FB"
+            : "#F9F7F0";
+
+    const border =
+        status === "COMPLETED"
+            ? "#102108"
+            : status === "IN-PROGRESS"
+            ? "#0F2843"
+            : "#2C2611";
+
     return (
         <Box
             mr="2"
             p="4"
             borderRadius={"md"}
             borderWidth="1px"
-            borderColor={"gray.400"}
+            borderColor={border}
             boxShadow="md"
             maxW={["100%", "280px"]}
             minW={["100%", "280px"]}
             height="fit-content"
+            {...{ bg }}
         >
-            <Heading fontSize={"md"}>{title}</Heading>
+            <Heading fontSize={"md"} color={border}>
+                {title}
+            </Heading>
             <Text mt="4" opacity={0.9} noOfLines={[12, 50]}>
                 {description}
             </Text>
@@ -51,11 +74,17 @@ const RoadmapItem = ({ title, description, createdAt }: RoadmapItem) => {
     );
 };
 
-type RoadmapSectionProps = { title: string; items: RoadmapItem[] };
-const RoadmapSection = ({ title, items }: RoadmapSectionProps) => {
+type RoadmapSectionProps = {
+    title: string;
+    items: RoadmapItem[];
+    status: RoadmapItem["status"];
+};
+const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
     return (
         <Box w="100%">
-            <Heading fontSize="2xl">{title}</Heading>
+            <Heading fontSize="2xl" color="custom.400">
+                {title}
+            </Heading>
             <Flex
                 w="100%"
                 borderRadius={"md"}
@@ -76,7 +105,7 @@ const RoadmapSection = ({ title, items }: RoadmapSectionProps) => {
             >
                 {items?.length ? (
                     items.map((item, key) => (
-                        <RoadmapItem {...item} key={key} />
+                        <RoadmapItem {...item} {...{ status }} key={key} />
                     ))
                 ) : (
                     <Box opacity="0.8">No items to show</Box>
@@ -98,6 +127,7 @@ export const RoadmapContent = () => {
             <VStack align="flext-start" spacing={8}>
                 <RoadmapSection
                     title="Complete"
+                    status="COMPLETED"
                     items={[
                         {
                             title: "Banner",
@@ -111,10 +141,22 @@ export const RoadmapContent = () => {
                                 "Implemented the ability to add a passphrase to a secured link in order to augment the secret's encryption further.",
                             createdAt: new Date("08/02/2022"),
                         },
+                        {
+                            title: "Roadmap",
+                            description:
+                                "Create this roadmap page to keep our users up-to-date with changes to the Instant Secure Link product",
+                            createdAt: new Date("08/02/2022"),
+                        },
+                        {
+                            title: "Instant Secure Link",
+                            description: "Create the Instant Secure Link tool!",
+                            createdAt: new Date("08/01/2022"),
+                        },
                     ]}
                 />
                 <RoadmapSection
                     title="In Progress"
+                    status="IN-PROGRESS"
                     items={[
                         {
                             title: "User Accounts",
@@ -126,7 +168,14 @@ export const RoadmapContent = () => {
                 />
                 <RoadmapSection
                     title="Upcoming"
+                    status="TODO"
                     items={[
+                        {
+                            title: "Two-Factor Authentication",
+                            description:
+                                "Increasing security by requiring 2FA when viewing a secret that has been shared with you. 2FA will be setup in your account settings and will be provided in options such as a 3rd party authenticator app, email, and SMS.",
+                            createdAt: new Date("08/20/2022"),
+                        },
                         {
                             title: "Recipient targeting/sharing",
                             description:
