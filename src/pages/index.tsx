@@ -24,7 +24,7 @@ export default function Index() {
                     justify={["center", "center", "center", "space-between"]}
                     mb={["8", "12", "16"]}
                     mt={["4", "8", "8", "36"]}
-                    align={["center", "center", "initial"]}
+                    align={["center", "center", "center"]}
                     maxW={"100%"}
                 >
                     <IndexCopyContent />
