@@ -80,8 +80,6 @@ const RoadmapItem = ({
     createdAt,
     status,
 }: RoadmapItem) => {
-    const date = `${createdAt.getDate()}/${createdAt.getMonth()}/${createdAt.getFullYear()}`;
-
     const bg =
         status === "COMPLETED"
             ? "#1d35570d"
@@ -90,7 +88,15 @@ const RoadmapItem = ({
             : "#1d355726";
 
     return (
-        <Box mr="2" p="6" borderRadius={"md"} height="fit-content" {...{ bg }}>
+        <Box
+            mr="2"
+            p="6"
+            borderRadius={"md"}
+            height="fit-content"
+            {...{ bg }}
+            minW={["100%", "50%", "33%", "100%"]}
+            maxW={["100%", "50%", "33%", "100%"]}
+        >
             <Heading fontSize={"md"} color="custom.400">
                 {title}
             </Heading>
@@ -115,8 +121,8 @@ const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
             borderWidth="1px"
             borderColor={"gray.200"}
             boxShadow="md"
-            maxH="700px"
-            minH="700px"
+            maxH={["auto", "auto", "auto", "700px"]}
+            minH={["auto", "auto", "auto", "700px"]}
             overflowY="auto"
         >
             <Heading fontSize="2xl" color="custom.400">
@@ -125,15 +131,13 @@ const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
             <Stack
                 overflow="auto"
                 mt="4"
-                justify="space-around"
-                direction={["row", "row", "column"]}
+                direction={["row", "row", "row", "column"]}
                 spacing="4"
                 {...(items?.length
                     ? {}
                     : {
                           justifyContent: "center",
                           align: "center",
-                          minH: ["180px", "220px"],
                       })}
             >
                 {items?.length ? (
@@ -152,14 +156,14 @@ export const RoadmapContent = () => {
     return (
         <Flex w="100%" direction="column" justify={"center"} align="center">
             <Box>
-                <Spacer h={["16", "40"]} />
+                <Spacer h={["0", "0", "0", "40"]} />
             </Box>
             <Stack
                 align="flex-start"
                 justify="center"
-                direction={["column", "column", "row"]}
+                direction={["column", "column", "column", "row"]}
                 maxW={"100%"}
-                spacing={24}
+                spacing={[4, 4, 8, 24]}
             >
                 <RoadmapSection
                     title="Completed"
@@ -244,7 +248,7 @@ const RoadmapTitle = () => {
                     <chakra.span color="custom.300">
                         Take a look at what features
                     </chakra.span>
-                    &nbsp; we're working on next
+                    &nbsp;we're working on next
                 </Heading>
 
                 <Box color="custom.400" fontWeight="600">
