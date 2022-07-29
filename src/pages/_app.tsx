@@ -55,7 +55,10 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                         property="og:image"
                         content="https://instantsecurelink.com/assets/media.jpg"
                     />
-                    <title>Home | Instant Secure Link</title>
+                    <title>
+                        Instant Secure Link - Create One-Time Secure Links
+                        Instantly
+                    </title>
                     <link
                         rel="canonical"
                         href="https://instantsecurelink.com/"
