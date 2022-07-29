@@ -54,7 +54,7 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     <title>Home | Instant Secure Link</title>
                     <link
                         rel="canonical"
-                        href="http://instantsecurelink.com/"
+                        href="https://instantsecurelink.com/"
                     />
                     <link
                         rel="apple-touch-icon"
