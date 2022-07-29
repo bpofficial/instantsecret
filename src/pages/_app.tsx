@@ -31,10 +31,34 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
             >
                 <Head>
                     <meta charSet="utf-8" />
+                    <meta
+                        name="title"
+                        content="Instant Secure Link - Create One-Time Secure Links Instantly"
+                    />
+                    <meta
+                        name="description"
+                        content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+                    />
+                    <meta
+                        name="keywords"
+                        content="instant, security, secure, one-time, secret, one-time-secret, onetimesecret"
+                    />
+                    <meta name="robots" content="index, follow" />
+                    <meta
+                        http-equiv="Content-Type"
+                        content="text/html; charset=utf-8"
+                    />
+                    <meta name="language" content="English" />
+                    <meta property="og:image:width" content="1200" />
+                    <meta property="og:image:height" content="630" />
+                    <meta
+                        property="og:image"
+                        content="https://instantsecurelink.com/assets/media.jpg"
+                    />
                     <title>Home | Instant Secure Link</title>
                     <link
                         rel="canonical"
-                        href="http://instantsecurelink.com/"
+                        href="https://instantsecurelink.com/"
                     />
                     <link
                         rel="apple-touch-icon"
