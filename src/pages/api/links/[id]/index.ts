@@ -130,6 +130,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                 fieldError: true,
             },
         });
+        return;
     }
 
     let secret;
