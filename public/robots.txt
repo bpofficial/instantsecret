@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://instantsecurelink.com
+
+# Sitemaps
+Sitemap: https://instantsecurelink.com/sitemap.xml

@@ -6,7 +6,8 @@
         "dev": "next dev",
         "build": "next build",
         "start": "export LOCAL=true; next start",
-        "lint": "next lint"
+        "lint": "next lint",
+        "postbuild": "next-sitemap"
     },
     "dependencies": {
         "@auth0/auth0-react": "^1.10.2",
