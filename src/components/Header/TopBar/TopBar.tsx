@@ -24,6 +24,7 @@ import {
     VisuallyHidden,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { PAGE_MAX } from "../../../constants";
 import { useLocaleLink, useTranslation } from "../../../hooks";
 
 export const TopBar = () => {
@@ -47,7 +48,8 @@ export const TopBar = () => {
                 <Flex
                     flex={{ base: 8 }}
                     justifyContent="space-between"
-                    maxW={"1400px"}
+                    maxW={PAGE_MAX}
+                    px={["0", "0", "4", "4", "4", "8"]}
                     margin={"auto"}
                 >
                     <Flex>
@@ -85,8 +87,8 @@ export const TopBar = () => {
                 </Flex>
                 <Flex
                     flex={{ base: 1, md: "auto" }}
-                    ml={{ base: -2 }}
                     display={{ base: "flex", md: "none" }}
+                    justifyContent="flex-end"
                 >
                     <IconButton
                         onClick={onToggle}

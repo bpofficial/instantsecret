@@ -1,5 +1,6 @@
 import { EmailIcon } from "@chakra-ui/icons";
-import { Button, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
+import { Button, chakra, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
+import { PAGE_MAX } from "../../constants";
 
 interface FooterProps {}
 
@@ -16,9 +17,9 @@ export const Footer = ({}: FooterProps) => {
         >
             <Flex
                 justify={"space-between"}
-                flexDirection={["column", "row"]}
+                flexDirection={["column", "column", "row"]}
                 w="100%"
-                maxW="1400px"
+                maxW={PAGE_MAX}
             >
                 <Button
                     as="a"
@@ -26,16 +27,17 @@ export const Footer = ({}: FooterProps) => {
                     variant="link"
                     color="white"
                     fontSize={"sm"}
-                    p={["2", "0"]}
+                    p={["2", "2", "0"]}
                 >
                     <HStack align="center">
                         <EmailIcon mt="0.5" />
                         <Text>hello@instantsecurelink.com</Text>
                     </HStack>
                 </Button>
-                <Spacer height={["12px", "0px"]} />
-                <Text fontSize={"sm"} p={["2", "0"]}>
-                    Ⓒ 2022 White Peak Digital Pty Ltd. All rights reserved.
+                <Spacer height={["12px", "12px", "0px"]} />
+                <Text fontSize={"sm"} p={["2", "2", "0"]} fontWeight="semibold">
+                    <chakra.span fontSize={"xs"}>Ⓒ</chakra.span> 2022 White Peak
+                    Digital Pty Ltd. All rights reserved.
                 </Text>
             </Flex>
         </Flex>

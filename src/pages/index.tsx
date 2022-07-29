@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { FiEdit, FiSend } from "react-icons/fi";
 import { ImFire } from "react-icons/im";
 import { CreateLinkForm, PageWrapper } from "../components";
+import { PAGE_MAX } from "../constants";
 import { useTranslation } from "../hooks";
 
 export default function Index() {
@@ -27,11 +28,16 @@ export default function Index() {
                     ]}
                     justify={["center", "center", "center", "space-between"]}
                     mb={["8", "12", "16"]}
-                    mt={["4", "8", "24"]}
-                    align={["center", "initial"]}
+                    mt={["4", "8", "8", "24"]}
+                    align={["center", "center", "initial"]}
+                    maxW={"100%"}
                 >
                     <IndexCopyContent />
-                    <Box maxW={["92%", "500px"]} w="100%">
+                    <Box
+                        maxW={["100%", "100%", "100%", "500px"]}
+                        pr={["0", "0", "8"]}
+                        w="100%"
+                    >
                         <CreateLinkForm />
                     </Box>
                 </Flex>
@@ -42,7 +48,7 @@ export default function Index() {
             <Flex
                 w="100%"
                 bg="custom.400"
-                p={["6", "12"]}
+                p={["6", "16"]}
                 align="center"
                 justify="center"
                 mb="12"
@@ -50,7 +56,7 @@ export default function Index() {
                 <Flex
                     color="white"
                     justify={"space-around"}
-                    maxW="1400px"
+                    maxW={PAGE_MAX}
                     w="100%"
                     align="center"
                     flexDirection={["column", "column", "column", "row"]}
@@ -94,12 +100,12 @@ export const IndexCopyContent = () => {
     const router = useRouter();
 
     return (
-        <Box maxW={{ base: "100%", lg: "60%" }} mt={["8"]}>
+        <Box maxW={["100%", "100%", "100%", "50%"]} mt={["8"]}>
             <VStack align="flext-start" spacing={6}>
                 <Heading
-                    fontSize={["36px", "48px"]}
+                    fontSize={["36px", "36px", "48px"]}
                     fontWeight="extrabold"
-                    px="4"
+                    px={["0", "4", "8", "8"]}
                 >
                     <chakra.span color="custom.300">
                         {translation.copy.coloredTitle}
@@ -108,11 +114,19 @@ export const IndexCopyContent = () => {
                     {translation.copy.remainingTitle}
                 </Heading>
 
-                <Box color="custom.400" fontWeight="600" px="4">
+                <Box
+                    color="custom.400"
+                    fontWeight="600"
+                    px={["0", "4", "8", "8"]}
+                >
                     {translation.copy.subtitle}
                 </Box>
 
-                <Flex w="100%" justify={["center", "left"]} px="4">
+                <Flex
+                    w="100%"
+                    justify={["center", "left"]}
+                    px={["0", "4", "8", "8"]}
+                >
                     <HStack spacing="8" maxW="92%">
                         <Button
                             size="lg"

@@ -8,11 +8,15 @@ const algorithm = "aes-256-ctr";
  * @param value String to be hashed
  * @returns An SHA512 hash of the `value`
  */
-export const hash = (value: string) => {
-    return Crypto.createHash("SHA512")
+export const hash = (
+    value: string,
+    alg = "SHA512",
+    format: BufferEncoding = "hex"
+) => {
+    return Crypto.createHash(alg)
         .update(value || "")
         .digest()
-        .toString("hex");
+        .toString(format);
 };
 
 /**
