@@ -1,19 +1,66 @@
 import {
     Box,
+    Button,
     chakra,
     Flex,
     Heading,
     Spacer,
+    Stack,
     Text,
     VStack,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { PageWrapper } from "../components";
-import { PAGE_MAX } from "../constants";
 
 export default function Roadmap() {
     return (
-        <PageWrapper align="left">
-            <Flex justify={"left"} mb={8} w="100%">
+        <PageWrapper>
+            <Flex
+                mb={["8", "12", "16"]}
+                mt={["4", "8", "8", "36"]}
+                direction="column"
+                maxW={"100%"}
+                w="100%"
+            >
+                <Flex
+                    direction={["column", "column", "column", "row"]}
+                    justify={["center", "center", "center", "space-between"]}
+                    align={["center", "center", "center"]}
+                    maxW={"100%"}
+                    w="100%"
+                >
+                    <RoadmapTitle />
+                    <VStack
+                        maxW={["100%", "100%", "100%", "40%"]}
+                        w="100%"
+                        align="left"
+                        spacing={"4"}
+                        mb={["12"]}
+                    >
+                        <Heading fontSize={"2xl"} color="custom.400">
+                            Up Next
+                        </Heading>
+                        <Box
+                            p="6"
+                            borderRadius={"md"}
+                            boxShadow="md"
+                            borderWidth={"1px"}
+                            borderColor=""
+                            w="100%"
+                        >
+                            <VStack align="left">
+                                <Heading fontSize={"md"} color="custom.400">
+                                    User Accounts
+                                </Heading>
+                                <Text color="custom.400">
+                                    Adding user accounts to assist in the
+                                    deployment of recipient targeting, emailing
+                                    and user verification for secret viewing.
+                                </Text>
+                            </VStack>
+                        </Box>
+                    </VStack>
+                </Flex>
                 <RoadmapContent />
             </Flex>
         </PageWrapper>
@@ -37,39 +84,18 @@ const RoadmapItem = ({
 
     const bg =
         status === "COMPLETED"
-            ? "#F3FBEF"
+            ? "#1d35570d"
             : status === "IN-PROGRESS"
-            ? "#EFF5FB"
-            : "#F9F7F0";
-
-    const border =
-        status === "COMPLETED"
-            ? "#102108"
-            : status === "IN-PROGRESS"
-            ? "#0F2843"
-            : "#2C2611";
+            ? "#1d35571a"
+            : "#1d355726";
 
     return (
-        <Box
-            mr="2"
-            p="4"
-            borderRadius={"md"}
-            borderWidth="1px"
-            borderColor={border}
-            boxShadow="md"
-            maxW={["100%", "280px"]}
-            minW={["100%", "280px"]}
-            height="fit-content"
-            {...{ bg }}
-        >
-            <Heading fontSize={"md"} color={border}>
+        <Box mr="2" p="6" borderRadius={"md"} height="fit-content" {...{ bg }}>
+            <Heading fontSize={"md"} color="custom.400">
                 {title}
             </Heading>
-            <Text mt="4" opacity={0.9} noOfLines={[12, 50]}>
+            <Text mt="2" color="custom.400" noOfLines={[12, 50]}>
                 {description}
-            </Text>
-            <Text mt="4" opacity="0.75">
-                {date}
             </Text>
         </Box>
     );
@@ -82,20 +108,26 @@ type RoadmapSectionProps = {
 };
 const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
     return (
-        <Box w="100%">
+        <Box
+            w="100%"
+            p="6"
+            borderRadius={"md"}
+            borderWidth="1px"
+            borderColor={"gray.200"}
+            boxShadow="md"
+            maxH="700px"
+            minH="700px"
+            overflowY="auto"
+        >
             <Heading fontSize="2xl" color="custom.400">
                 {title}
             </Heading>
-            <Flex
-                w="100%"
-                borderRadius={"md"}
-                borderWidth="1px"
-                borderColor={"gray.200"}
-                p="4"
-                maxW={PAGE_MAX}
+            <Stack
                 overflow="auto"
                 mt="4"
-                pb="12"
+                justify="space-around"
+                direction={["row", "row", "column"]}
+                spacing="4"
                 {...(items?.length
                     ? {}
                     : {
@@ -111,23 +143,26 @@ const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
                 ) : (
                     <Box opacity="0.8">No items to show</Box>
                 )}
-            </Flex>
+            </Stack>
         </Box>
     );
 };
 
 export const RoadmapContent = () => {
     return (
-        <Box w="100%">
-            <Heading fontSize={{ base: "3xl", md: "5xl" }}>
-                <chakra.span color="custom.300">Our Roadmap</chakra.span>
-            </Heading>
+        <Flex w="100%" direction="column" justify={"center"} align="center">
             <Box>
-                <Spacer h={["20px", "40px"]} />
+                <Spacer h={["16", "40"]} />
             </Box>
-            <VStack align="flext-start" spacing={8}>
+            <Stack
+                align="flex-start"
+                justify="center"
+                direction={["column", "column", "row"]}
+                maxW={"100%"}
+                spacing={24}
+            >
                 <RoadmapSection
-                    title="Complete"
+                    title="Completed"
                     status="COMPLETED"
                     items={[
                         {
@@ -168,7 +203,7 @@ export const RoadmapContent = () => {
                     ]}
                 />
                 <RoadmapSection
-                    title="Upcoming"
+                    title="Planned"
                     status="TODO"
                     items={[
                         {
@@ -191,6 +226,60 @@ export const RoadmapContent = () => {
                         },
                     ]}
                 />
+            </Stack>
+        </Flex>
+    );
+};
+
+const RoadmapTitle = () => {
+    const router = useRouter();
+
+    return (
+        <Box maxW={["100%", "100%", "100%", "40%"]} mb={["12"]}>
+            <VStack align="flext-start" spacing={[6, 8]}>
+                <Heading
+                    fontSize={["36px", "36px", "36px"]}
+                    fontWeight="extrabold"
+                >
+                    <chakra.span color="custom.300">
+                        Take a look at what features
+                    </chakra.span>
+                    &nbsp; we're working on next
+                </Heading>
+
+                <Box color="custom.400" fontWeight="600">
+                    We're always working on new features and upgrades to
+                    continue to deliver the best experience possible.
+                </Box>
+
+                <Flex
+                    w="100%"
+                    justify={["left"]}
+                    maxW={["100%", "92%"]}
+                    flexDirection={["column", "row"]}
+                >
+                    <Button
+                        size="lg"
+                        bg="custom.400"
+                        color="white"
+                        fontWeight="bold"
+                        px="8"
+                        py="6"
+                        _hover={{ bg: "custom.50" }}
+                        onClick={() => router.push(`/links`)}
+                    >
+                        CREATE A SECURE LINK
+                    </Button>
+                    <Button
+                        variant="link"
+                        color="custom.400"
+                        pt={["4", "0"]}
+                        pl={["4", ")"]}
+                        onClick={() => router.push(`/security`)}
+                    >
+                        How is it secured?
+                    </Button>
+                </Flex>
             </VStack>
         </Box>
     );

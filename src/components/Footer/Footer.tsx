@@ -1,10 +1,17 @@
 import { EmailIcon } from "@chakra-ui/icons";
-import { Button, chakra, Flex, HStack, Spacer, Text } from "@chakra-ui/react";
+import { Button, Flex, HStack, Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import {
+    AiFillFacebook,
+    AiFillInstagram,
+    AiFillLinkedin,
+} from "react-icons/ai";
 import { PAGE_MAX } from "../../constants";
 
 interface FooterProps {}
 
 export const Footer = ({}: FooterProps) => {
+    const router = useRouter();
     return (
         <Flex
             textAlign="center"
@@ -21,24 +28,88 @@ export const Footer = ({}: FooterProps) => {
                 w="100%"
                 maxW={PAGE_MAX}
             >
-                <Button
-                    as="a"
-                    href="mailto:hello@instantsecurelink.com"
-                    variant="link"
-                    color="white"
-                    fontSize={"sm"}
-                    p={["2", "2", "0"]}
-                >
-                    <HStack align="center">
-                        <EmailIcon mt="0.5" />
-                        <Text>hello@instantsecurelink.com</Text>
-                    </HStack>
-                </Button>
-                <Spacer height={["12px", "12px", "0px"]} />
-                <Text fontSize={"sm"} p={["2", "2", "0"]} fontWeight="semibold">
-                    <chakra.span fontSize={"xs"}>Ⓒ</chakra.span> 2022 White Peak
-                    Digital Pty Ltd. All rights reserved.
+                <HStack justify="center" p="2">
+                    <Button
+                        as="a"
+                        href="https://facebook.com/whitepeakdigital"
+                        variant="link"
+                        color="white"
+                        fontSize={"sm"}
+                        fontWeight="500"
+                        minW="auto"
+                    >
+                        <AiFillFacebook />
+                    </Button>
+                    <Button
+                        as="a"
+                        href="https://instagram.com/whitepeakdigital"
+                        variant="link"
+                        color="white"
+                        fontSize={"sm"}
+                        fontWeight="500"
+                        minW="auto"
+                    >
+                        <AiFillInstagram />
+                    </Button>
+                    <Button
+                        as="a"
+                        href="https://linkedin.com/company/whitepeakdigital"
+                        variant="link"
+                        color="white"
+                        fontSize={"sm"}
+                        fontWeight="500"
+                        minW="auto"
+                    >
+                        <AiFillLinkedin />
+                    </Button>
+                    <Button
+                        as="a"
+                        href="mailto:hello@instantsecurelink.com"
+                        variant="link"
+                        color="white"
+                        fontSize={"sm"}
+                        fontWeight="500"
+                    >
+                        <HStack align="center">
+                            <EmailIcon />
+                            <Text>hello@instantsecurelink.com</Text>
+                        </HStack>
+                    </Button>
+                </HStack>
+                <Text p="1" fontSize={"sm"}>
+                    © 2022&nbsp;
+                    <Button
+                        as="a"
+                        href="mailto:hello@instantsecurelink.com"
+                        variant="link"
+                        color="white"
+                        fontSize={"sm"}
+                        fontWeight="600"
+                    >
+                        White Peak Digital
+                    </Button>
+                    &nbsp;Pty Ltd. All rights reserved.
                 </Text>
+                <HStack justify="center" p="2">
+                    <Button
+                        variant="link"
+                        fontSize="sm"
+                        fontWeight="500"
+                        color="white"
+                        onClick={() => router.push(`/termsandconditions`)}
+                    >
+                        <Text>Terms & Conditions</Text>
+                    </Button>
+                    <Button
+                        variant="link"
+                        fontSize="sm"
+                        fontWeight="500"
+                        color="white"
+                        onClick={() => router.push(`/privacypolicy`)}
+                    >
+                        <Text>Privacy Policy</Text>
+                    </Button>
+                </HStack>
             </Flex>
         </Flex>
     );

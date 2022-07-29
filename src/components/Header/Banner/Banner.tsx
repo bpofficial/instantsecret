@@ -2,8 +2,8 @@ import { Box, Flex } from "@chakra-ui/react";
 import { useCounterValue } from "../../../hooks";
 import { Counter } from "../../Counter";
 
-const MILLIS_PER_DAY = 8.64e7;
-const START_OF_SITE = new Date("01/08/2022").getTime();
+const MILLIS_PER_DAY = 1000 * 60 * 60 * 24;
+const START_OF_SITE = new Date("07/01/2022").getTime();
 const CREATED_PER_DAY_AVG = 19;
 
 const getStartNum = () => {

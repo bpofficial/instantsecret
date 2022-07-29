@@ -65,6 +65,7 @@ export const CreateLinkForm = () => {
                                 w="100%"
                                 h="40%"
                                 minH="200px"
+                                resize="none"
                                 fontSize="lg"
                                 bg="color.100"
                                 p="4"

@@ -1,11 +1,18 @@
 import {
+    AspectRatio,
     Box,
     Button,
     chakra,
     Flex,
     Heading,
     HStack,
+    Modal,
+    ModalBody,
+    ModalCloseButton,
+    ModalContent,
+    ModalOverlay,
     Spacer,
+    useDisclosure,
     VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -28,11 +35,7 @@ export default function Index() {
                     maxW={"100%"}
                 >
                     <IndexCopyContent />
-                    <Box
-                        maxW={["100%", "100%", "100%", "620px"]}
-                        pr={["0", "0", "8"]}
-                        w="100%"
-                    >
+                    <Box maxW={["100%", "100%", "100%", "620px"]} w="100%">
                         <CreateLinkForm />
                     </Box>
                 </Flex>
@@ -78,6 +81,7 @@ export default function Index() {
 export const IndexCopyContent = () => {
     const translation = useTranslation("index");
     const router = useRouter();
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <Box maxW={["100%", "100%", "100%", "50%"]} mb={["12"]}>
@@ -85,7 +89,6 @@ export const IndexCopyContent = () => {
                 <Heading
                     fontSize={["36px", "36px", "48px"]}
                     fontWeight="extrabold"
-                    px={["0", "4", "8", "8"]}
                 >
                     <chakra.span color="custom.300">
                         {translation.copy.coloredTitle}
@@ -94,15 +97,11 @@ export const IndexCopyContent = () => {
                     {translation.copy.remainingTitle}
                 </Heading>
 
-                <Box
-                    color="custom.400"
-                    fontWeight="600"
-                    px={["0", "4", "8", "8"]}
-                >
+                <Box color="custom.400" fontWeight="600">
                     {translation.copy.subtitle}
                 </Box>
 
-                <Flex w="100%" justify={["left"]} px={["0", "4", "8", "8"]}>
+                <Flex w="100%" justify={["left"]}>
                     <HStack spacing="8" maxW="92%">
                         <Button
                             size="lg"
@@ -112,6 +111,7 @@ export const IndexCopyContent = () => {
                             px="8"
                             py="6"
                             _hover={{ bg: "custom.50" }}
+                            onClick={onOpen}
                         >
                             {translation.copy.ctaButton}
                         </Button>
@@ -125,6 +125,25 @@ export const IndexCopyContent = () => {
                     </HStack>
                 </Flex>
             </VStack>
+            <Modal isOpen={isOpen} onClose={onClose} size="5xl" isCentered>
+                <ModalOverlay backdropFilter="blur(10px)" />
+                <ModalContent>
+                    <ModalCloseButton
+                        position="absolute"
+                        top="10px"
+                        right="10px"
+                    />
+                    <ModalBody p="0">
+                        <AspectRatio>
+                            <iframe
+                                title="demo"
+                                src="https://www.youtube.com/embed/GpMpadbwvsg"
+                                allowFullScreen
+                            />
+                        </AspectRatio>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Box>
     );
 };

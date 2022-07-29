@@ -5,18 +5,19 @@ export const PageWrapper = ({
     children,
     align = "center",
     center = false,
+    fullHeight = false,
 }: any) => {
     return (
         <Flex
             data-type={"page-wrapper"}
             w="100%"
-            px={[4, 8, 0]}
+            px={["2", "2", "4", "4", "4", "8"]}
             alignItems={["center", align]}
             maxW={PAGE_MAX}
             mx={"auto"}
             mt={[2, 2, 4, 8]}
             justifyContent={["center", align]}
-            h="100%"
+            h={fullHeight ? "100%" : undefined}
         >
             {center ? (
                 <Flex w="100%" h="100%" justify="center">

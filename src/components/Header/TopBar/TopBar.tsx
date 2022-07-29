@@ -38,8 +38,6 @@ export const TopBar = () => {
                 bg={useColorModeValue("white", "gray.800")}
                 color={useColorModeValue("gray.600", "white")}
                 minH={"60px"}
-                py={{ base: 2 }}
-                px={{ base: 4 }}
                 borderBottom={1}
                 borderStyle={"solid"}
                 borderColor={useColorModeValue("gray.200", "gray.900")}
@@ -50,7 +48,7 @@ export const TopBar = () => {
                     flex={{ base: 8 }}
                     justifyContent="space-between"
                     maxW={PAGE_MAX}
-                    px={["0", "0", "4", "4", "4", "8"]}
+                    px={["2", "2", "4", "4", "4", "8"]}
                     margin={"auto"}
                 >
                     <Flex>

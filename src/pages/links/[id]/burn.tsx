@@ -5,7 +5,7 @@ import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 export default function BurnLinkPage({ id = "" }) {
     return (
-        <PageWrapper center>
+        <PageWrapper center fullHeight>
             {id ? <BurnLinkForm linkId={id} /> : <NeverExisted />}
         </PageWrapper>
     );

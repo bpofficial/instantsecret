@@ -41,7 +41,7 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     />
                     <meta name="robots" content="index, follow" />
                     <meta
-                        http-equiv="Content-Type"
+                        httpEquiv="Content-Type"
                         content="text/html; charset=utf-8"
                     />
                     <meta name="language" content="English" />
@@ -51,7 +51,10 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                         property="og:image"
                         content="https://instantsecurelink.com/assets/media.jpg"
                     />
-                    <title>Home | Instant Secure Link</title>
+                    <title>
+                        Instant Secure Link - Create One-Time Secure Links
+                        Instantly
+                    </title>
                     <link
                         rel="canonical"
                         href="https://instantsecurelink.com/"
@@ -81,6 +84,29 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     />
                     <meta name="msapplication-TileColor" content="#da532c" />
                     <meta name="theme-color" content="#ffffff" />
+                    {/* Global Site Tag (gtag.js) - Google Analytics */}
+                    {process.env.ENV === "production" ? (
+                        <>
+                            <script
+                                async
+                                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+                            />
+                            <script
+                                dangerouslySetInnerHTML={{
+                                    __html: `
+                                window.dataLayer = window.dataLayer || [];
+                                function gtag(){dataLayer.push(arguments);}
+                                gtag('js', new Date());
+                                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}', {
+                                page_path: window.location.pathname,
+                                });
+                            `,
+                                }}
+                            />
+                        </>
+                    ) : (
+                        <></>
+                    )}
                 </Head>
                 <CounterProvider>
                     <chakra.main

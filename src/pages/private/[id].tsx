@@ -38,7 +38,11 @@ export default function PrivateSecretPage(props: PrivateSecretPageProps) {
         component = <ViewSecretValueForm secretValue={props.secret.value} />;
     }
 
-    return <PageWrapper center>{component}</PageWrapper>;
+    return (
+        <PageWrapper center fullHeight>
+            {component}
+        </PageWrapper>
+    );
 }
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

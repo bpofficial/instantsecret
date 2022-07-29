@@ -71,7 +71,7 @@ export const en: TranslationObj = {
     NeverExisted: {
         Title: "Unknown secure link",
         NeverExistedPlaceholder:
-            "It either never existed or has already been viewed",
+            "It either never existed, has already been viewed or expired.",
         CreateNewLinkButton: "CREATE A NEW SECURE LINK",
     },
     ViewSecretValueForm: {
