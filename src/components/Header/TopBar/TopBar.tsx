@@ -353,15 +353,15 @@ const getNavItems = (
             label: translations["RoadMapLink"],
             href: localeLink`/roadmap`,
         },
-        loggedIn
-            ? {
-                  label: translations["Account"],
-                  href: localeLink`/account`,
-              }
-            : {
-                  label: translations["SignInLink"],
-                  href: "/api/auth/login",
-              },
+        // loggedIn
+        //     ? {
+        //           label: translations["Account"],
+        //           href: localeLink`/account`,
+        //       }
+        //     : {
+        //           label: translations["SignInLink"],
+        //           href: "/api/auth/login",
+        //       },
         {
             label: translations["CreateLink"],
             href: localeLink`/links`,
