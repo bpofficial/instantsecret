@@ -9,14 +9,14 @@ export default function TermsAndConditionsPage() {
                     Terms & Conditions
                 </Heading>
                 <br />
-                These terms of use (the "Terms of Use") are a legal agreement
-                between you and White Peak Digital Pty Ltd ("Instant Secure
-                Link", "we", "us" or "our"), the Brisbane based developer of
-                Instant Secure Link setting forth, among other things, the terms
-                and conditions for your access and use of the
-                instantsecurelink.com website, and any related sub-domains,
-                operated by Instant Secure Link (the "Website" or
-                "InstantSecureLink").
+                These terms of use (the &quot;Terms of Use&quot;) are a legal
+                agreement between you and White Peak Digital Pty Ltd
+                (&quot;Instant Secure Link&quot;, &quot;we&quot;, &quot;us&quot;
+                or &quot;our&quot;), the Brisbane based developer of Instant
+                Secure Link setting forth, among other things, the terms and
+                conditions for your access and use of the instantsecurelink.com
+                website, and any related sub-domains, operated by Instant Secure
+                Link (the &quot;Website&quot; or &quot;InstantSecureLink&quot;).
                 <br />
                 <br />
                 By using the Website, you accept and agree to the provisions of
@@ -50,10 +50,10 @@ export default function TermsAndConditionsPage() {
                 well functioning service for all users. We can disable your
                 account should there be any attempt to use the service in a way
                 that we deem to be unreasonable and that affects the usage of
-                the service by others. What consists of 'reasonable use' is
-                completely at our discretion and your account may be disbled
-                without prior notice if your usage is disruptive and if deemed
-                necessary to restore a quality of service.
+                the service by others. What consists of &apos;reasonable
+                use&apos; is completely at our discretion and your account may
+                be disbled without prior notice if your usage is disruptive and
+                if deemed necessary to restore a quality of service.
                 <br />
                 <br />
                 <Heading fontSize="2xl" color="custom.400" fontWeight="800">
@@ -70,9 +70,9 @@ export default function TermsAndConditionsPage() {
                 <br />
                 Once a secret has been received by a recipient, we have no way
                 of retrieving said secret again, nor do we log or keep any data
-                that tracks the sender or receiver's IP address beyond 14 days.
-                Necessary data that attaches the contents of a secret to a user
-                account is kept only until the secret is received, at which
+                that tracks the sender or receiver&apos;s IP address beyond 14
+                days. Necessary data that attaches the contents of a secret to a
+                user account is kept only until the secret is received, at which
                 point it is destroyed permanently. 3. Licence, Restrictions and
                 Prohibited Acts
                 <br />
@@ -95,24 +95,24 @@ export default function TermsAndConditionsPage() {
                 <br />
                 use the Website in any way that (i) violates the terms of the
                 Terms of Use; (ii) is unlawful, harmful, threatening, tortious,
-                defamatory, libellous, abusive, obscene, invasive of another's
-                privacy, hateful, fraudulent or malicious; (iii) involves the
-                transmission of "junk mail," "chain letters," or unsolicited
-                mass mailing or "spamming"; (iv) involves the sending of any
-                virus, Trojan horse, worm, harmful code, shutdown mechanism or
-                similar mechanism; (v) interferes with or disrupts the Website
-                or any server or network involved with the operation of the
-                Website; or (vi) otherwise violates any local, national or other
-                applicable law or regulation; use our Services to harm, in any
-                way, the operation of any website that you do not own or
-                operate, including, without limitation, by generating recurring
-                traffic to such website through the conduct of tests using our
-                Services; modify, publish, transmit, transfer or sell,
-                reproduce, create derivative works from, distribute, perform,
-                display or in any way exploit any of the content of the Website
-                in whole or in part, except as expressly permitted; or use
-                automated tools to operate the Services on the Website (scripts,
-                etc.).
+                defamatory, libellous, abusive, obscene, invasive of
+                another&apos;s privacy, hateful, fraudulent or malicious; (iii)
+                involves the transmission of &quot;junk mail,&quot; &quot;chain
+                letters,&quot; or unsolicited mass mailing or
+                &quot;spamming&quot;; (iv) involves the sending of any virus,
+                Trojan horse, worm, harmful code, shutdown mechanism or similar
+                mechanism; (v) interferes with or disrupts the Website or any
+                server or network involved with the operation of the Website; or
+                (vi) otherwise violates any local, national or other applicable
+                law or regulation; use our Services to harm, in any way, the
+                operation of any website that you do not own or operate,
+                including, without limitation, by generating recurring traffic
+                to such website through the conduct of tests using our Services;
+                modify, publish, transmit, transfer or sell, reproduce, create
+                derivative works from, distribute, perform, display or in any
+                way exploit any of the content of the Website in whole or in
+                part, except as expressly permitted; or use automated tools to
+                operate the Services on the Website (scripts, etc.).
                 <br />
                 <br />
                 ANY USE OF THE WEBSITE NOT SPECIFICALLY PERMITTED UNDER THE
@@ -144,9 +144,9 @@ export default function TermsAndConditionsPage() {
                 be created if the Service were not suspended; or (c) in the
                 event that we determine that any Service is prohibited by law or
                 we otherwise determine that it is necessary or prudent to do so
-                for legal or regulatory reasons (collectively, "Service
-                Suspensions"). We shall have no liability whatsoever for any
-                damage, liabilities, losses (including any loss of data or
+                for legal or regulatory reasons (collectively, &quot;Service
+                Suspensions&quot;). We shall have no liability whatsoever for
+                any damage, liabilities, losses (including any loss of data or
                 profits) or any other consequences that you may incur as a
                 result of any Service Suspension.
                 <br />
@@ -175,12 +175,12 @@ export default function TermsAndConditionsPage() {
                 access to your account. We cannot, however, guarantee absolute
                 security of your account or the personal information we collect,
                 and we cannot promise that our security measures will prevent
-                third party "hackers" from illegally accessing the Website or
-                its contents. You agree to immediately notify Instant Secure
-                Link of any unauthorised use or your account, or any other
-                breach of security, and you accept all risks of unauthorised
-                access to the Website, your Account Information and any other
-                information you provide to Instant Secure Link.
+                third party &quot;hackers&quot; from illegally accessing the
+                Website or its contents. You agree to immediately notify Instant
+                Secure Link of any unauthorised use or your account, or any
+                other breach of security, and you accept all risks of
+                unauthorised access to the Website, your Account Information and
+                any other information you provide to Instant Secure Link.
                 <br />
                 <br />
                 <b>Disclaimer and Indemnity.</b>&nbsp;Instant Secure Link will
@@ -210,8 +210,8 @@ export default function TermsAndConditionsPage() {
                 end of each billing period for an additional one-month period
                 until you cancel your account. To avoid being charged for any
                 subsequent month, you must cancel your subscription before the
-                end of the current billing period (see "Cancelling Your Account
-                and Refund" below).
+                end of the current billing period (see &quot;Cancelling Your
+                Account and Refund&quot; below).
                 <br />
                 <br />
                 <Heading fontSize="2xl" color="custom.400" fontWeight="800">
@@ -229,12 +229,12 @@ export default function TermsAndConditionsPage() {
                 <br />
                 <b>Cancelling Your Account and Refund.</b>&nbsp;You can cancel
                 your account at any time by logging into your account, clicking
-                the "Account" link in the user box at the top right, then
-                clicking the "Cancel your account" link at the bottom of the
-                page. You are responsible for the payment of any charges that
-                have been incurred prior to the cancellation of your account.
-                ANY PREPAID FEES WILL NOT BE REFUNDED. If you have not been
-                charged for the month, you will not be charged.
+                the &quot;Account&quot; link in the user box at the top right,
+                then clicking the &quot;Cancel your account&quot; link at the
+                bottom of the page. You are responsible for the payment of any
+                charges that have been incurred prior to the cancellation of
+                your account. ANY PREPAID FEES WILL NOT BE REFUNDED. If you have
+                not been charged for the month, you will not be charged.
                 <br />
                 <br />
                 <b>Termination by Instant Secure Link.</b> Instant Secure Link
@@ -242,8 +242,8 @@ export default function TermsAndConditionsPage() {
                 the event of breach or violation of the Terms of Use by you,
                 including without limitation for nonpayment of any fees owed by
                 you in connection with your use of the Services or (ii) as set
-                forth in the section "Warranty Disclaimer" (see paragraph 9
-                below).
+                forth in the section &quot;Warranty Disclaimer&quot; (see
+                paragraph 9 below).
                 <br />
                 <br />
                 ANY PREPAID FEES WILL NOT BE REFUNDED.
@@ -267,12 +267,13 @@ export default function TermsAndConditionsPage() {
                 <br />
                 <b>Trade-marks and Copyright.</b>&nbsp;The following are
                 trade-marks (registered or not) of White Peak Digital Pty Ltd:
-                "Instant Secure Link", "InstantSecureLink" as well as certain
-                other Instant Secure Link trade-marks, service marks, graphics,
-                and logos (collectively, the "Trade-marks") used in connection
-                with the Website and the provision of Services. The Website may
-                also contain third-party trade-marks, service marks, graphics,
-                and logos (collectively, the "Other Trade-marks"). All content
+                &quot;Instant Secure Link&quot;, &quot;InstantSecureLink&quot;
+                as well as certain other Instant Secure Link trade-marks,
+                service marks, graphics, and logos (collectively, the
+                &quot;Trade-marks&quot;) used in connection with the Website and
+                the provision of Services. The Website may also contain
+                third-party trade-marks, service marks, graphics, and logos
+                (collectively, the &quot;Other Trade-marks&quot;). All content
                 displayed on the Website as well as all the software (including
                 any source code) used in connection with the Services is the
                 exclusive property of Instant Secure Link or third parties and
@@ -283,31 +284,33 @@ export default function TermsAndConditionsPage() {
                 construed as granting you any licence, right, title or interest
                 relating to the Trade-marks, the Other Trade-marks or other
                 intellectual property used in connection with the Website and/or
-                the Services (collectively, the "Intellectual Property") and the
-                Intellectual Property remains the exclusive property of Instant
-                Secure Link or owners. You agree not to copy, reproduce or use
-                any Intellectual Property without our prior written consent.
+                the Services (collectively, the &quot;Intellectual
+                Property&quot;) and the Intellectual Property remains the
+                exclusive property of Instant Secure Link or owners. You agree
+                not to copy, reproduce or use any Intellectual Property without
+                our prior written consent.
                 <br />
                 <br />
                 <b>Feedback.</b>&nbsp;If you choose to communicate to us
                 suggestions for improvements to the Website (collectively,
-                "Feedback"), we shall own all right, title, and interest in and
-                to the Feedback and we shall be entitled to use the Feedback
-                without restriction. You hereby irrevocably assign all right,
-                title and interest in and to the Feedback to us and waive all
-                your moral rights in the Feedback, and agree to provide us such
-                assistance as we may require to document, perfect, and maintain
-                our rights to the Feedback. You acknowledge and agree that: (i)
-                your Feedback does not contain confidential or proprietary
-                information; (ii) Instant Secure Link is not under any
-                obligation of confidentiality, express or implied, with respect
-                to the Feedback; (iii) Instant Secure Link shall be entitled to
-                use or disclose (or choose not to use or disclose) such Feedback
-                for any purpose, in any way, in any media worldwide; (iv)
-                Instant Secure Link may have something similar to the Feedback
-                already under consideration or in development; and (v) you are
-                not entitled to any compensation or reimbursement of any kind
-                from Instant Secure Link under any circumstances.
+                &quot;Feedback&quot;), we shall own all right, title, and
+                interest in and to the Feedback and we shall be entitled to use
+                the Feedback without restriction. You hereby irrevocably assign
+                all right, title and interest in and to the Feedback to us and
+                waive all your moral rights in the Feedback, and agree to
+                provide us such assistance as we may require to document,
+                perfect, and maintain our rights to the Feedback. You
+                acknowledge and agree that: (i) your Feedback does not contain
+                confidential or proprietary information; (ii) Instant Secure
+                Link is not under any obligation of confidentiality, express or
+                implied, with respect to the Feedback; (iii) Instant Secure Link
+                shall be entitled to use or disclose (or choose not to use or
+                disclose) such Feedback for any purpose, in any way, in any
+                media worldwide; (iv) Instant Secure Link may have something
+                similar to the Feedback already under consideration or in
+                development; and (v) you are not entitled to any compensation or
+                reimbursement of any kind from Instant Secure Link under any
+                circumstances.
                 <br />
                 <br />
                 <Heading fontSize="2xl" color="custom.400" fontWeight="800">
@@ -315,9 +318,9 @@ export default function TermsAndConditionsPage() {
                 </Heading>
                 <br />
                 The website (including all of the content and services available
-                on the website) are provided to you "As is." any use of this
-                website is at your own risk. To the maximum extent permitted by
-                applicable law, Instant Secure Link disclaims all
+                on the website) are provided to you &quot;As is.&quot; any use
+                of this website is at your own risk. To the maximum extent
+                permitted by applicable law, Instant Secure Link disclaims all
                 representations, warranties or conditions, either express or
                 implied, including, but not limited to, implied warranties or
                 conditions of merchantability, merchantable quality, durability,
@@ -369,17 +372,18 @@ export default function TermsAndConditionsPage() {
                 <b>Indemnity.</b>&nbsp;You will indemnify and hold Instant
                 Secure Link, its officers, directors, shareholders, agents,
                 licensors and employee harmless with respect to any suits,
-                claims or demands (including reasonable lawyers' fees) arising
-                out of (I) your breach of these terms of use; (ii) any damages
-                by you or your use of the website caused to a third party; or
-                (iii) your use or misuse of the website and/or the services.
+                claims or demands (including reasonable lawyers&apos; fees)
+                arising out of (I) your breach of these terms of use; (ii) any
+                damages by you or your use of the website caused to a third
+                party; or (iii) your use or misuse of the website and/or the
+                services.
                 <br />
                 <br />
                 <Heading fontSize="2xl" color="custom.400" fontWeight="800">
                     11. Privacy Policy
                 </Heading>
                 <br /> Your use of the Website is also subject to Instant Secure
-                Link Privacy Policy (the "Privacy Policy"), which is
+                Link Privacy Policy (the &quot;Privacy Policy&quot;), which is
                 incorporated by reference and made a part of the Terms of Use.
                 It is important that you read and understand the terms of our
                 Privacy Policy.

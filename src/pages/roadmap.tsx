@@ -248,11 +248,11 @@ const RoadmapTitle = () => {
                     <chakra.span color="custom.300">
                         Take a look at what features
                     </chakra.span>
-                    &nbsp;we're working on next
+                    &nbsp;we&apos;re working on next
                 </Heading>
 
                 <Box color="custom.400" fontWeight="600">
-                    We're always working on new features and upgrades to
+                    We&apos;re always working on new features and upgrades to
                     continue to deliver the best experience possible.
                 </Box>
 

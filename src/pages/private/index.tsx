@@ -8,7 +8,7 @@ export default function PrivateIndexPage() {
 
     useEffect(() => {
         router.replace("/links");
-    }, []);
+    }, [router]);
 
     return (
         <PageWrapper center fullHeight>
