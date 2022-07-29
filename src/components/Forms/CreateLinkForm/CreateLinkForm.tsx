@@ -45,6 +45,7 @@ export const CreateLinkForm = () => {
                         width: "100%",
                         display: "flex",
                         justifyContent: "center",
+                        alignItems: "center",
                     }}
                 >
                     <VStack w="100%" spacing={4}>
@@ -153,7 +154,7 @@ const PrivacyOptionInputs = () => {
         <ContainerComponent
             spacing="1"
             justifyContent={isLargerThan767 ? "center" : undefined}
-            px={[4, 2]}
+            px={[4, 8, 8, 2]}
             pb={[2, 6]}
             w="100%"
         >

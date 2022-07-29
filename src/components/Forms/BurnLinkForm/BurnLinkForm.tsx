@@ -1,10 +1,10 @@
 import { Box, Button, Heading, VStack } from "@chakra-ui/react";
-import {Form, Formik, FormikHelpers, FormikValues} from "formik";
+import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 import { ImFire } from "react-icons/im";
 import { useTranslation } from "../../../hooks";
-import {FormButton} from "../../FormButton";
+import { FormButton } from "../../FormButton";
 
 interface BurnLinkFormProps {
     linkId: string;
@@ -15,13 +15,17 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
     const formEl = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
-    const onSubmit = (values: FormikValues, { resetForm }: FormikHelpers<any>) => {
+    const onSubmit = (
+        values: FormikValues,
+        { resetForm }: FormikHelpers<any>
+    ) => {
         formEl.current?.submit();
-        setTimeout(resetForm)
+        setTimeout(resetForm);
     };
 
     const onCancel = () => {
-        router.replace(`/links/${linkId}/`)
+        router
+            .replace(`/links/${linkId}/`)
             .then(console.debug)
             .catch(console.debug);
     };
@@ -36,6 +40,7 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
+                    alignItems: "center",
                 }}
             >
                 <VStack align="left" spacing={4} w="100%" maxW={"620px"}>

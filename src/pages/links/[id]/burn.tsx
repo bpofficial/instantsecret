@@ -1,11 +1,11 @@
-import { BurnLinkForm } from "../../../components/Forms/BurnLinkForm";
-import { NeverExisted, PageWrapper } from "../../../components";
-import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 import { GetServerSidePropsContext } from "next";
+import { NeverExisted, PageWrapper } from "../../../components";
+import { BurnLinkForm } from "../../../components/Forms/BurnLinkForm";
+import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 export default function BurnLinkPage({ id = "" }) {
     return (
-        <PageWrapper>
+        <PageWrapper center>
             {id ? <BurnLinkForm linkId={id} /> : <NeverExisted />}
         </PageWrapper>
     );

@@ -42,7 +42,7 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
     }, [id, router, props?.linkId]);
 
     return (
-        <PageWrapper>
+        <PageWrapper center>
             {!props.secret || !props.linkId ? (
                 <NeverExisted />
             ) : props.secret.burntAt ? (

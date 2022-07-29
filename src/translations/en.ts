@@ -6,7 +6,7 @@ export const en: TranslationObj = {
             coloredTitle: "Create one-time secure links",
             remainingTitle: "for passwords, private messages or sensitive info",
             subtitle:
-                "Keep sensitive information out of your email and chat logs with a secret encrypted link that can only be viewed once and then it's gone forever.",
+                "Keep sensitive information out of your email and chat logs with a secure encrypted link that can only be viewed once and then it's gone forever.",
             ctaButton: "WATCH A DEMO",
             securityButton: "How is it secured?",
         },
@@ -35,7 +35,7 @@ export const en: TranslationObj = {
         lifetimeOptions: [{ value: "24hr", label: "24 Hours" }],
         createLinkButton: "CREATE A SECURE LINK",
         disclaimer:
-            "A secret link only works once and then it disappears forever.",
+            "A secure link only works once and then it disappears forever.",
     },
     ShareLinkForm: {
         title: "Share this link",
@@ -45,15 +45,15 @@ export const en: TranslationObj = {
         Expired: "Expired",
         BurnButton: "BURN THIS LINK",
         Disclaimer:
-            "Burning a secret will delete it before it has been read, you'll need to confirm this action.",
-        CreateAnotherButton: "Create another secret",
+            "Burning a secure link will delete it before it has been read, you'll need to confirm this action.",
+        CreateAnotherButton: "CREATE A SECURE LINK",
         EncryptedPlaceholder: "This message is encrypted with your passphrase.",
     },
     BurnLinkForm: {
         SecureLinkId: "Secure link",
         ConfirmButton: "CONFIRM LINK BURN",
         CancelButton: "Cancel",
-        Disclaimer: "Burning a secret is permanent and cannot be undone.",
+        Disclaimer: "Burning a secure link is permanent and cannot be undone.",
     },
     LinkReceivedForm: {
         SecureLinkId: "Secure link",
@@ -63,8 +63,8 @@ export const en: TranslationObj = {
     },
     RevealSecretValueForm: {
         ClickToContinue: "Click to continue",
-        ContinueButton: "VIEW SECRET",
-        Disclaimer: "The secret will only be shown once.",
+        ContinueButton: "VIEW SECURE CONTENT",
+        Disclaimer: "The secure content will only be shown once.",
         EnterPassphrase: "Enter the passphrase to continue",
         EnterPassphrasePlaceholder: "Passphrase",
     },
@@ -75,8 +75,9 @@ export const en: TranslationObj = {
         CreateNewLinkButton: "CREATE A NEW SECURE LINK",
     },
     ViewSecretValueForm: {
-        Title: "Your secret message:",
-        Disclaimer: "The secret will only be shown once.",
+        Title: "Your secure content:",
+        Disclaimer:
+            "This secure link has been burnt, the content cannot be accessed again.",
         CreateNewLinkButton: "CREATE A NEW SECURE LINK",
     },
     LinkBurntForm: {

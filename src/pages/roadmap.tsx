@@ -8,6 +8,7 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { PageWrapper } from "../components";
+import { PAGE_MAX } from "../constants";
 
 export default function Roadmap() {
     return (
@@ -91,7 +92,7 @@ const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
                 borderWidth="1px"
                 borderColor={"gray.200"}
                 p="4"
-                maxW="1400px"
+                maxW={PAGE_MAX}
                 overflow="auto"
                 mt="4"
                 pb="12"
