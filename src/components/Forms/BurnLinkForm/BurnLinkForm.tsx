@@ -40,6 +40,7 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
                     width: "100%",
                     display: "flex",
                     justifyContent: "center",
+                    alignItems: "center",
                 }}
             >
                 <VStack align="left" spacing={4} w="100%" maxW={"620px"}>

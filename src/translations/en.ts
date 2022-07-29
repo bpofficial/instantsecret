@@ -74,7 +74,7 @@ export const en: TranslationObj = {
         CreateNewLinkButton: "CREATE A NEW SECURE LINK",
     },
     ViewSecretValueForm: {
-        Title: "Your secret message:",
+        Title: "Your secure content:",
         Disclaimer:
             "This secure link has been burnt, the content cannot be accessed again.",
         CreateNewLinkButton: "CREATE A NEW SECURE LINK",

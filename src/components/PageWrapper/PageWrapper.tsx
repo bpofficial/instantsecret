@@ -16,9 +16,10 @@ export const PageWrapper = ({
             mx={"auto"}
             mt={[2, 2, 4, 8]}
             justifyContent={["center", align]}
+            h="100%"
         >
             {center ? (
-                <Flex w="100%" mt={["40"]} justify="center">
+                <Flex w="100%" h="100%" justify="center">
                     {children}
                 </Flex>
             ) : (

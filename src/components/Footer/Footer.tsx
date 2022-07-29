@@ -9,7 +9,7 @@ export const Footer = ({}: FooterProps) => {
         <Flex
             textAlign="center"
             px="4"
-            py="2"
+            py="4"
             marginTop={"auto"}
             bg="custom.400"
             color="white"

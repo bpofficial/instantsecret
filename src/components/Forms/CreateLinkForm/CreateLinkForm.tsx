@@ -45,6 +45,7 @@ export const CreateLinkForm = () => {
                         width: "100%",
                         display: "flex",
                         justifyContent: "center",
+                        alignItems: "center",
                     }}
                 >
                     <VStack w="100%" spacing={4}>
