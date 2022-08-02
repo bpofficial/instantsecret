@@ -1,5 +1,5 @@
 import { Box, Button, ButtonProps, HStack, useBoolean } from "@chakra-ui/react";
-import { Formik, useFormikContext } from "formik";
+import { Formik, FormikValues, useFormikContext } from "formik";
 
 interface FormButtonProps {
     text: string;
@@ -11,6 +11,7 @@ interface FormButtonProps {
      */
     onSubmit?: () => void;
     buttonProps?: ButtonProps;
+    validate?: (values: FormikValues) => Promise<void>;
 }
 
 export const FormButton = ({
@@ -18,15 +19,22 @@ export const FormButton = ({
     leftElement = null,
     rightElement = null,
     onSubmit,
+    validate = () => Promise.resolve(),
     buttonProps = {},
 }: FormButtonProps) => {
     const [isLoading, loading] = useBoolean(false);
-    const form = useFormikContext();
+    const form = useFormikContext<any>();
 
     const onClick = () => {
-        loading.on();
-        onSubmit?.() || form?.handleSubmit?.();
-        setTimeout(loading.off, 5000);
+        validate(form.values)
+            .then(() => {
+                loading.on();
+                onSubmit?.() || form?.handleSubmit?.();
+                setTimeout(loading.off, 5000);
+            })
+            .catch(() => {
+                // do nothing
+            });
     };
 
     return (

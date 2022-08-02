@@ -14,6 +14,22 @@ import { FormButton } from "../../FormButton";
 import { LifetimeInput, LifetimeLabel } from "./Inputs/Lifetime";
 import { PassphraseInput, PassphraseLabel } from "./Inputs/Passphrase";
 
+function validate(values: FormikValues, async?: false): boolean;
+function validate(values: FormikValues, async: true): Promise<void>;
+function validate(values: FormikValues, async = false) {
+    if (async) {
+        return new Promise<void>((res, rej) => {
+            if (!validate(values)) {
+                rej(new Error("Invalid"));
+            } else {
+                res();
+            }
+        });
+    } else {
+        return !!values?.value?.trim();
+    }
+}
+
 export const CreateLinkForm = () => {
     const translation = useTranslation("CreateLinkForm");
     const formEl = useRef<HTMLFormElement>(null);
@@ -22,11 +38,12 @@ export const CreateLinkForm = () => {
         values: FormikValues,
         { resetForm, setFieldError, setErrors }: FormikHelpers<any>
     ) => {
-        if (!values?.value?.trim()) {
+        if (!validate(values)) {
             setFieldError(
                 "value",
                 "Secret content is required to create a link."
             );
+            throw new Error("Invalid");
         } else {
             setErrors({});
             formEl.current?.submit();
@@ -109,6 +126,7 @@ export const CreateLinkForm = () => {
                                 buttonProps={{
                                     borderRadius: "0",
                                 }}
+                                validate={(values) => validate(values, true)}
                             />
                         </Box>
                         <Box fontSize="sm" fontStyle="italic">

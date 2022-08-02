@@ -76,7 +76,7 @@ export const Footer = ({}: FooterProps) => {
                     © 2022&nbsp;
                     <Button
                         as="a"
-                        href="https://whitepeakdigital.com.au"
+                        href="https://whitepeakdigital.com"
                         variant="link"
                         color="white"
                         fontSize={"sm"}
