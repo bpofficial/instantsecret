@@ -1,4 +1,3 @@
-import { EmailIcon } from "@chakra-ui/icons";
 import { Button, Flex, HStack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import {
@@ -17,7 +16,7 @@ export const Footer = ({}: FooterProps) => {
             textAlign="center"
             px="4"
             py="4"
-            marginTop={"auto"}
+            mt={["50px", "30px", "20px", "0px"]}
             bg="custom.400"
             color="white"
             justifyContent={"center"}
@@ -70,17 +69,14 @@ export const Footer = ({}: FooterProps) => {
                         fontSize={"sm"}
                         fontWeight="500"
                     >
-                        <HStack align="center">
-                            <EmailIcon />
-                            <Text>hello@instantsecurelink.com</Text>
-                        </HStack>
+                        <Text>hello@instantsecurelink.com</Text>
                     </Button>
                 </HStack>
                 <Text p="1" fontSize={"sm"}>
                     © 2022&nbsp;
                     <Button
                         as="a"
-                        href="mailto:hello@instantsecurelink.com"
+                        href="https://whitepeakdigital.com.au"
                         variant="link"
                         color="white"
                         fontSize={"sm"}

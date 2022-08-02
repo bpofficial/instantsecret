@@ -63,7 +63,7 @@ export const ShareLinkForm = ({
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             <Form
-                action={`/links/${linkId}/burn`}
+                action={`/links/${linkId}/burn/`}
                 method="GET"
                 ref={formEl}
                 style={{

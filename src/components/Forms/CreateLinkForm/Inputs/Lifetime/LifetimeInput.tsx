@@ -38,7 +38,7 @@ export const LifetimeInput = () => {
 
     //
 
-    const [value, setValue] = useState(options[1].value);
+    const [value, setValue] = useState(options[3].value);
 
     return (
         <FormControl>

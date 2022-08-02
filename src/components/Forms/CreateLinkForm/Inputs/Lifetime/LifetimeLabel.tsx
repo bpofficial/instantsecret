@@ -1,4 +1,11 @@
-import { FormLabel, Text, useMediaQuery } from "@chakra-ui/react";
+import {
+    FormLabel,
+    HStack,
+    Text,
+    Tooltip,
+    useMediaQuery,
+} from "@chakra-ui/react";
+import { AiFillInfoCircle } from "react-icons/ai";
 import { useTranslation } from "../../../../../hooks";
 
 export const LifetimeLabel = ({ shown = "(min-width: 767px)" }) => {
@@ -9,9 +16,18 @@ export const LifetimeLabel = ({ shown = "(min-width: 767px)" }) => {
 
     return (
         <FormLabel>
-            <Text fontWeight="semibold" textColor="custom.400" fontSize="sm">
-                {translation.lifetimeLabel}
-            </Text>
+            <Tooltip label="The lifetime of a secure link is the amount of time the link is accessible before it is automatically burnt.">
+                <HStack spacing="1">
+                    <Text
+                        fontWeight="semibold"
+                        textColor="custom.400"
+                        fontSize="sm"
+                    >
+                        {translation.lifetimeLabel}
+                    </Text>
+                    <AiFillInfoCircle />
+                </HStack>
+            </Tooltip>
         </FormLabel>
     );
 };

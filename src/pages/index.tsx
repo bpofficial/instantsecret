@@ -49,6 +49,7 @@ export default function Index() {
                 p={["6", "16"]}
                 align="center"
                 justify="center"
+                mb={["-50px", "-30px", "-20px", "0px"]}
             >
                 <Flex
                     color="white"
@@ -61,7 +62,7 @@ export default function Index() {
                     <BannerItem
                         icon={<FiEdit />}
                         title="Create"
-                        content="Paste in your private content and create your secret link"
+                        content="Paste in your private content and create your secure link"
                     />
                     <BannerItem
                         icon={<FiSend />}
@@ -71,13 +72,14 @@ export default function Index() {
                     <BannerItem
                         icon={<ImFire />}
                         title="Burn"
-                        content="Once your secret link is used it's then destroyed forever"
+                        content="Once your secure link is used it's then destroyed forever"
                     />
                 </Flex>
             </Flex>
         </>
     );
 }
+
 export const IndexCopyContent = () => {
     const translation = useTranslation("index");
     const router = useRouter();
@@ -87,7 +89,7 @@ export const IndexCopyContent = () => {
         <Box maxW={["100%", "100%", "100%", "50%"]} mb={["12"]}>
             <VStack align="flext-start" spacing={6}>
                 <Heading
-                    fontSize={["36px", "36px", "48px"]}
+                    fontSize={["32px", "36px", "48px"]}
                     fontWeight="extrabold"
                 >
                     <chakra.span color="custom.300">

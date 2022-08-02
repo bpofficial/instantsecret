@@ -11,11 +11,11 @@ export const PageWrapper = ({
         <Flex
             data-type={"page-wrapper"}
             w="100%"
-            px={["2", "2", "4", "4", "4", "8"]}
+            px={["20px", "20px", "4", "4", "4", "8"]}
             alignItems={["center", align]}
             maxW={PAGE_MAX}
-            mx={"auto"}
-            mt={[2, 2, 4, 8]}
+            mx="auto"
+            mt={["50px", "30px", "20px", "0px"]}
             justifyContent={["center", align]}
             h={fullHeight ? "100%" : undefined}
         >

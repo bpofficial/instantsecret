@@ -2,6 +2,7 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import "react-perfect-scrollbar/dist/css/styles.css";
 import { Banner, Footer, TopBar } from "../components";
 import { CounterProvider } from "../hooks";
 

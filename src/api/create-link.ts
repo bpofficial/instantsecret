@@ -73,10 +73,16 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
         const passphrase = req.body.passphrase
             ? hashPassword(req.body.passphrase)
             : null;
-        const { iv, value } = encryptValue(
+        const secretEncryption = encryptValue(
             req.body.value,
             createdAt.getTime(),
             secretId,
+            req.body.passphrase
+        );
+        const creatorEncryption = encryptValue(
+            req.body.value,
+            createdAt.getTime(),
+            id,
             req.body.passphrase
         );
 
@@ -92,17 +98,11 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
             internal: req.body.internal === true,
             createdAt: createdAt.toISOString(),
             secure: {
-                iv,
-                value,
+                ...secretEncryption,
+                creatorEncryption,
                 passphrase,
             },
-            viewedByCreatorAt:
-                endpoint === "client"
-                    ? new Date(createdAt.getTime() + 1000 * 30) // +30s
-                    : null,
         };
-
-        console.log(item);
 
         const record = await dynamodb
             .put({
@@ -122,9 +122,7 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
         }
 
         if (endpoint === "api") {
-            return {
-                secretId,
-            };
+            (res as NextApiResponse).redirect(`/links/${id}/`);
         } else {
             return {
                 linkId: id,

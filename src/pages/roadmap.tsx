@@ -10,6 +10,7 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+import PerfectScrollBar from "react-perfect-scrollbar";
 import { PageWrapper } from "../components";
 
 export default function Roadmap() {
@@ -19,47 +20,43 @@ export default function Roadmap() {
                 mb={["8", "12", "16"]}
                 mt={["4", "8", "8", "36"]}
                 direction="column"
-                maxW={"100%"}
-                w="100%"
+                maxW="100%"
             >
                 <Flex
                     direction={["column", "column", "column", "row"]}
                     justify={["center", "center", "center", "space-between"]}
                     align={["center", "center", "center"]}
-                    maxW={"100%"}
-                    w="100%"
+                    maxW="100%"
                 >
                     <RoadmapTitle />
-                    <VStack
-                        maxW={["100%", "100%", "100%", "40%"]}
-                        w="100%"
+                    <Flex
                         align="left"
-                        spacing={"4"}
                         mb={["12"]}
+                        direction="column"
+                        maxW={["100%", "100%", "100%", "40%"]}
                     >
                         <Heading fontSize={"2xl"} color="custom.400">
                             Up Next
                         </Heading>
-                        <Box
-                            p="6"
+                        <Flex
                             borderRadius={"md"}
                             boxShadow="md"
                             borderWidth={"1px"}
                             borderColor=""
-                            w="100%"
+                            direction="column"
+                            p={["3", "6"]}
+                            mt="2"
                         >
-                            <VStack align="left">
-                                <Heading fontSize={"md"} color="custom.400">
-                                    User Accounts
-                                </Heading>
-                                <Text color="custom.400">
-                                    Adding user accounts to assist in the
-                                    deployment of recipient targeting, emailing
-                                    and user verification for secret viewing.
-                                </Text>
-                            </VStack>
-                        </Box>
-                    </VStack>
+                            <Heading fontSize={"md"} color="custom.400">
+                                User Accounts
+                            </Heading>
+                            <Text mt="2" color="custom.400">
+                                Adding user accounts to assist in the deployment
+                                of recipient targeting, emailing and user
+                                verification for secret viewing.
+                            </Text>
+                        </Flex>
+                    </Flex>
                 </Flex>
                 <RoadmapContent />
             </Flex>
@@ -73,7 +70,6 @@ type RoadmapItem = {
     status?: "COMPLETED" | "IN-PROGRESS" | "TODO";
     createdAt: Date;
 };
-
 const RoadmapItem = ({
     title,
     description,
@@ -114,47 +110,55 @@ type RoadmapSectionProps = {
 };
 const RoadmapSection = ({ title, items, status }: RoadmapSectionProps) => {
     return (
-        <Box
-            w="100%"
-            p="6"
+        <Flex
+            p={["4", "6"]}
             borderRadius={"md"}
             borderWidth="1px"
             borderColor={"gray.200"}
             boxShadow="md"
-            maxH={["auto", "auto", "auto", "700px"]}
-            minH={["auto", "auto", "auto", "700px"]}
-            overflowY="auto"
+            direction={"column"}
+            maxW="100%"
+            w="100%"
         >
-            <Heading fontSize="2xl" color="custom.400">
+            <Heading fontSize="2xl" color="custom.400" pb="4">
                 {title}
             </Heading>
-            <Stack
-                overflow="auto"
-                mt="4"
-                direction={["row", "row", "row", "column"]}
-                spacing="4"
-                {...(items?.length
-                    ? {}
-                    : {
-                          justifyContent: "center",
-                          align: "center",
-                      })}
-            >
-                {items?.length ? (
-                    items.map((item, key) => (
-                        <RoadmapItem {...item} {...{ status }} key={key} />
-                    ))
-                ) : (
-                    <Box opacity="0.8">No items to show</Box>
-                )}
-            </Stack>
-        </Box>
+            <PerfectScrollBar>
+                <Stack
+                    position="relative"
+                    spacing="4"
+                    direction={["row", "row", "row", "column"]}
+                    maxH={["auto", "auto", "auto", "700px"]}
+                    minH={["auto", "auto", "auto", "700px"]}
+                    borderRadius="md"
+                    {...(items?.length
+                        ? {}
+                        : {
+                              justifyContent: "center",
+                              align: "center",
+                          })}
+                >
+                    {items?.length ? (
+                        items.map((item, key) => (
+                            <RoadmapItem {...item} {...{ status }} key={key} />
+                        ))
+                    ) : (
+                        <Box opacity="0.8">No items to show</Box>
+                    )}
+                </Stack>
+            </PerfectScrollBar>
+        </Flex>
     );
 };
 
 export const RoadmapContent = () => {
     return (
-        <Flex w="100%" direction="column" justify={"center"} align="center">
+        <Flex
+            direction="column"
+            justify={"center"}
+            align="center"
+            maxW={"100%"}
+        >
             <Box>
                 <Spacer h={["0", "0", "0", "40"]} />
             </Box>
@@ -164,6 +168,7 @@ export const RoadmapContent = () => {
                 direction={["column", "column", "column", "row"]}
                 maxW={"100%"}
                 spacing={[4, 4, 8, 24]}
+                overflow="hidden"
             >
                 <RoadmapSection
                     title="Completed"
@@ -182,15 +187,22 @@ export const RoadmapContent = () => {
                             createdAt: new Date("08/02/2022"),
                         },
                         {
+                            title: "Passphrases",
+                            description:
+                                "Implemented the ability to add a passphrase to a secured link in order to augment the secret's encryption further.",
+                            createdAt: new Date("08/02/2022"),
+                        },
+                        {
+                            title: "Passphrases",
+                            description:
+                                "Implemented the ability to add a passphrase to a secured link in order to augment the secret's encryption further.",
+                            createdAt: new Date("08/02/2022"),
+                        },
+                        {
                             title: "Roadmap",
                             description:
                                 "Create this roadmap page to keep our users up-to-date with changes to the Instant Secure Link product",
                             createdAt: new Date("08/02/2022"),
-                        },
-                        {
-                            title: "Instant Secure Link",
-                            description: "Create the Instant Secure Link tool!",
-                            createdAt: new Date("08/01/2022"),
                         },
                     ]}
                 />
@@ -242,7 +254,7 @@ const RoadmapTitle = () => {
         <Box maxW={["100%", "100%", "100%", "40%"]} mb={["12"]}>
             <VStack align="flext-start" spacing={[6, 8]}>
                 <Heading
-                    fontSize={["36px", "36px", "36px"]}
+                    fontSize={["32px", "36px", "48px"]}
                     fontWeight="extrabold"
                 >
                     <chakra.span color="custom.300">
@@ -257,9 +269,7 @@ const RoadmapTitle = () => {
                 </Box>
 
                 <Flex
-                    w="100%"
-                    justify={["left"]}
-                    maxW={["100%", "92%"]}
+                    justify={["center", "center", "left"]}
                     flexDirection={["column", "row"]}
                 >
                     <Button

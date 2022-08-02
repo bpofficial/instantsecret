@@ -3,14 +3,20 @@ import { PageWrapper } from "../components";
 
 export default function Security() {
     return (
-        <PageWrapper>
+        <PageWrapper fullHeight center>
             <Box p={["4", "24"]} mt={["12"]}>
-                <VStack maxW={["100%", "720px"]} align="center" spacing="6">
+                <VStack
+                    maxW={["100%", "720px"]}
+                    align="center"
+                    spacing="6"
+                    justify="center"
+                >
                     <Box fontSize={"6xl"}>🚧</Box>
                     <Heading
                         fontSize={["2xl", "3xl"]}
                         color="custom.400"
                         fontWeight="800"
+                        textAlign="center"
                     >
                         Page Under Construction
                     </Heading>

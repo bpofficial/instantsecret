@@ -40,7 +40,7 @@ export const RevealSecretValueForm = ({
     return (
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             <Form
-                action={`/private/${secretKey}`}
+                action={`/private/${secretKey}/`}
                 method="POST"
                 ref={formEl}
                 style={{

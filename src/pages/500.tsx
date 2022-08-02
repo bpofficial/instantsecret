@@ -2,7 +2,7 @@ import { Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { PageWrapper } from "../components";
 
-export default function FourOhFourPage() {
+export default function FiveHundredErrorPage() {
     const router = useRouter();
     return (
         <PageWrapper center fullHeight>
@@ -13,14 +13,14 @@ export default function FourOhFourPage() {
                         fontSize={"5xl"}
                         fontWeight="800"
                     >
-                        404
+                        500
                     </Heading>
                     <Heading
                         color="custom.400"
                         fontSize={"2xl"}
                         fontWeight="800"
                     >
-                        This page could not be found
+                        We experienced an issue processing your request.
                     </Heading>
                     <Button
                         variant="link"

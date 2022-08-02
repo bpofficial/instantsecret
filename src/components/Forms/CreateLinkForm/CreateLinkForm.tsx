@@ -38,7 +38,7 @@ export const CreateLinkForm = () => {
         <Formik {...{ onSubmit }} initialValues={{} as any}>
             {({ handleChange, values, errors }) => (
                 <Form
-                    action="/links/create-link"
+                    action="/api/links"
                     method="POST"
                     ref={formEl}
                     style={{
@@ -48,7 +48,7 @@ export const CreateLinkForm = () => {
                         alignItems: "center",
                     }}
                 >
-                    <VStack w="100%" spacing={4}>
+                    <VStack spacing={4} w="100%">
                         <Box
                             w="100%"
                             maxW={"620px"}

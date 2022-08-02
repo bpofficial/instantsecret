@@ -21,6 +21,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     }
 
     let record;
+    let secureCreatorPackage = {};
     try {
         if (viewedByCreator) {
             record = await dynamodb
@@ -31,6 +32,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                     },
                 })
                 .promise();
+            secureCreatorPackage = record.Item?.secure?.creatorEncryption ?? {};
         } else {
             // Need to scan since we're not using a primary key :sigh:
             // deepcode ignore NoSqli: ?
@@ -90,9 +92,17 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                     Key: {
                         id: record.Item.id,
                     },
-                    UpdateExpression: "SET #viewTimeProp = :viewedAt",
+                    UpdateExpression:
+                        "SET #viewTimeProp = :viewedAt, secure = :secure",
                     ExpressionAttributeValues: {
                         ":viewedAt": new Date().toISOString(),
+                        ":secure": viewedByCreator
+                            ? {
+                                  iv: record.Item.secure.iv,
+                                  value: record.Item.secure.value,
+                                  passphrase: record.Item.secure.passphrase,
+                              }
+                            : {},
                     },
                     ExpressionAttributeNames: {
                         "#viewTimeProp": viewedByCreator
@@ -136,7 +146,9 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     let secret;
     try {
         if (canViewSecretValue) {
-            const secure = record.Item.secure;
+            const secure = viewedByCreator
+                ? secureCreatorPackage
+                : record.Item.secure;
             const createdAt = new Date(record.Item.createdAt).getTime();
             secret = decryptValue(
                 secure.value,

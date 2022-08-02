@@ -27,7 +27,7 @@ export const en: TranslationObj = {
     },
     CreateLinkForm: {
         inputPlaceholder: "Enter secret content here...",
-        privacyOptionsTitle: "Privacy Options",
+        privacyOptionsTitle: "Optional Privacy Settings",
         passphraseLabel: "Passphrase",
         passphrasePlaceholder: "A secure passphrase",
         passphraseGenerator: "Generate",
@@ -46,7 +46,7 @@ export const en: TranslationObj = {
         BurnButton: "BURN THIS LINK",
         Disclaimer:
             "Burning a secure link will delete it before it has been read, you'll need to confirm this action.",
-        CreateAnotherButton: "CREATE A SECURE LINK",
+        CreateAnotherButton: "CREATE ANOTHER SECURE LINK",
         EncryptedPlaceholder: "This message is encrypted with your passphrase.",
     },
     BurnLinkForm: {
