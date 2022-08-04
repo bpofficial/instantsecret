@@ -1,5 +1,5 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
-import { Box, Heading, Input, VStack } from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, VStack } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useTranslation } from "../../../hooks";
@@ -11,8 +11,6 @@ interface LinkReceivedFormProps {
     receivedAt: string;
     encrypted: boolean;
 }
-
-const Stack: any = VStack;
 
 export const LinkReceivedForm = ({
     secretId,
@@ -48,30 +46,32 @@ export const LinkReceivedForm = ({
     );
 
     return (
-        <Stack align="left" spacing={4} w="100%" maxW={"620px"}>
-            <Heading size="md">
-                {translation.SecureLinkId} ({secretId.slice(0, 8)})
-            </Heading>
-            <Input
-                w="100%"
-                maxW={"620px"}
-                borderColor="custom.400"
-                borderWidth="2px"
-                borderRadius="md"
-                alignSelf="center"
-                disabled
-                value={
-                    encrypted
-                        ? translation.EncryptedPlaceholder
-                        : "******************"
-                }
-            />
-            {TimeDiff ? <TimeDiff /> : null}
-            <NextButton
-                text={translation.CreateNewLinkButton}
-                rightElement={<ArrowForwardIcon mt="2" />}
-                onSubmit={() => router.push("/links")}
-            />
-        </Stack>
+        <Flex w="100%" justifyContent="center" alignItems="center">
+            <VStack align="left" spacing={4} w="100%" maxW={"620px"}>
+                <Heading size="md">
+                    {translation.SecureLinkId} ({secretId.slice(0, 8)})
+                </Heading>
+                <Input
+                    w="100%"
+                    maxW={"620px"}
+                    borderColor="custom.400"
+                    borderWidth="2px"
+                    borderRadius="md"
+                    alignSelf="center"
+                    disabled
+                    value={
+                        encrypted
+                            ? translation.EncryptedPlaceholder
+                            : "******************"
+                    }
+                />
+                {TimeDiff ? <TimeDiff /> : null}
+                <NextButton
+                    text={translation.CreateNewLinkButton}
+                    rightElement={<ArrowForwardIcon mt="2" />}
+                    onSubmit={() => router.push("/links")}
+                />
+            </VStack>
+        </Flex>
     );
 };
