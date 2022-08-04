@@ -5,8 +5,8 @@ export function useOrigin() {
     const [host, setHost] = useState("");
     const router = useRouter();
 
-    const isProd = process.env.ENV === "production";
-    const isStaging = process.env.ENV === "staging";
+    const isProd = process.env.NEXT_PUBLIC_ENV === "production";
+    const isStaging = process.env.NEXT_PUBLIC_ENV === "staging";
     const isDev = process.env.NODE_ENV === "development";
 
     useEffect(() => {
