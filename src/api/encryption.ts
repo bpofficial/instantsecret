@@ -125,6 +125,7 @@ export const decryptValue = (
     createdAt: number,
     passphrase?: string
 ) => {
+    if (!encryptedValue) return;
     const iv = Buffer.from(ivHex, "hex");
     const secretKey = createSecretKey(iv, createdAt, keyId, passphrase);
     const decipher = Crypto.createDecipheriv(

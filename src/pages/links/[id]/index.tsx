@@ -79,6 +79,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
             },
         };
     } catch (err: any) {
+        console.log(err);
         return { props: { error: err.message } };
     }
 };

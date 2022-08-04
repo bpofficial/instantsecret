@@ -30,18 +30,22 @@ export default function Index() {
                     direction={["column", "column", "column", "row"]}
                     justify={["center", "center", "center", "space-between"]}
                     mb={["8", "12", "16"]}
-                    mt={["4", "8", "8", "36"]}
+                    mt={["4", "8", "8", "24", "36"]}
                     align={["center", "center", "center"]}
                     maxW={"100%"}
                 >
                     <IndexCopyContent />
-                    <Box maxW={["100%", "100%", "100%", "620px"]} w="100%">
+                    <Box
+                        maxW={["100%", "100%", "100%", "460px", "620px"]}
+                        w="100%"
+                        mt={["20px", "20px", "32px", "0px"]}
+                    >
                         <CreateLinkForm />
                     </Box>
                 </Flex>
             </PageWrapper>
             <Box>
-                <Spacer height={["0px", "32px", "190px"]} />
+                <Spacer height={["20px", "32px", "32px"]} />
             </Box>
             <Flex
                 w="100%"

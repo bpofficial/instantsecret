@@ -26,7 +26,7 @@ export const FormButton = ({
     const form = useFormikContext<any>();
 
     const onClick = () => {
-        validate(form.values)
+        validate(form?.values)
             .then(() => {
                 loading.on();
                 onSubmit?.() || form?.handleSubmit?.();

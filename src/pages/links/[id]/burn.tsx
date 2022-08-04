@@ -24,11 +24,10 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     }
 
     const link = await getLinkFromApi(id.toString(), {
-        creator: true,
         host: ctx.req.headers["host"] || "",
     });
 
-    if (link.burntAt) {
+    if (link?.burntAt) {
         return {
             redirect: { destination: `/links/${id}`, permanent: false },
         };

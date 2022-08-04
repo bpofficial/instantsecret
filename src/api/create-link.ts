@@ -79,6 +79,7 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
             secretId,
             req.body.passphrase
         );
+
         const creatorEncryption = encryptValue(
             req.body.value,
             createdAt.getTime(),

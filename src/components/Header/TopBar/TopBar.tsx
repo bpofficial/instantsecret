@@ -43,13 +43,14 @@ export const TopBar = () => {
                 borderColor={useColorModeValue("gray.200", "gray.900")}
                 align={"center"}
                 justifyContent={"space-between"}
+                px={["4", "2", "0"]}
             >
                 <Flex
                     flex={{ base: 8 }}
                     justifyContent="space-between"
                     maxW={PAGE_MAX}
-                    px={["2", "2", "4", "4", "4", "8"]}
                     margin={"auto"}
+                    px={["0", "0", "4", "4", "4", "8"]}
                 >
                     <Flex>
                         <chakra.a

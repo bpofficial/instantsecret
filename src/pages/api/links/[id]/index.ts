@@ -8,7 +8,7 @@ import {
 import { getDynamodb } from "../../../../aws";
 
 async function GetLink(req: NextApiRequest, res: NextApiResponse) {
-    const { dynamodb, tableName, env } = getDynamodb();
+    const { dynamodb, tableName } = getDynamodb();
     const id = decodeURIComponent(req.query?.["id"]?.toString?.() ?? "");
     const viewedByCreator = req.query["creator"] === "true";
     const viewedByRecipient = req.query["recipient"] === "true";
@@ -64,7 +64,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         record = {};
     }
 
-    if (!record || !record.Item || (record.Item.burntAt && !viewedByCreator)) {
+    if (!record || !record.Item || (!viewedByCreator && record.Item.burntAt)) {
         res.statusCode = 404;
         res.end();
         return;
@@ -79,7 +79,9 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         : true;
 
     if (
-        (viewedByCreator && !record.Item.viewedByCreatorAt) ||
+        (viewedByCreator &&
+            !record.Item.viewedByCreatorAt &&
+            !record.Item.secure.passphrase) ||
         (viewedByRecipient &&
             !record.Item.viewedByRecipientAt &&
             passphraseMatch)
