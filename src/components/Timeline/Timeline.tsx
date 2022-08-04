@@ -64,7 +64,7 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
                                 ? idx % 2 === 0
                                 : idx % 1 === 0
                         }
-                        fullWidth={allRight}
+                        fullWidth={!!allRight}
                         ref={refs[idx]}
                         key={idx}
                         empty={item?.emtpy}

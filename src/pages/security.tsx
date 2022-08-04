@@ -13,41 +13,41 @@ export const getStaticProps = () => {
             items: {
                 left: [
                     {
-                        title: "Left 1",
+                        title: "A link is generated",
                         content:
-                            "Utilising the same 256bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
+                            "A secure one-time link is created and is the only way the original content can be decrypted.",
                     },
                     {
-                        title: "Left 2",
+                        title: "Share the secure link",
                         content:
-                            "Utilising the same 256bit encryption as global banking platforms, you can rest assured that nobody has access to your o",
+                            "Send the secure link to the intended recipient, it can only be opened once.",
                     },
                     {
-                        title: "Left 3",
+                        title: "Gone, without a trace.",
                         content:
-                            "Utilising the same 256bit encryption as global banking platforms",
+                            "All of your encrypted, confidential information has been completely deleted from our databases.",
                     },
                 ],
                 right: [
                     {
-                        title: "Right 0",
+                        title: "Create a secure link",
+                        content:
+                            "Enter your confidential information into our forms and we'll create a secure, single-use link for you to share it.",
+                    },
+                    {
+                        title: "Encrypt your content",
+                        content:
+                            "Your content is encrypted and a one-time key is generated that allows access to the original information. No decryption information is stored in our databases.",
+                    },
+                    {
+                        title: "Rock-solid security",
                         content:
                             "Utilising the same 256bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
                     },
                     {
-                        title: "Right 1",
+                        title: "Decrypted and automatically deleted",
                         content:
-                            "Utilising the same 256bit encryption as global banking Utilising the same 256bit encryption as global banking platforms, you can rest assured that nobody has access",
-                    },
-                    {
-                        title: "Right 2",
-                        content:
-                            "Utilising the same 256bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
-                    },
-                    {
-                        title: "Right 3",
-                        content:
-                            "Utilising the same 256bit encryption as global banking platforms, ",
+                            "Once the secure link has been opened by the recipient, it can never be opened again.",
                     },
                 ],
             },
