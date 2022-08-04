@@ -1,16 +1,10 @@
 import {
-    AspectRatio,
     Box,
     Button,
     chakra,
     Flex,
     Heading,
     HStack,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalOverlay,
     Spacer,
     useDisclosure,
     VStack,
@@ -18,7 +12,7 @@ import {
 import { useRouter } from "next/router";
 import { FiEdit, FiSend } from "react-icons/fi";
 import { ImFire } from "react-icons/im";
-import { CreateLinkForm, PageWrapper } from "../components";
+import { CreateLinkForm, PageWrapper, WatchADemo } from "../components";
 import { PAGE_MAX } from "../constants";
 import { useTranslation } from "../hooks";
 
@@ -109,18 +103,7 @@ export const IndexCopyContent = () => {
 
                 <Flex w="100%" justify={["left"]}>
                     <HStack spacing="8" maxW="92%">
-                        <Button
-                            size="lg"
-                            bg="custom.400"
-                            color="white"
-                            fontWeight="bold"
-                            px="8"
-                            py="6"
-                            _hover={{ bg: "custom.50" }}
-                            onClick={onOpen}
-                        >
-                            {translation.copy.ctaButton}
-                        </Button>
+                        <WatchADemo />
                         <Button
                             variant="link"
                             color="custom.400"
@@ -131,25 +114,6 @@ export const IndexCopyContent = () => {
                     </HStack>
                 </Flex>
             </VStack>
-            <Modal isOpen={isOpen} onClose={onClose} size="5xl" isCentered>
-                <ModalOverlay backdropFilter="blur(10px)" />
-                <ModalContent>
-                    <ModalCloseButton
-                        position="absolute"
-                        top="10px"
-                        right="10px"
-                    />
-                    <ModalBody p="0">
-                        <AspectRatio>
-                            <iframe
-                                title="demo"
-                                src="https://www.youtube.com/embed/GpMpadbwvsg"
-                                allowFullScreen
-                            />
-                        </AspectRatio>
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
         </Box>
     );
 };
