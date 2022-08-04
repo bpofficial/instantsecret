@@ -119,7 +119,7 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                         <Banner />
                         <TopBar />
                         <Component {...pageProps} />
-                        <Footer />
+                        <Footer showBanner={!!(Component as any).showBanner} />
                     </chakra.main>
                 </CounterProvider>
             </ChakraProvider>

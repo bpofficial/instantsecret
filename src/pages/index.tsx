@@ -5,83 +5,40 @@ import {
     Flex,
     Heading,
     HStack,
-    Spacer,
-    useDisclosure,
     VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FiEdit, FiSend } from "react-icons/fi";
-import { ImFire } from "react-icons/im";
 import { CreateLinkForm, PageWrapper, WatchADemo } from "../components";
-import { PAGE_MAX } from "../constants";
 import { useTranslation } from "../hooks";
 
 export default function Index() {
     return (
-        <>
-            <PageWrapper>
-                <Flex
-                    direction={["column", "column", "column", "row"]}
-                    justify={["center", "center", "center", "space-between"]}
-                    mb={["8", "12", "16"]}
-                    mt={["4", "8", "8", "24", "36"]}
-                    align={["center", "center", "center"]}
-                    maxW={"100%"}
-                >
-                    <IndexCopyContent />
-                    <Box
-                        maxW={["100%", "100%", "100%", "460px", "620px"]}
-                        w="100%"
-                        mt={["20px", "20px", "32px", "0px"]}
-                    >
-                        <CreateLinkForm />
-                    </Box>
-                </Flex>
-            </PageWrapper>
-            <Box>
-                <Spacer height={["20px", "32px", "32px"]} />
-            </Box>
+        <PageWrapper>
             <Flex
-                w="100%"
-                bg="custom.400"
-                p={["6", "16"]}
-                align="center"
-                justify="center"
-                mb={["-50px", "-30px", "-20px", "0px"]}
+                direction={["column", "column", "column", "row"]}
+                justify={["center", "center", "center", "space-between"]}
+                mb={["8", "12", "16"]}
+                mt={["4", "8", "8", "24", "36"]}
+                align={["center", "center", "center"]}
+                maxW={"100%"}
             >
-                <Flex
-                    color="white"
-                    justify={"space-around"}
-                    maxW={PAGE_MAX}
+                <IndexCopyContent />
+                <Box
+                    maxW={["100%", "100%", "100%", "460px", "620px"]}
                     w="100%"
-                    align="center"
-                    flexDirection={["column", "column", "column", "row"]}
+                    mt={["20px", "20px", "32px", "0px"]}
                 >
-                    <BannerItem
-                        icon={<FiEdit />}
-                        title="Create"
-                        content="Paste in your private content and create your secure link"
-                    />
-                    <BannerItem
-                        icon={<FiSend />}
-                        title="Share"
-                        content="Share your link with anyone via email or private message"
-                    />
-                    <BannerItem
-                        icon={<ImFire />}
-                        title="Burn"
-                        content="Once your secure link is used it's then destroyed forever"
-                    />
-                </Flex>
+                    <CreateLinkForm />
+                </Box>
             </Flex>
-        </>
+        </PageWrapper>
     );
 }
+(Index as any).showBanner = true;
 
 export const IndexCopyContent = () => {
     const translation = useTranslation("index");
     const router = useRouter();
-    const { isOpen, onOpen, onClose } = useDisclosure();
 
     return (
         <Box maxW={["100%", "100%", "100%", "50%"]} mb={["12"]}>
