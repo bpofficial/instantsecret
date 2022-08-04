@@ -42,7 +42,7 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
 
         setResult(arr as any);
         setRefs(refArr);
-    }, [items]);
+    }, [items, startingSide]);
 
     return (
         <Flex justify="space-between" w="100%" position="relative">
