@@ -32,7 +32,7 @@ export const getStaticProps = () => {
                     {
                         title: "Create a secure link",
                         content:
-                            "Enter your confidential information into our forms and we'll create a secure, single-use link for you to share it.",
+                            "Enter your confidential information into our forms and we'll create a secure, single-use link for you to share.",
                     },
                     {
                         title: "Encrypt your content",
@@ -151,11 +151,11 @@ const SecurityTitle = () => {
         >
             <VStack align="flext-start" spacing={[6, 8]}>
                 <Heading
-                    fontSize={["32px", "36px", "48px"]}
+                    fontSize={["32px", "32px", "36px", "36px", "48px"]}
                     fontWeight="extrabold"
                 >
                     <chakra.span color="custom.300">
-                        High-grade encryption that
+                        256-bit encryption that
                     </chakra.span>
                     &nbsp;keeps your sensitive info away from prying eyes
                 </Heading>

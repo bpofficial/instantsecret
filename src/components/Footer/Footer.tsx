@@ -27,7 +27,7 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
         <Box
             marginTop={
                 showBanner
-                    ? ["30px", "60px", "120px", "240px", "360px"]
+                    ? ["30px", "60px", "120px", "120px", "120px"]
                     : "auto"
             }
         >

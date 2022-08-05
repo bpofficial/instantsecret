@@ -17,8 +17,7 @@ export default function Index() {
             <Flex
                 direction={["column", "column", "column", "row"]}
                 justify={["center", "center", "center", "space-between"]}
-                mb={["8", "12", "16"]}
-                mt={["4", "8", "8", "24", "36"]}
+                mt={["4", "8", "8", "120px", "120px"]}
                 align={["center", "center", "center"]}
                 maxW={"100%"}
             >
@@ -44,7 +43,7 @@ export const IndexCopyContent = () => {
         <Box maxW={["100%", "100%", "100%", "50%"]} mb={["12"]}>
             <VStack align="flext-start" spacing={6}>
                 <Heading
-                    fontSize={["32px", "36px", "48px"]}
+                    fontSize={["32px", "32px", "36px", "36px", "48px"]}
                     fontWeight="extrabold"
                 >
                     <chakra.span color="custom.300">

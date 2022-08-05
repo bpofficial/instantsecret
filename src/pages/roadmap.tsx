@@ -251,14 +251,14 @@ const RoadmapTitle = () => {
     const router = useRouter();
 
     return (
-        <Box maxW={["100%", "100%", "100%", "40%"]} mb={["12"]}>
+        <Box maxW={["100%", "100%", "100%", "50%"]} mb={["12"]}>
             <VStack align="flext-start" spacing={[6, 8]}>
                 <Heading
-                    fontSize={["32px", "36px", "48px"]}
+                    fontSize={["32px", "32px", "36px", "36px", "48px"]}
                     fontWeight="extrabold"
                 >
                     <chakra.span color="custom.300">
-                        Take a look at what features
+                        Take a look at what
                     </chakra.span>
                     &nbsp;we&apos;re working on next
                 </Heading>

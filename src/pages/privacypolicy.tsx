@@ -7,7 +7,7 @@ export default function PrivacyPolicyPage() {
             <Flex mt="100px" maxW="1200px" justifyContent="center">
                 <Text>
                     <Heading
-                        fontSize={["32px", "36px", "48px"]}
+                        fontSize={["32px", "32px", "36px", "36px", "48px"]}
                         fontWeight="extrabold"
                         color="custom.400"
                     >

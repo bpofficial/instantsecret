@@ -53,6 +53,7 @@ export const TimelineItem = forwardRef(
                 : props.right
                 ? `-${DOT_WIDTH / 2 + tenPercent}px`
                 : undefined,
+            className: `timeline-dot-${props.index}`,
         };
 
         useEffect(() => {

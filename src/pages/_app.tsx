@@ -86,7 +86,7 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     <meta name="msapplication-TileColor" content="#da532c" />
                     <meta name="theme-color" content="#ffffff" />
                     {/* Global Site Tag (gtag.js) - Google Analytics */}
-                    {process.env.ENV === "production" ? (
+                    {process.env.NEXT_PUBLIC_ENV === "production" ? (
                         <>
                             <script
                                 async
