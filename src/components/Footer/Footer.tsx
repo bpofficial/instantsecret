@@ -24,13 +24,7 @@ interface FooterProps {
 export const Footer = ({ showBanner = false }: FooterProps) => {
     const router = useRouter();
     return (
-        <Box
-            marginTop={
-                showBanner
-                    ? ["30px", "60px", "120px", "120px", "120px"]
-                    : "auto"
-            }
-        >
+        <Box marginTop={"auto"}>
             <Flex
                 textAlign="center"
                 px="4"

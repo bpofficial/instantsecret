@@ -13,12 +13,11 @@ import { useTranslation } from "../hooks";
 
 export default function Index() {
     return (
-        <PageWrapper>
+        <PageWrapper fullHeight center>
             <Flex
                 direction={["column", "column", "column", "row"]}
                 justify={["center", "center", "center", "space-between"]}
-                mt={["4", "8", "8", "120px", "120px"]}
-                align={["center", "center", "center"]}
+                align={"center"}
                 maxW={"100%"}
             >
                 <IndexCopyContent />
