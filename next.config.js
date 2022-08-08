@@ -11,6 +11,7 @@ const headerConfig = {
         "style-src-attr": "'unsafe-inline'",
         "script-src":
             "'self' https://www.googletagmanager.com/ https://vitals.vercel-insights.com/",
+        "connect-src": "'self' https://vitals.vercel-insights.com/",
     },
 };
 const headers = nextSafe(headerConfig);
