@@ -3,17 +3,15 @@ import { hash } from "../../../../api/encryption";
 import { getDynamodb } from "../../../../aws";
 
 async function DeleteLink(req: NextApiRequest, res: NextApiResponse) {
-    const { dynamodb, tableName, env } = getDynamodb();
+    const { dynamodb, tableName } = getDynamodb();
     const id = req.query["id"];
 
-    if (!id) {
-        const url = new URL(req.headers["referer"] || "");
-        url.searchParams.set("error", "Not Found");
-        res.redirect(url.toString());
+    if (!id || typeof id !== "string") {
+        res.redirect("/404");
         return;
     }
 
-    const idHash = hash(id.toString());
+    const idHash = hash(id);
 
     const record = await dynamodb
         .get({
@@ -25,9 +23,7 @@ async function DeleteLink(req: NextApiRequest, res: NextApiResponse) {
         .promise();
 
     if (!record || !record.Item || record.Item.burntAt) {
-        const url = new URL(req.headers["referer"] || "");
-        url.searchParams.set("error", "Not Found");
-        res.redirect(url.toString());
+        res.redirect("/404");
         return;
     }
 
@@ -46,9 +42,7 @@ async function DeleteLink(req: NextApiRequest, res: NextApiResponse) {
         .promise();
 
     if (update.$response.error) {
-        const url = new URL(req.headers["referer"] || "");
-        url.searchParams.set("error", "Not Found");
-        res.redirect(url.toString());
+        res.redirect("/404");
         return;
     }
 
@@ -62,9 +56,7 @@ export default async function Handler(
     if (req.method === "POST") {
         return DeleteLink(req, res);
     } else {
-        const url = new URL(req.headers["referer"] || "");
-        url.searchParams.set("error", "Not Found");
-        res.redirect(url.toString());
+        res.redirect("/404");
         return;
     }
 }

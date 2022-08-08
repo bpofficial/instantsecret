@@ -64,36 +64,42 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
         const id = generateKey();
         const idHash = hash(id);
 
+        // deepcode ignore InsecureHash: This isn't important, as its only being shown to the user than SHA512'd away.
         const secretId = Crypto.createHash("md5")
             .update(id + createdAt.toISOString())
             .digest("hex");
 
         const secretIdHash = hash(secretId);
 
-        const passphrase = req.body.passphrase
-            ? hashPassword(req.body.passphrase)
-            : null;
+        const rawPassphrase =
+            typeof req.body.passphrase !== "string"
+                ? null
+                : String(req.body.passphrase);
+        const passphrase = rawPassphrase ? hashPassword(rawPassphrase) : null;
         const secretEncryption = encryptValue(
             req.body.value,
             createdAt.getTime(),
             secretId,
-            req.body.passphrase
+            rawPassphrase
         );
 
         const creatorEncryption = encryptValue(
             req.body.value,
             createdAt.getTime(),
             id,
-            req.body.passphrase
+            rawPassphrase
         );
 
         const ttl = Number(req.body.ttl);
+
+        const value =
+            typeof req.body.value !== "string" ? "" : String(req.body.value);
 
         const item = {
             id: idHash, // linkId
             secretId: secretIdHash, // secretId
             creatorUserID,
-            originalSize: req.body.value.length,
+            originalSize: value.length,
             recipients: req.body.recipients || [],
             ttl: Number.isNaN(ttl) ? 1000 * 60 * 60 * 24 * 7 : ttl, // 7 days default,
             internal: req.body.internal === true,

@@ -9,10 +9,18 @@ import { getDynamodb } from "../../../../aws";
 
 async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     const { dynamodb, tableName } = getDynamodb();
-    const id = decodeURIComponent(req.query?.["id"]?.toString?.() ?? "");
+
+    const rawId = req.query?.["id"] || "";
+
+    if (typeof rawId !== "string") {
+        return;
+    }
+
+    const id = decodeURIComponent(rawId);
     const viewedByCreator = req.query["creator"] === "true";
     const viewedByRecipient = req.query["recipient"] === "true";
-    const passphrase = req.query["passphrase"] || null;
+    const rawPassphrase = req.query?.["passphrase"] || null;
+    const passphrase = typeof rawPassphrase !== "string" ? null : rawPassphrase;
 
     if (!id) {
         res.statusCode = 404;
@@ -71,6 +79,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
     }
 
     let canViewSecretValue = false;
+
     const passphraseMatch = record.Item.secure.passphrase
         ? comparePassword(
               passphrase?.toString() || "",
@@ -157,7 +166,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                 secure.iv,
                 id,
                 createdAt,
-                passphrase?.toString()
+                passphrase
             );
         }
     } catch (err) {
@@ -175,6 +184,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
+    // deepcode ignore InsecureHash: Only shown to user, all safe
     const secretId = Crypto.createHash("md5")
         .update(id + record.Item.createdAt)
         .digest()

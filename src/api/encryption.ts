@@ -1,6 +1,6 @@
 import * as Crypto from "crypto";
 
-const algorithm = "aes-256-ctr";
+const algorithm = "aes-256-gcm";
 
 /**
  * Hash the provided `value` using SHA512 hash
@@ -123,7 +123,7 @@ export const decryptValue = (
     ivHex: string, // hex
     keyId: string,
     createdAt: number,
-    passphrase?: string
+    passphrase?: string | null
 ) => {
     if (!encryptedValue) return;
     const iv = Buffer.from(ivHex, "hex");
