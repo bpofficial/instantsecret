@@ -21,6 +21,7 @@
         "@fontsource/inter": "^4.5.11",
         "@fontsource/open-sans": "^4.5.10",
         "@fontsource/raleway": "^4.5.9",
+        "@next-safe/middleware": "^0.10.0",
         "aws-amplify": "^4.3.28",
         "aws-sdk": "^2.1180.0",
         "formik": "^2.2.9",

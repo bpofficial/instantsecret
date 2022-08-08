@@ -1,4 +1,5 @@
 import { getSession, Session, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { gsspWithNonce } from "@next-safe/middleware/dist/document";
 import { getDynamodb } from "../../aws";
 import { PageWrapper } from "../../components";
 
@@ -15,7 +16,7 @@ export default function AccountRootPage(props: AccountRootPageProps) {
 }
 
 export const getServerSideProps = withPageAuthRequired({
-    async getServerSideProps(ctx) {
+    getServerSideProps: gsspWithNonce(async (ctx) => {
         const session = getSession(ctx.req, ctx.res);
 
         if (!session) {
@@ -44,5 +45,5 @@ export const getServerSideProps = withPageAuthRequired({
                 links: [],
             },
         };
-    },
+    }),
 });

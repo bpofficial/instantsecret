@@ -91,6 +91,9 @@ export const IndexCopyContent = () => {
 const IndexMetadata = () => {
     return (
         <Head>
+            <title>
+                Instant Secure Link - Create One-Time Secure Links Instantly
+            </title>
             <meta
                 name="title"
                 content="Instant Secure Link - Create One-Time Secure Links Instantly"

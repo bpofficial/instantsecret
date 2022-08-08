@@ -1,3 +1,4 @@
+import { gsspWithNonce } from "@next-safe/middleware/dist/document";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import {
@@ -49,52 +50,55 @@ export default function PrivateSecretPage(props: PrivateSecretPageProps) {
     );
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    const { id } = ctx.params ?? {};
+export const getServerSideProps = gsspWithNonce(
+    async (ctx: GetServerSidePropsContext) => {
+        const { id } = ctx.params ?? {};
 
-    if (!id || !id.toString().trim().length) {
-        return {
-            redirect: {
-                destination: "/404",
-                permanent: false,
-            },
-        };
-    }
-
-    const body = await parseBody(ctx.req, "1mb");
-
-    const link = await getLinkFromApi(id.toString(), {
-        recipient: ctx.req.method === "POST",
-        host: ctx.req.headers["host"] || "",
-        passphrase: body.passphrase || null,
-    });
-
-    if (ctx.req.method === "POST") {
-        if (link.code === 401) {
+        if (!id || !id.toString().trim().length) {
             return {
-                props: {
-                    secret: {
-                        secretKey: id,
-                        encrypted: true,
-                    },
-                    error: link,
+                redirect: {
+                    destination: "/404",
+                    permanent: false,
                 },
             };
         }
+
+        const body = await parseBody(ctx.req, "1mb");
+
+        const link = await getLinkFromApi(id.toString(), {
+            recipient: ctx.req.method === "POST",
+            host: ctx.req.headers["host"] || "",
+            passphrase: body.passphrase || null,
+        });
+
+        if (ctx.req.method === "POST") {
+            if (link.code === 401) {
+                return {
+                    props: {
+                        secret: {
+                            secretKey: id,
+                            encrypted: true,
+                        },
+                        error: link,
+                    },
+                };
+            }
+        }
+
+        if (!link || link.viewedByRecipientAt || link.burntAt)
+            return { props: {} };
+
+        const now = new Date().getTime();
+        const created = new Date(link.createdAt).getTime();
+        const ttl = Number(link.ttl);
+        if (created + ttl <= now) {
+            return { props: {} };
+        }
+
+        return {
+            props: {
+                secret: link,
+            },
+        };
     }
-
-    if (!link || link.viewedByRecipientAt || link.burntAt) return { props: {} };
-
-    const now = new Date().getTime();
-    const created = new Date(link.createdAt).getTime();
-    const ttl = Number(link.ttl);
-    if (created + ttl <= now) {
-        return { props: {} };
-    }
-
-    return {
-        props: {
-            secret: link,
-        },
-    };
-};
+);

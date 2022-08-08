@@ -1,6 +1,9 @@
 // Next.js libraries
-import { Head, Html, Main, NextScript } from "next/document";
-
+import {
+    getCspInitialProps,
+    provideComponents,
+} from "@next-safe/middleware/dist/document";
+import { Head, Html, Main } from "next/document";
 // Next Strict Content Security Policy
 import { NextStrictCSP } from "next-strict-csp";
 
@@ -18,11 +21,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 NextStrictCSP.inlineJs = [GTMJs];
 
+export const getInitialProps = async (ctx: any) => {
+    const initialProps = await getCspInitialProps({ ctx });
+    return initialProps;
+};
+
 // Document component
-export default function Document() {
+export default function Document(props: any) {
+    const { Head, NextScript } = provideComponents(props);
     return (
         <Html>
-            <HeadCSP>
+            <Head>
                 <meta charSet="utf-8" />
                 <meta
                     name="keywords"
@@ -69,7 +78,6 @@ export default function Document() {
                 />
                 <meta name="msapplication-TileColor" content="#da532c" />
                 <meta name="theme-color" content="#ffffff" />
-                {isProd && <meta httpEquiv="Content-Security-Policy" />}
 
                 {/* Google Tag Manager */}
                 {isProd && (
@@ -80,7 +88,7 @@ export default function Document() {
                     />
                 )}
                 {/* End Google Tag Manager */}
-            </HeadCSP>
+            </Head>
             <body>
                 {isProd && (
                     <noscript

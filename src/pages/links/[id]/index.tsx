@@ -1,3 +1,4 @@
+import { gsspWithNonce } from "@next-safe/middleware/dist/document";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import {
@@ -54,37 +55,39 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
     );
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-    const { id } = ctx.params ?? {};
+export const getServerSideProps = gsspWithNonce(
+    async (ctx: GetServerSidePropsContext) => {
+        const { id } = ctx.params ?? {};
 
-    if (!id || !id.toString().trim().length) {
-        return {
-            redirect: {
-                destination: "/404",
-                permanent: false,
-            },
-        };
+        if (!id || !id.toString().trim().length) {
+            return {
+                redirect: {
+                    destination: "/404",
+                    permanent: false,
+                },
+            };
+        }
+
+        try {
+            const link = await getLinkFromApi(id.toString(), {
+                creator: true,
+                host: ctx.req.headers["host"] || "",
+            });
+
+            if (!link) return { props: {} };
+
+            return {
+                props: {
+                    linkId: id,
+                    secret: link,
+                },
+            };
+        } catch (err: any) {
+            console.log(err);
+            return { props: { error: err.message } };
+        }
     }
-
-    try {
-        const link = await getLinkFromApi(id.toString(), {
-            creator: true,
-            host: ctx.req.headers["host"] || "",
-        });
-
-        if (!link) return { props: {} };
-
-        return {
-            props: {
-                linkId: id,
-                secret: link,
-            },
-        };
-    } catch (err: any) {
-        console.log(err);
-        return { props: { error: err.message } };
-    }
-};
+);
 
 const LinkMetadata = (props: NewLinkIdPageProps) => {
     const neverExisted = !props.secret || !props.linkId;
