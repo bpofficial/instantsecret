@@ -5,6 +5,7 @@ import {
     Heading,
     HStack,
     Text,
+    VisuallyHidden,
     VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -39,6 +40,7 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                     w="100%"
                     bg="custom.400"
                     p={["6", "16"]}
+                    pb={["8", "24"]}
                     align="center"
                     justify="center"
                     display={showBanner ? "flex" : "none"}
@@ -73,6 +75,7 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                     flexDirection={["column", "column", "row"]}
                     w="100%"
                     maxW={PAGE_MAX}
+                    align="center"
                 >
                     <HStack justify="center" p="2">
                         <Button
@@ -85,6 +88,9 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                             minW="auto"
                         >
                             <AiFillFacebook />
+                            <VisuallyHidden>
+                                White Peak Digital Facebook Link
+                            </VisuallyHidden>
                         </Button>
                         <Button
                             as="a"
@@ -96,6 +102,9 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                             minW="auto"
                         >
                             <AiFillInstagram />
+                            <VisuallyHidden>
+                                White Peak Digital Instagram Link
+                            </VisuallyHidden>
                         </Button>
                         <Button
                             as="a"
@@ -107,6 +116,9 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                             minW="auto"
                         >
                             <AiFillLinkedin />
+                            <VisuallyHidden>
+                                White Peak Digital Linked-In Link
+                            </VisuallyHidden>
                         </Button>
                         <Button
                             as="a"
@@ -133,13 +145,14 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                         </Button>
                         &nbsp;Pty Ltd. All rights reserved.
                     </Text>
-                    <HStack justify="center" p="2">
+                    <HStack justify="center">
                         <Button
                             variant="link"
                             fontSize="sm"
                             fontWeight="500"
                             color="white"
-                            onClick={() => router.push(`/termsandconditions`)}
+                            as="a"
+                            href="/termsandconditions"
                         >
                             <Text>Terms & Conditions</Text>
                         </Button>
@@ -148,7 +161,8 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                             fontSize="sm"
                             fontWeight="500"
                             color="white"
-                            onClick={() => router.push(`/privacypolicy`)}
+                            as="a"
+                            href="/privacypolicy"
                         >
                             <Text>Privacy Policy</Text>
                         </Button>

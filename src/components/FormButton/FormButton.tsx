@@ -1,4 +1,10 @@
-import { Box, Button, ButtonProps, HStack, useBoolean } from "@chakra-ui/react";
+import {
+    Button,
+    ButtonProps,
+    HStack,
+    Text,
+    useBoolean,
+} from "@chakra-ui/react";
 import { Formik, FormikValues, useFormikContext } from "formik";
 
 interface FormButtonProps {
@@ -52,9 +58,9 @@ export const FormButton = ({
             {...{ onClick, isLoading }}
             {...buttonProps}
         >
-            <HStack>
+            <HStack align="center">
                 {leftElement}
-                <Box>{text}</Box>
+                <Text>{text}</Text>
                 {rightElement}
             </HStack>
         </Button>
