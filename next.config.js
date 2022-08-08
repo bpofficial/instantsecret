@@ -9,6 +9,8 @@ const headerConfig = {
         "img-src": "'self' data: https:",
         "style-src": "'self' 'unsafe-inline'",
         "style-src-attr": "'unsafe-inline'",
+        "script-src":
+            "'self' https://www.googletagmanager.com/ https://vitals.vercel-insights.com/",
     },
 };
 const headers = nextSafe(headerConfig);
