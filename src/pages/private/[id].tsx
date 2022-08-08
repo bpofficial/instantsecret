@@ -39,9 +39,11 @@ export default function PrivateSecretPage(props: PrivateSecretPageProps) {
     }
 
     return (
-        <PageWrapper center fullHeight>
-            {component}
-        </PageWrapper>
+        <>
+            <PageWrapper center fullHeight>
+                {component}
+            </PageWrapper>
+        </>
     );
 }
 

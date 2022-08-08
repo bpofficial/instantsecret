@@ -1,6 +1,7 @@
 import {
     AspectRatio,
     Button,
+    chakra,
     Modal,
     ModalBody,
     ModalCloseButton,
@@ -34,10 +35,10 @@ export const WatchADemo = () => {
                         right="10px"
                     />
                     <ModalBody p="0">
-                        <AspectRatio>
-                            <iframe
+                        <AspectRatio maxH="560px">
+                            <chakra.iframe
                                 title="demo"
-                                src="https://www.youtube.com/embed/vRhjen7PgUI"
+                                src="https://www.youtube.com/embed/vRhjen7PgUI?controls=0"
                                 allowFullScreen
                             />
                         </AspectRatio>

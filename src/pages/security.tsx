@@ -155,9 +155,9 @@ const SecurityTitle = () => {
                     fontWeight="extrabold"
                 >
                     <chakra.span color="custom.300">
-                        256-bit encryption to
+                        256-bit encryption
                     </chakra.span>
-                    &nbsp;keep your data secure
+                    &nbsp;to keep your data secure
                 </Heading>
 
                 <Box color="custom.400" fontWeight="600">

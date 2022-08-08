@@ -17,7 +17,7 @@ export function useOrigin() {
     return isDev
         ? "http://localhost:3000"
         : isProd
-        ? "https://instantsecurelink.com"
+        ? "https://www.instantsecurelink.com"
         : isStaging
         ? host
         : "";

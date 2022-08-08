@@ -5,6 +5,7 @@ import {
     Flex,
     Heading,
     HStack,
+    useBreakpointValue,
     VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -12,13 +13,25 @@ import { CreateLinkForm, PageWrapper, WatchADemo } from "../components";
 import { useTranslation } from "../hooks";
 
 export default function Index() {
+    const isMobile = useBreakpointValue([
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+    ]);
+
     return (
-        <PageWrapper fullHeight center>
+        <PageWrapper fullHeight={!isMobile} center={!isMobile}>
             <Flex
                 direction={["column", "column", "column", "row"]}
                 justify={["center", "center", "center", "space-between"]}
                 align={"center"}
                 maxW={"100%"}
+                h="100%"
+                mt={isMobile ? "50px" : "0"}
+                mb={isMobile ? "50px" : "0"}
             >
                 <IndexCopyContent />
                 <Box
@@ -39,7 +52,7 @@ export const IndexCopyContent = () => {
     const router = useRouter();
 
     return (
-        <Box maxW={["100%", "100%", "100%", "50%"]} mb={["12"]}>
+        <Box maxW={["100%", "100%", "100%", "50%"]}>
             <VStack align="flext-start" spacing={6}>
                 <Heading
                     fontSize={["32px", "32px", "36px", "36px", "48px"]}
