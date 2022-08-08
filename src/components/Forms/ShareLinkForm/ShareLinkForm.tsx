@@ -145,7 +145,6 @@ export const ShareLinkForm = ({
                     </Box>
                     <Button
                         variant="link"
-                        textDecoration="underline"
                         color="custom.400"
                         onClick={createAnother}
                     >

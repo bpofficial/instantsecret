@@ -61,7 +61,6 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
                     </Box>
                     <Button
                         variant="link"
-                        textDecoration="underline"
                         color="custom.400"
                         onClick={onCancel}
                     >
