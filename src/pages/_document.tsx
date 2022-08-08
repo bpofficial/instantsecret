@@ -4,7 +4,7 @@ import { Head, Html, Main, NextScript } from "next/document";
 // Next Strict Content Security Policy
 import { NextStrictCSP } from "next-strict-csp";
 
-const isProd = process.env.NEXT_PUBLIC_ENV === "production";
+const isProd = true; //process.env.NEXT_PUBLIC_ENV === "production";
 
 // Enable Head Strict CSP in production mode only
 const HeadCSP = isProd ? NextStrictCSP : Head;
