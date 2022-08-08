@@ -9,6 +9,7 @@ import {
     Text,
     VStack,
 } from "@chakra-ui/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import PerfectScrollBar from "react-perfect-scrollbar";
 import { PageWrapper } from "../components";
@@ -16,6 +17,7 @@ import { PageWrapper } from "../components";
 export default function Roadmap() {
     return (
         <PageWrapper>
+            <RoadmapMetadata />
             <Flex
                 mb={["8", "12", "16"]}
                 mt={["4", "8", "8", "36"]}
@@ -296,5 +298,20 @@ const RoadmapTitle = () => {
                 </Flex>
             </VStack>
         </Box>
+    );
+};
+
+const RoadmapMetadata = () => {
+    return (
+        <Head>
+            <meta
+                name="title"
+                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+            />
+            <meta
+                name="description"
+                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+            />
+        </Head>
     );
 };

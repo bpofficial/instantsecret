@@ -15,29 +15,8 @@ export const ViewSecretValueForm = ({
     const router = useRouter();
     const translation = useTranslation("ViewSecretValueForm");
 
-    if (typeof window !== "undefined") {
-        console.log("setup");
-        const confirmExit = function () {
-            return "You won't be able to access this secure link again and the content will be gone forever, are you sure you'd like to close this tab?";
-        };
-        window.onbeforeunload = confirmExit;
-        console.log(window.onbeforeunload);
-    }
-
     return (
         <>
-            {/* <script
-                dangerouslySetInnerHTML={{
-                    __html: `
-                    function confirmExit(ev) {
-                        return "You won't be able to access this secure link again and the content will be gone forever, are you sure you'd like to close this tab?"
-                    }
-                    (function() {
-                        window.onbeforeunload = confirmExit;
-                    })();
-                `,
-                }}
-            /> */}
             <Formik onSubmit={() => {}} initialValues={{}}>
                 <Flex w="100%" justifyContent="center" alignItems="center">
                     <VStack align="left" spacing={4} w="100%" maxW={"620px"}>

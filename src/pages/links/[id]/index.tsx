@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import {
     LinkBurntForm,
     LinkReceivedForm,
@@ -25,6 +26,7 @@ interface NewLinkIdPageProps {
 export default function NewLinkIdPage(props: NewLinkIdPageProps) {
     return (
         <PageWrapper center fullHeight>
+            <LinkMetadata {...props} />
             {!props.secret || !props.linkId ? (
                 <NeverExisted />
             ) : props.secret.burntAt ? (
@@ -82,4 +84,24 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
         console.log(err);
         return { props: { error: err.message } };
     }
+};
+
+const LinkMetadata = (props: NewLinkIdPageProps) => {
+    const neverExisted = !props.secret || !props.linkId;
+    const burnt = !!props?.secret?.burntAt;
+    const viewed = !!props?.secret?.viewedByRecipientAt;
+
+    return (
+        <Head>
+            <meta name="robots" content="noindex, nofollow" />
+            <meta
+                name="title"
+                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+            />
+            <meta
+                name="description"
+                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+            />
+        </Head>
+    );
 };

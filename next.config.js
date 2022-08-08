@@ -7,6 +7,8 @@ const headerConfig = {
     contentSecurityPolicy: {
         "frame-src": "https://www.youtube.com/",
         "img-src": "'self' data: https:",
+        "style-src": "'self' 'unsafe-inline'",
+        "style-src-attr": "'unsafe-inline'",
     },
 };
 const headers = nextSafe(headerConfig);

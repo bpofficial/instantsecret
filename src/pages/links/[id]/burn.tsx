@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import { NeverExisted, PageWrapper } from "../../../components";
 import { BurnLinkForm } from "../../../components/Forms/BurnLinkForm";
 import { getLinkFromApi } from "../../../utils/getLinkFromApi";
@@ -6,6 +7,7 @@ import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 export default function BurnLinkPage({ id = "" }) {
     return (
         <PageWrapper center fullHeight>
+            <BurnMetadata neverExisted={!id} />
             {id ? <BurnLinkForm linkId={id} /> : <NeverExisted />}
         </PageWrapper>
     );
@@ -42,4 +44,16 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
     } catch (err: any) {
         return { props: { error: err.message } };
     }
+};
+
+const BurnMetadata = ({ neverExisted = false }) => {
+    return (
+        <Head>
+            <meta name="robots" content="noindex, nofollow" />
+            <meta
+                name="title"
+                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+            />
+        </Head>
+    );
 };

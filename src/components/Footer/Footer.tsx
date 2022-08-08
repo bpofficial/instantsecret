@@ -131,7 +131,7 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                             <Text>hello@instantsecurelink.com</Text>
                         </Button>
                     </HStack>
-                    <Text p="1" fontSize={"sm"}>
+                    <Text p="2" fontSize={"sm"}>
                         © 2022&nbsp;
                         <Button
                             as="a"
@@ -145,7 +145,7 @@ export const Footer = ({ showBanner = false }: FooterProps) => {
                         </Button>
                         &nbsp;Pty Ltd. All rights reserved.
                     </Text>
-                    <HStack justify="center">
+                    <HStack p="2" justify="center">
                         <Button
                             variant="link"
                             fontSize="sm"

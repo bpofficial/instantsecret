@@ -31,14 +31,6 @@ export default function InstantSecret({ Component, pageProps }: AppProps) {
                     <Head>
                         <meta charSet="utf-8" />
                         <meta
-                            name="title"
-                            content="Instant Secure Link - Create One-Time Secure Links Instantly"
-                        />
-                        <meta
-                            name="description"
-                            content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
-                        />
-                        <meta
                             name="keywords"
                             content="instant, security, secure, one-time, secret, one-time-secret, onetimesecret"
                         />

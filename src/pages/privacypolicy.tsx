@@ -1,9 +1,11 @@
 import { chakra, Flex, Heading, Text } from "@chakra-ui/react";
+import Head from "next/head";
 import { PageWrapper } from "../components";
 
 export default function PrivacyPolicyPage() {
     return (
         <PageWrapper>
+            <PrivacyPolicyMetadata />
             <Flex mt="100px" maxW="1200px" justifyContent="center">
                 <Text>
                     <Heading
@@ -117,3 +119,18 @@ export default function PrivacyPolicyPage() {
         </PageWrapper>
     );
 }
+
+const PrivacyPolicyMetadata = () => {
+    return (
+        <Head>
+            <meta
+                name="title"
+                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+            />
+            <meta
+                name="description"
+                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+            />
+        </Head>
+    );
+};

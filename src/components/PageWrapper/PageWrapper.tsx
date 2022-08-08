@@ -15,7 +15,6 @@ export const PageWrapper = ({
             alignItems={["center", align]}
             maxW={PAGE_MAX}
             mx="auto"
-            mt={["50px", "30px", "20px", "0px"]}
             justifyContent={["center", align]}
             h={fullHeight ? "100%" : undefined}
         >

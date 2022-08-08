@@ -8,6 +8,7 @@ import {
     useBreakpointValue,
     VStack,
 } from "@chakra-ui/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { CreateLinkForm, PageWrapper, WatchADemo } from "../components";
 import { useTranslation } from "../hooks";
@@ -24,6 +25,7 @@ export default function Index() {
 
     return (
         <PageWrapper fullHeight={!isMobile} center={!isMobile}>
+            <IndexMetadata />
             <Flex
                 direction={["column", "column", "column", "row"]}
                 justify={["center", "center", "center", "space-between"]}
@@ -86,15 +88,17 @@ export const IndexCopyContent = () => {
     );
 };
 
-type BannerItemProps = { icon: any; title: string; content: string };
-const BannerItem = ({ icon, title, content }: BannerItemProps) => (
-    <VStack maxW="60" mx={["0", "0", "12"]} my={["6", "6", "0"]} align="center">
-        <Box fontSize={"5xl"}>{icon}</Box>
-        <Box>
-            <Heading fontSize={"3xl"}>{title}</Heading>
-        </Box>
-        <Box opacity={0.8} fontSize="sm" textAlign="center">
-            {content}
-        </Box>
-    </VStack>
-);
+const IndexMetadata = () => {
+    return (
+        <Head>
+            <meta
+                name="title"
+                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+            />
+            <meta
+                name="description"
+                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+            />
+        </Head>
+    );
+};

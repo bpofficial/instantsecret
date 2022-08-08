@@ -1,4 +1,5 @@
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 import {
     NeverExisted,
     PageWrapper,
@@ -39,11 +40,12 @@ export default function PrivateSecretPage(props: PrivateSecretPageProps) {
     }
 
     return (
-        <>
-            <PageWrapper center fullHeight>
-                {component}
-            </PageWrapper>
-        </>
+        <PageWrapper center fullHeight>
+            <Head>
+                <meta name="robots" content="noindex, nofollow" />
+            </Head>
+            {component}
+        </PageWrapper>
     );
 }
 
