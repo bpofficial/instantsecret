@@ -39,9 +39,9 @@ type TimelineItemProps = {
 export const TimelineItem = forwardRef(
     (props: TimelineItemProps, ref: ForwardedRef<HTMLDivElement>) => {
         const [boxHeight, setBoxHeight] = useState(0);
-        const [boxWidth, setBoxWidth] = useState(0)
+        const [boxWidth, setBoxWidth] = useState(0);
 
-        const tenPercent = 0.25 * boxWidth;
+        const tenPercent = 0.1 * boxWidth;
         const dotProps = {
             right:
                 !props.fullWidth && props.left
@@ -55,13 +55,16 @@ export const TimelineItem = forwardRef(
             className: `timeline-dot-${props.index}`,
         };
 
-
         useEffect(() => {
             if (ref) {
                 setBoxHeight(
-                    (ref as RefObject<HTMLDivElement>)?.current?.clientHeight ?? 0);
+                    (ref as RefObject<HTMLDivElement>)?.current?.clientHeight ??
+                        0
+                );
                 setBoxWidth(
-                    (ref as RefObject<HTMLDivElement>)?.current?.clientWidth ?? 0)
+                    (ref as RefObject<HTMLDivElement>)?.current?.clientWidth ??
+                        0
+                );
             }
         }, [ref]);
 

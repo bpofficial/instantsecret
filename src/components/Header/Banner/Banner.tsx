@@ -25,8 +25,6 @@ export const Banner = ({ initialValue }: BannerProps) => {
         });
     }, []);
 
-    console.log({ startNum });
-
     return (
         <Box w="100%" h="8" bgGradient="linear(to-r, #1D3557, #457B9D)">
             <Flex w="100%" h="8" justifyContent="center">

@@ -65,6 +65,7 @@ export const TopBar = () => {
                                     width="25px"
                                     height="25px"
                                     alt={translation.logoAlt}
+                                    priority
                                 />
                             </Box>
                             <VisuallyHidden>

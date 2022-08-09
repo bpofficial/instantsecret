@@ -57,14 +57,9 @@ export const getServerSideProps = withCounterProps({
     },
 });
 
-export default function Security({
-    items,
-    ...props
-}: {
-    items: TimelineItems;
-}) {
+export default function Security({ items }: { items: TimelineItems }) {
     return (
-        <PageWrapper>
+        <PageWrapper fullHeight>
             <SecurityMetadata />
             <Flex
                 mb={["8", "12", "24"]}
