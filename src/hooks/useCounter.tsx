@@ -45,12 +45,10 @@ export const CounterProvider = ({ children }: CounterProviderProps) => {
     };
 
     useEffect(() => {
-        // setLastLoad(new Date().getTime());
+        setLastLoad(new Date().getTime());
         fetchCounter().then((val) => setCounter(val));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    console.log({ counter, loadFromZero })
 
     return (
         <CounterContext.Provider value={[loadFromZero ? 0 : counter, counter]}>
