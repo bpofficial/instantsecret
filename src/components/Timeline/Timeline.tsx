@@ -47,15 +47,14 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
     }, [items, startingSide]);
 
     useEffect(() => {
-        const [first, last] = [refs[0], refs[-1]];
+        const [first, last] = [refs[0], refs[refs.length - 1]];
         if (first?.current && last?.current && containerRef?.current) {
             const [topOffset, bottomOffset] = [(first?.current?.clientHeight ?? 1) / 2, (last?.current?.clientHeight ?? 1) / 2];
             const containerHeight = containerRef.current?.clientHeight ?? 0;
-            const lineHeight = containerHeight - bottomOffset;
-            console.log({ lineHeight,containerHeight, topOffset, bottomOffset })
+            const lineHeight = containerHeight - (bottomOffset + topOffset);
             setLineDimensions({ offset: topOffset + 'px', height: lineHeight + 'px' });
         }
-    }, [refs])
+    }, [refs, containerRef])
 
     return (<>
         <chakra.style>
