@@ -72,7 +72,6 @@ export const getServerSideProps = gsspWithNonce(
         });
 
         if (ctx.req.method === "POST") {
-            console.log(link)
             if (link?.code === 401) {
                 return {
                     props: {
