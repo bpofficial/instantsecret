@@ -4,7 +4,7 @@ import { useTranslation } from "../../../../../hooks";
 import { LifetimeLabel } from "./LifetimeLabel";
 
 const ONE_HOUR = 3.6e6; //ms
-const OFFSET = 1;
+const OFFSET = 60 * 1000; // 1 minute
 
 export const LifetimeInput = () => {
     const translation = useTranslation("CreateLinkForm");

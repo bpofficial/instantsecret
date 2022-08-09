@@ -46,7 +46,7 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
     }, [items, startingSide]);
 
     const [first, last] = [refs[0], refs[-1]];
-    const [firstHeight, lastHeight] = [(first.current?.clientHeight ?? 1) / 2, (last.current?.clientHeight ?? 1) / 2];
+    const [firstHeight, lastHeight] = [(first?.current?.clientHeight ?? 1) / 2, (last?.current?.clientHeight ?? 1) / 2];
 
     return (<>
         <chakra.style>
