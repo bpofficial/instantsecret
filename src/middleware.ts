@@ -2,11 +2,21 @@ import {
     chainMatch,
     csp,
     isPageRequest,
+    nextSafe,
     strictDynamic,
 } from "@next-safe/middleware";
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 const securityMiddleware = [
+    nextSafe({
+        isDev,
+        permissionsPolicy: {
+            'clipboard-write': "'self'",
+        }
+    }),
     csp({
+        isDev,
         // your CSP base configuration with IntelliSense
         // single quotes for values like 'self' are automatic
         directives: {
