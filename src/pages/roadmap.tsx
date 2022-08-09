@@ -304,9 +304,12 @@ const RoadmapTitle = () => {
 const RoadmapMetadata = () => {
     return (
         <Head>
+            <title>
+                Roadmap - Instant Secure Link
+            </title>
             <meta
                 name="title"
-                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+                content="Roadmap - Instant Secure Link"
             />
             <meta
                 name="description"

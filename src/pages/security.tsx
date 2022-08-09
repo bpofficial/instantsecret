@@ -190,13 +190,16 @@ const SecurityTitle = () => {
 const SecurityMetadata = () => {
     return (
         <Head>
+            <title>
+                Security - Instant Secure Link
+            </title>
             <meta
                 name="title"
-                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+                content="Security - Instant Secure Link"
             />
             <meta
                 name="description"
-                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+                content="We're always working on new features and upgrades to continue to deliver the best experience possible."
             />
         </Head>
     );

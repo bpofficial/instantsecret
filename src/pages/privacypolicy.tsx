@@ -123,13 +123,16 @@ export default function PrivacyPolicyPage() {
 const PrivacyPolicyMetadata = () => {
     return (
         <Head>
+            <title>
+                Privacy Policy - Instant Secure Link
+            </title>
             <meta
                 name="title"
-                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+                content="Privacy Policy - Instant Secure Link"
             />
             <meta
                 name="description"
-                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+                content=""
             />
         </Head>
     );
