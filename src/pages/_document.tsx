@@ -6,13 +6,6 @@ import {
 import { Html, Main } from "next/document";
 const isProd = true; //process.env.NEXT_PUBLIC_ENV === "production";
 
-// Google Tag Manager Script (Optional)
-const GTMJs = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');`;
-
 export const getInitialProps = async (ctx: any) => {
     const initialProps = await getCspInitialProps({ ctx });
     return initialProps;
@@ -24,6 +17,14 @@ export default function Document(props: any) {
     return (
         <Html>
             <Head>
+                {isProd ? <><script async src={`https://www.googletagmanager.com/gtag/js?id="${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}"`}></script>
+                    <script>{`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');`}
+                    </script></> : <></>}
                 <meta charSet="utf-8" />
                 <meta
                     name="keywords"
@@ -70,26 +71,8 @@ export default function Document(props: any) {
                 />
                 <meta name="msapplication-TileColor" content="#da532c" />
                 <meta name="theme-color" content="#ffffff" />
-
-                {/* Google Tag Manager */}
-                {isProd && (
-                    <script
-                        dangerouslySetInnerHTML={{
-                            __html: GTMJs,
-                        }}
-                    />
-                )}
-                {/* End Google Tag Manager */}
             </Head>
             <body>
-                {isProd && (
-                    <noscript
-                        dangerouslySetInnerHTML={{
-                            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`,
-                        }}
-                    />
-                )}
-
                 <Main />
                 <NextScript />
             </body>

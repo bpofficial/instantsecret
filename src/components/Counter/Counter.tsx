@@ -1,10 +1,6 @@
 import { useRef } from "react";
 import { useCountUp } from "react-countup";
 
-const easingFn = function (t: number, b: number, c: number, d: number) {
-    return c * (Math.pow(t / d - 1, 5) + 1) + b;
-};
-
 interface CounterProps {
     data: {
         startNum?: number;
@@ -20,7 +16,7 @@ export const Counter = (props: CounterProps) => {
     } = props;
     const countUpRef = useRef(null);
 
-    const { start, pauseResume, reset, update } = useCountUp({
+    useCountUp({
         ref: countUpRef,
         start: startNum,
         end: endNum,
