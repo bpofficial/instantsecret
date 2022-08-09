@@ -23,6 +23,7 @@ export const Banner = ({ initialValue }: BannerProps) => {
             }
             setEndNum(val);
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

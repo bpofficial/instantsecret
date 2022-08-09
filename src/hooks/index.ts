@@ -1,4 +1,3 @@
-export * from "./useCounter";
 export * from "./useEmitOnLoad";
 export * from "./useIsMobile";
 export * from "./useLocaleLink";

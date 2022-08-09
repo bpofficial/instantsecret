@@ -16,11 +16,14 @@ export interface TimelineProps {
 }
 
 export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
-    const containerRef = useRef<HTMLDivElement>(null)
+    const containerRef = useRef<HTMLDivElement>(null);
     const [refs, setRefs] = useState<RefObject<HTMLDivElement>[]>([]);
     const [result, setResult] = useState<TimelineItem[]>([]);
     const allRight = useBreakpointValue([true, true, false]);
-    const [lineDimensions, setLineDimensions] = useState({ offset: '0', height: '100%' })
+    const [lineDimensions, setLineDimensions] = useState({
+        offset: "0",
+        height: "100%",
+    });
 
     useEffect(() => {
         if (!items || (!items.left && !items.right)) return;
@@ -47,18 +50,31 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
     }, [items, startingSide]);
 
     useEffect(() => {
-        const [first, last] = [refs[0], refs[refs.length - 1]];
-        if (first?.current && last?.current && containerRef?.current) {
-            const [topOffset, bottomOffset] = [(first?.current?.clientHeight ?? 1) / 2, (last?.current?.clientHeight ?? 1) / 2];
-            const containerHeight = containerRef.current?.clientHeight ?? 0;
-            const lineHeight = containerHeight - (bottomOffset + topOffset);
-            setLineDimensions({ offset: topOffset + 'px', height: lineHeight + 'px' });
+        function setDimensions() {
+            const [first, last] = [refs[0], refs[refs.length - 1]];
+            if (first?.current && last?.current && containerRef?.current) {
+                const [topOffset, bottomOffset] = [
+                    (first?.current?.clientHeight ?? 1) / 2,
+                    (last?.current?.clientHeight ?? 1) / 2,
+                ];
+                const containerHeight = containerRef.current?.clientHeight ?? 0;
+                const lineHeight = containerHeight - (bottomOffset + topOffset);
+                setLineDimensions({
+                    offset: topOffset + "px",
+                    height: lineHeight + "px",
+                });
+            }
         }
-    }, [refs, containerRef])
 
-    return (<>
-        <chakra.style>
-            {`
+        setDimensions();
+        window.addEventListener("resize", setDimensions);
+        return () => window.removeEventListener("resize", setDimensions);
+    }, [refs, containerRef]);
+
+    return (
+        <>
+            <chakra.style>
+                {`
             .timeline {
                 background: linear-gradient(0deg, rgba(69,123,157,1) 0%, rgba(29,53,87,1) 100%);
             }
@@ -84,45 +100,45 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
                 background: #427799;
             }
         `}
-        </chakra.style>
-        <Flex justify="space-between" w="100%" position="relative">
-            <Flex direction="column" w="100%" ref={containerRef}>
-                {result.map((item, idx) => (
-                    <TimelineItem
-                        index={idx}
-                        left={
-                            allRight
-                                ? false
-                                : startingSide === "left"
+            </chakra.style>
+            <Flex justify="space-between" w="100%" position="relative">
+                <Flex direction="column" w="100%" ref={containerRef}>
+                    {result.map((item, idx) => (
+                        <TimelineItem
+                            index={idx}
+                            left={
+                                allRight
+                                    ? false
+                                    : startingSide === "left"
                                     ? idx % 2 === 0
                                     : idx % 1 === 0
-                        }
-                        right={
-                            allRight
-                                ? true
-                                : startingSide === "right"
+                            }
+                            right={
+                                allRight
+                                    ? true
+                                    : startingSide === "right"
                                     ? idx % 2 === 0
                                     : idx % 1 === 0
-                        }
-                        fullWidth={!!allRight}
-                        ref={refs[idx]}
-                        key={idx}
-                        empty={item?.emtpy}
-                        {...item}
-                    />
-                ))}
+                            }
+                            fullWidth={!!allRight}
+                            ref={refs[idx]}
+                            key={idx}
+                            empty={item?.emtpy}
+                            {...item}
+                        />
+                    ))}
+                </Flex>
+                <Box
+                    top={lineDimensions.offset}
+                    height={lineDimensions.height}
+                    className="timeline"
+                    position="absolute"
+                    w="6px"
+                    bg="custom.400"
+                    borderRadius="md"
+                    left={["0", "0", "calc(50% - 3px)"]}
+                />
             </Flex>
-            <Box
-                top={lineDimensions.offset}
-                height={lineDimensions.height}
-                className="timeline"
-                position="absolute"
-                w="6px"
-                bg="custom.400"
-                borderRadius="md"
-                left={["0", "0", "calc(50% - 3px)"]}
-            />
-        </Flex>
-    </>
+        </>
     );
 };

@@ -56,16 +56,22 @@ export const TimelineItem = forwardRef(
         };
 
         useEffect(() => {
-            if (ref) {
-                setBoxHeight(
-                    (ref as RefObject<HTMLDivElement>)?.current?.clientHeight ??
-                        0
-                );
-                setBoxWidth(
-                    (ref as RefObject<HTMLDivElement>)?.current?.clientWidth ??
-                        0
-                );
+            function setDimensions() {
+                if (ref) {
+                    setBoxHeight(
+                        (ref as RefObject<HTMLDivElement>)?.current
+                            ?.clientHeight ?? 0
+                    );
+                    setBoxWidth(
+                        (ref as RefObject<HTMLDivElement>)?.current
+                            ?.clientWidth ?? 0
+                    );
+                }
             }
+
+            setDimensions();
+            window.addEventListener("resize", setDimensions);
+            return () => window.removeEventListener("resize", setDimensions);
         }, [ref]);
 
         if (props.empty || !(props.title && props.content)) {
@@ -83,7 +89,11 @@ export const TimelineItem = forwardRef(
                 ml={props.fullWidth ? "60px" : 0}
             >
                 <Box position="relative">
-                    <TimelineItemDot boxHeight={boxHeight} {...dotProps} />
+                    {boxWidth ? (
+                        <TimelineItemDot boxHeight={boxHeight} {...dotProps} />
+                    ) : (
+                        <></>
+                    )}
                     <Box
                         p="6"
                         borderRadius="md"
