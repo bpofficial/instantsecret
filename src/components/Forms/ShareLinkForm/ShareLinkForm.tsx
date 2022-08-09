@@ -143,13 +143,15 @@ export const ShareLinkForm = ({
                     >
                         {translation.Disclaimer}
                     </Box>
-                    <Button
-                        variant="link"
-                        color="custom.400"
-                        onClick={createAnother}
-                    >
-                        {translation.CreateAnotherButton}
-                    </Button>
+                    <Flex pt="4" justify="center">
+                        <Button
+                            variant="link"
+                            color="custom.400"
+                            onClick={createAnother}
+                        >
+                            {translation.CreateAnotherButton}
+                        </Button>
+                    </Flex>
                 </VStack>
             </Form>
         </Formik>

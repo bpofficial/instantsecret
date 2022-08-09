@@ -125,6 +125,7 @@ export const CreateLinkForm = () => {
                                 rightElement={<ArrowForwardIcon mt="2" />}
                                 buttonProps={{
                                     borderRadius: "0",
+
                                 }}
                                 validate={(values) => validate(values, true)}
                             />

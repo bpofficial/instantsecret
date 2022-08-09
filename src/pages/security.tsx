@@ -43,7 +43,7 @@ export const getStaticProps = () => {
                     {
                         title: "Rock-solid security",
                         content:
-                            "Utilising the same 256bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
+                            "Utilising the same 256-bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
                     },
                     {
                         title: "Decrypted and automatically deleted",
@@ -159,7 +159,7 @@ const SecurityTitle = () => {
                     <chakra.span color="custom.300">
                         256-bit encryption
                     </chakra.span>
-                    &nbsp;to keep your data secure
+                    &nbsp;to keep your private information secure
                 </Heading>
 
                 <Box color="custom.400" fontWeight="600">

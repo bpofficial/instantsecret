@@ -46,7 +46,7 @@ export const en: TranslationObj = {
         BurnButton: "BURN THIS LINK",
         Disclaimer:
             "Burning a secure link will delete it before it has been read, you'll need to confirm this action.",
-        CreateAnotherButton: "CREATE ANOTHER SECURE LINK",
+        CreateAnotherButton: "Create another secure link",
         EncryptedPlaceholder: "This message is encrypted with your passphrase.",
     },
     BurnLinkForm: {
