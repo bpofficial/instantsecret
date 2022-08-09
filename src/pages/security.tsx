@@ -1,6 +1,7 @@
 import { Box, Button, Flex, VStack } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import {
     PageWrapper,
     Timeline,
@@ -58,6 +59,10 @@ export const getServerSideProps = withCounterProps({
 });
 
 export default function Security({ items }: { items: TimelineItems }) {
+    // used to stop flickering of page height on change when items are loaded in.
+    const [loaded, setLoaded] = useState(false);
+    useEffect(() => setLoaded(true), []);
+
     return (
         <PageWrapper>
             <SecurityMetadata />
@@ -66,7 +71,9 @@ export default function Security({ items }: { items: TimelineItems }) {
                 mt={["4", "8", "8", "36"]}
                 direction="column"
                 maxW="100%"
+                w="100%"
                 position="relative"
+                minH={loaded ? undefined : "100vh"}
             >
                 <Flex
                     direction={[
@@ -82,7 +89,8 @@ export default function Security({ items }: { items: TimelineItems }) {
                         "center",
                         "center",
                         "center",
-                        "space-between",
+                        loaded ? "space-between" : "flex-start",
+                        loaded ? "space-between" : "flex-start",
                     ]}
                     align={[
                         "center",
@@ -93,7 +101,7 @@ export default function Security({ items }: { items: TimelineItems }) {
                         "initial",
                     ]}
                     maxW="100%"
-                    position="relative"
+                    w="100%"
                 >
                     <SecurityTitle />
                     <DesktopSecurityContent
@@ -151,6 +159,7 @@ const SecurityTitle = () => {
             maxW={["100%", "100%", "100%", "100%", "60%", "50%"]}
             minW={["100%", "100%", "100%", "100%", "60%", "50%"]}
             mb={["12"]}
+            alignSelf="flex-start"
         >
             <VStack align="flext-start" spacing={[6, 8]}>
                 <Title>
