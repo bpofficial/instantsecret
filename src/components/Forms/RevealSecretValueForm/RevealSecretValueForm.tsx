@@ -11,6 +11,7 @@ import { Form, Formik } from "formik";
 import Head from "next/head";
 import { useRef } from "react";
 import { useTranslation } from "../../../hooks";
+import { emit } from "../../../utils";
 import { FormButton } from "../../FormButton";
 
 interface RevealSecretValueFormProps {
@@ -33,6 +34,7 @@ export const RevealSecretValueForm = ({
     const formEl = useRef<HTMLFormElement>(null);
 
     const onSubmit = () => {
+        emit("secure_content_opened");
         formEl.current?.submit();
     };
 

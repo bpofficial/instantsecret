@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import { ImFire } from "react-icons/im";
 import { useOrigin, useTranslation } from "../../../hooks";
+import { emit } from "../../../utils";
 import { copyTextToClipboard } from "../../../utils/copyToClipboard";
 import { millisecondsToStr } from "../../../utils/humanReadableTimeDiff";
 import { FormButton } from "../../FormButton";
@@ -53,6 +54,7 @@ export const ShareLinkForm = ({
 
     const onCopy = () => {
         inputRef.current?.select();
+        emit("secure_link_copied");
         copyTextToClipboard(link);
     };
 

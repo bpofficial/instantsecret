@@ -19,27 +19,35 @@ const checkDate = (date?: string | null) => {
         if (Number.isNaN(Number(date))) return false;
         if (Number.isNaN(d.getTime())) return false;
         const diff = new Date().getTime() - d.getTime();
-        if (diff > (1000 * 60 * 60 * 24 * 3)) {
+        if (diff > 1000 * 60 * 60 * 24 * 3) {
             return false; // 3 days
         }
         return true;
     } catch {
         return false;
     }
-}
+};
 
 const immediateValue = (key: string, fallback?: any) => {
-    return typeof window !== 'undefined' ? window.localStorage.getItem(key) : fallback ?? null;
-}
+    return typeof window !== "undefined"
+        ? window.localStorage.getItem(key)
+        : fallback ?? null;
+};
 
 export const CounterProvider = ({ children }: CounterProviderProps) => {
-    const [lastLoad, setLastLoad] = useLocalStorage('last-load', immediateValue("last-load"))
-    const [counter, setCounter] = useLocalStorage("counter", immediateValue("counter", 0));
+    const [lastLoad, setLastLoad] = useLocalStorage(
+        "last-load",
+        immediateValue("last-load")
+    );
+    const [counter, setCounter] = useLocalStorage(
+        "counter",
+        immediateValue("counter", 0)
+    );
     const [loadFromZero] = useState(!checkDate(lastLoad));
 
     const fetchCounter = async () => {
         return axios
-            .get(`/api/stats`)
+            .get(`/api/stats/`)
             .then((data) => data.data.value)
             .catch(console.warn);
     };

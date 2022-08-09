@@ -36,7 +36,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                 .get({
                     TableName: tableName,
                     Key: {
-                        id: hash(id),
+                        id: hash(id).toString("hex"),
                     },
                 })
                 .promise();
@@ -48,7 +48,9 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                 .scan({
                     TableName: tableName,
                     FilterExpression: "secretId = :secretId",
-                    ExpressionAttributeValues: { ":secretId": hash(id) },
+                    ExpressionAttributeValues: {
+                        ":secretId": hash(id).toString("hex"),
+                    },
                 })
                 .promise();
 
@@ -59,7 +61,10 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             }
 
             if (record && record.Count && record.Count > 1) {
-                console.log("More than 1 secret found with id", hash(id));
+                console.log(
+                    "More than 1 secret found with id",
+                    hash(id).toString("hex")
+                );
                 res.statusCode = 404;
                 res.end();
                 return;

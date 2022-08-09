@@ -1041,6 +1041,11 @@
     "@types/node" "*"
     "@types/responselike" "*"
 
+"@types/gtag.js@^0.0.10":
+  version "0.0.10"
+  resolved "https://registry.yarnpkg.com/@types/gtag.js/-/gtag.js-0.0.10.tgz#ac90d9b79c00daac447725a4b78ec1c398796760"
+  integrity sha512-98Hy7woUb3jMAMXkZQwfIOYNyfxmI0+U4m0PpCGdnd/FHk0tDpQFCqgXdNkdEoXsKkcGya/2Gew1cAJjKJspVw==
+
 "@types/http-cache-semantics@*":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@types/http-cache-semantics/-/http-cache-semantics-4.0.1.tgz#0ea7b61496902b95890dc4c3a116b60cb8dae812"
@@ -2222,6 +2227,11 @@ futoin-hkdf@^1.5.0:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/futoin-hkdf/-/futoin-hkdf-1.5.1.tgz#141f00427bc9950b38a42aa786b99c318b9b688d"
   integrity sha512-g5d0Qp7ks55hYmYmfqn4Nz18XH49lcCR+vvIvHT92xXnsJaGZmY1EtWQWilJ6BQp57heCIXM/rRo+AFep8hGgg==
+
+ga-gtag@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ga-gtag/-/ga-gtag-1.1.1.tgz#15b0c2b71c5e122cfd51cd38e33f9917bf6330f8"
+  integrity sha512-r+odwlYMzQTHPOW863by2K6NzvRoYfLAcSkI3bkQQYYL1MNwzno1ciyRCnpyw6vZsc5jpIYKSN/my5/H6R5aEg==
 
 get-intrinsic@^1.0.2, get-intrinsic@^1.1.0, get-intrinsic@^1.1.1:
   version "1.1.2"

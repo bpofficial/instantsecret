@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Textarea, VStack } from "@chakra-ui/react";
 import { Formik } from "formik";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useTranslation } from "../../../hooks";
+import { useEmitOnLoad, useTranslation } from "../../../hooks";
 import { FormButton } from "../../FormButton";
 
 interface ViewSecretValueFormProps {
@@ -15,6 +15,8 @@ export const ViewSecretValueForm = ({
 }: ViewSecretValueFormProps) => {
     const router = useRouter();
     const translation = useTranslation("ViewSecretValueForm");
+
+    useEmitOnLoad("secure_content_viewed");
 
     return (
         <>

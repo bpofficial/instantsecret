@@ -10,6 +10,7 @@ import {
 import { Form, Formik, FormikHelpers, FormikValues } from "formik";
 import { useRef } from "react";
 import { useTranslation } from "../../../hooks";
+import { emit } from "../../../utils";
 import { FormButton } from "../../FormButton";
 import { LifetimeInput, LifetimeLabel } from "./Inputs/Lifetime";
 import { PassphraseInput, PassphraseLabel } from "./Inputs/Passphrase";
@@ -46,6 +47,7 @@ export const CreateLinkForm = () => {
             throw new Error("Invalid");
         } else {
             setErrors({});
+            emit("secure_link_created");
             formEl.current?.submit();
             setTimeout(resetForm);
         }
@@ -125,7 +127,6 @@ export const CreateLinkForm = () => {
                                 rightElement={<ArrowForwardIcon mt="2" />}
                                 buttonProps={{
                                     borderRadius: "0",
-
                                 }}
                                 validate={(values) => validate(values, true)}
                             />

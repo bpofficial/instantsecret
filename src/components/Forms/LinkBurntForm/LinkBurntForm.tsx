@@ -2,7 +2,7 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Flex, Heading, Textarea, VStack } from "@chakra-ui/react";
 import { Formik } from "formik";
 import { useRouter } from "next/router";
-import { useTranslation } from "../../../hooks";
+import { useEmitOnLoad, useTranslation } from "../../../hooks";
 import { FormButton } from "../../FormButton";
 
 interface LinkBurntFormProps {
@@ -13,6 +13,8 @@ interface LinkBurntFormProps {
 export const LinkBurntForm = ({ linkId }: LinkBurntFormProps) => {
     const translation = useTranslation("LinkBurntForm");
     const router = useRouter();
+
+    useEmitOnLoad("burnt_link_viewed");
 
     return (
         <Formik {...{ onSubmit: () => {} }} initialValues={{} as any}>

@@ -11,7 +11,7 @@ async function DeleteLink(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
-    const idHash = hash(id);
+    const idHash = hash(id).toString("hex");
 
     const record = await dynamodb
         .get({

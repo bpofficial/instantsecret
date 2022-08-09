@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { useRef } from "react";
 import { ImFire } from "react-icons/im";
 import { useTranslation } from "../../../hooks";
+import { emit } from "../../../utils";
 import { FormButton } from "../../FormButton";
 
 interface BurnLinkFormProps {
@@ -15,15 +16,14 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
     const formEl = useRef<HTMLFormElement>(null);
     const router = useRouter();
 
-    const onSubmit = (
-        values: FormikValues,
-        { resetForm }: FormikHelpers<any>
-    ) => {
+    const onSubmit = (_: FormikValues, { resetForm }: FormikHelpers<any>) => {
+        emit("secure_link_burnt");
         formEl.current?.submit();
         setTimeout(resetForm);
     };
 
     const onCancel = () => {
+        emit("secure_link_burn_cancelled");
         router
             .replace(`/links/${linkId}/`)
             .then(console.debug)

@@ -12,15 +12,10 @@ const algorithm = "aes-256-cbc";
  * @param value String to be hashed
  * @returns An SHA512 hash of the `value`
  */
-export const hash = (
-    value: string,
-    alg = "SHA512",
-    format: BufferEncoding = "hex"
-) => {
+export const hash = (value: string, alg = "SHA512") => {
     return Crypto.createHash(alg)
         .update(value || "")
-        .digest()
-        .toString(format);
+        .digest();
 };
 
 /**
@@ -33,13 +28,13 @@ export const hash = (
 const iterateDigest = (initialValue: string, iterations = 3) => {
     let val = initialValue;
     for (let i = 0; i < iterations; i++) {
-        val = hash(val);
+        val = hash(val).toString("hex");
     }
     return val;
 };
 
 /**
- * Create a secret key using a generated initialisation vector,
+ * Create a secret key using parameters
  *
  * @param iv A generated initialisation vector.
  * @param createdAt The time in milliseconds that the secret was created.
@@ -56,28 +51,9 @@ const createSecretKey = (
     const gSecret = iterateDigest(process.env.GLOBAL_SECRET!);
     const ivHex = iv.toString("hex");
     return hash(
-        `${gSecret}::${ivHex}::${createdAt}::${keyId}::${passphrase ?? ""}`
+        `${gSecret}::${ivHex}::${createdAt}::${keyId}::${passphrase ?? ""}`,
+        "SHA256"
     );
-};
-
-/**
- * Calculate an interval (`n`) from the division of the `key` length and `maxLength`
- * then take every n'th value from the original `key` and return it.
- *
- * @param key The key to reduce.
- * @param maxLength The maximum length of the returning string.
- * @returns A reduced key.
- */
-const reduceKey = (key: string, maxLength: number) => {
-    const length = key.length;
-    const interval = Math.floor(length / maxLength);
-    if (interval === 0) return key;
-
-    let str = "";
-    for (let i = 0; i < length; i += interval) {
-        str += key[i];
-    }
-    return str;
 };
 
 /**
@@ -97,11 +73,8 @@ export const encryptValue = (
 ) => {
     const iv = Crypto.randomBytes(16);
     const secretKey = createSecretKey(iv, createdAt, keyId, passphrase);
-    const cipher = Crypto.createCipheriv(
-        algorithm,
-        reduceKey(secretKey, 32),
-        iv
-    );
+    // deepcode ignore InsecureCipherNoIntegrity: Assumed secure through the removal and hashing of encryption-key parts.
+    const cipher = Crypto.createCipheriv(algorithm, secretKey, iv);
     const encryptedValue = Buffer.concat([
         cipher.update(value),
         cipher.final(),
@@ -132,11 +105,8 @@ export const decryptValue = (
     if (!encryptedValue) return;
     const iv = Buffer.from(ivHex, "hex");
     const secretKey = createSecretKey(iv, createdAt, keyId, passphrase);
-    const decipher = Crypto.createDecipheriv(
-        algorithm,
-        reduceKey(secretKey, 32),
-        iv
-    );
+    // deepcode ignore InsecureCipherNoIntegrity: Assumed secure through the removal and hashing of encryption-key parts.
+    const decipher = Crypto.createDecipheriv(algorithm, secretKey, iv);
     const decrpyted = Buffer.concat([
         decipher.update(Buffer.from(encryptedValue, "hex")),
         decipher.final(),

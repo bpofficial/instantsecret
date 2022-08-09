@@ -9,10 +9,11 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { useTranslation } from "../../hooks";
+import { useEmitOnLoad, useTranslation } from "../../hooks";
 
 export const NeverExisted = () => {
     const translation = useTranslation("NeverExisted");
+    useEmitOnLoad("link_not_exists");
 
     return (
         <Flex w="100%" justifyContent="center" alignItems="center">
