@@ -4,7 +4,7 @@ import {
     provideComponents,
 } from "@next-safe/middleware/dist/document";
 import { Html, Main } from "next/document";
-const isProd = true; //process.env.NEXT_PUBLIC_ENV === "production";
+const isProd = process.env.NEXT_PUBLIC_ENV === "production";
 
 export const getInitialProps = async (ctx: any) => {
     const initialProps = await getCspInitialProps({ ctx });
