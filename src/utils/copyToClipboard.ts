@@ -12,9 +12,9 @@ function fallbackCopyTextToClipboard(text: string) {
     textArea.select();
 
     try {
-      document.execCommand('copy');
+        document.execCommand("copy");
     } catch (err) {
-      console.error('Fallback: Oops, unable to copy', err);
+        //
     }
 
     document.body.removeChild(textArea);
@@ -22,12 +22,15 @@ function fallbackCopyTextToClipboard(text: string) {
 
 export function copyTextToClipboard(text: string) {
     if (!navigator.clipboard) {
-      fallbackCopyTextToClipboard(text);
-      return;
+        fallbackCopyTextToClipboard(text);
+        return;
     }
-    navigator.clipboard.writeText(text).then(function() {
-      console.debug('Async: Copying to clipboard was successful!');
-    }, function(err) {
-      console.error('Async: Could not copy text: ', err);
-    });
-  }
+    navigator.clipboard.writeText(text).then(
+        function () {
+            //
+        },
+        function (err) {
+            //
+        }
+    );
+}
