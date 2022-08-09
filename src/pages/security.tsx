@@ -7,6 +7,7 @@ import {
     TimelineItems,
     WatchADemo,
 } from "../components";
+import { Subtitle, Title, TitleHighlight } from "../components/Title";
 
 export const getStaticProps = () => {
     return {
@@ -61,7 +62,7 @@ export default function Security({ items }: { items: TimelineItems }) {
         <PageWrapper>
             <SecurityMetadata />
             <Flex
-                mb={["8", "12", "16"]}
+                mb={["8", "12", "24"]}
                 mt={["4", "8", "8", "36"]}
                 direction="column"
                 maxW="100%"
@@ -112,7 +113,6 @@ const DesktopSecurityContent = ({ items }: { items: TimelineItems }) => {
     return (
         <Flex
             align="left"
-            mb={["12"]}
             direction="column"
             maxW={"60%"}
             w="100%"
@@ -152,20 +152,16 @@ const SecurityTitle = () => {
             mb={["12"]}
         >
             <VStack align="flext-start" spacing={[6, 8]}>
-                <Heading
-                    fontSize={["32px", "32px", "36px", "36px", "48px"]}
-                    fontWeight="extrabold"
-                >
-                    <chakra.span color="custom.300">
+                <Title>
+                    <TitleHighlight>
                         256-bit encryption
-                    </chakra.span>
-                    &nbsp;to keep your private information secure
-                </Heading>
-
-                <Box color="custom.400" fontWeight="600">
+                    </TitleHighlight>
+                    to keep your private information secure
+                </Title>
+                <Subtitle>
                     We&apos;re always working on new features and upgrades to
                     continue to deliver the best experience possible.
-                </Box>
+                </Subtitle>
 
                 <Flex
                     justify={["center", "center", "left"]}
@@ -176,7 +172,7 @@ const SecurityTitle = () => {
                         variant="link"
                         color="custom.400"
                         pt={["4", "0"]}
-                        pl={["4", "8"]}
+                        pl={["0", "8"]}
                         onClick={() => router.push(`/links`)}
                     >
                         Create a secure link

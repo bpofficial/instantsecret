@@ -14,11 +14,11 @@ const LinkIndexMetadata = () => {
     return (
         <Head>
             <title>
-                Create a New Secure Link Instantly - Instant Secure Link
+                Create a New Secure Link - Instant Secure Link
             </title>
             <meta
                 name="title"
-                content="Create a New Secure Link Instantly - Instant Secure Link"
+                content="Create a New Secure Link - Instant Secure Link"
             />
             <meta
                 name="description"

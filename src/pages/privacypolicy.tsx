@@ -1,6 +1,7 @@
 import { chakra, Flex, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { PageWrapper } from "../components";
+import { Title } from "../components/Title";
 
 export default function PrivacyPolicyPage() {
     return (
@@ -8,13 +9,9 @@ export default function PrivacyPolicyPage() {
             <PrivacyPolicyMetadata />
             <Flex mt="100px" maxW="1200px" justifyContent="center">
                 <Text>
-                    <Heading
-                        fontSize={["32px", "32px", "36px", "36px", "48px"]}
-                        fontWeight="extrabold"
-                        color="custom.400"
-                    >
+                    <Title>
                         Privacy Policy
-                    </Heading>
+                    </Title>
                     <br />
                     We are committed to protecting your privacy. This policy
                     describes our practices regarding personal and account

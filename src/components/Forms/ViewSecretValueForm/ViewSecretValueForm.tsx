@@ -1,6 +1,7 @@
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { Box, Flex, Heading, Textarea, VStack } from "@chakra-ui/react";
 import { Formik } from "formik";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTranslation } from "../../../hooks";
 import { FormButton } from "../../FormButton";
@@ -17,6 +18,14 @@ export const ViewSecretValueForm = ({
 
     return (
         <>
+            <Head>
+                <meta name="robots" content="noindex, nofollow" />
+                <title>View Secure Content - Instant Secure Link</title>
+                <meta
+                    name="title"
+                    content="View Secure Content - Instant Secure Link"
+                />
+            </Head>
             <Formik onSubmit={() => {}} initialValues={{}}>
                 <Flex w="100%" justifyContent="center" alignItems="center">
                     <VStack align="left" spacing={4} w="100%" maxW={"620px"}>

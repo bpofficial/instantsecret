@@ -53,9 +53,10 @@ const BurnMetadata = ({ neverExisted = false }) => {
     return (
         <Head>
             <meta name="robots" content="noindex, nofollow" />
+            <title>Burn a Link - Instant Secure Link</title>
             <meta
                 name="title"
-                content="Instant Secure Link - Create One-Time Secure Links Instantly"
+                content="Burn a Link - Instant Secure Link"
             />
         </Head>
     );

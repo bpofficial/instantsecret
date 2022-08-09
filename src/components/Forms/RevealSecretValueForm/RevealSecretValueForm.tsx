@@ -8,6 +8,7 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
+import Head from "next/head";
 import { useRef } from "react";
 import { useTranslation } from "../../../hooks";
 import { FormButton } from "../../FormButton";
@@ -38,59 +39,69 @@ export const RevealSecretValueForm = ({
     const isFieldError = !!error?.meta?.fieldError;
 
     return (
-        <Formik {...{ onSubmit }} initialValues={{} as any}>
-            <Form
-                action={`/private/${secretKey}/`}
-                method="POST"
-                ref={formEl}
-                style={{
-                    width: "100%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                }}
-            >
-                <VStack align="left" spacing={4} w="100%" maxW={"620px"}>
-                    <Heading size="md">
-                        {encrypted
-                            ? translation.EnterPassphrase
-                            : translation.ClickToContinue}
-                    </Heading>
+        <>
+            <Head>
+                <meta name="robots" content="noindex, nofollow" />
+                <title>Confirm Open Content - Instant Secure Link</title>
+                <meta
+                    name="title"
+                    content="Confirm Open Content - Instant Secure Link"
+                />
+            </Head>
+            <Formik {...{ onSubmit }} initialValues={{} as any}>
+                <Form
+                    action={`/private/${secretKey}/`}
+                    method="POST"
+                    ref={formEl}
+                    style={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                    }}
+                >
+                    <VStack align="left" spacing={4} w="100%" maxW={"620px"}>
+                        <Heading size="md">
+                            {encrypted
+                                ? translation.EnterPassphrase
+                                : translation.ClickToContinue}
+                        </Heading>
 
-                    {encrypted ? (
-                        <FormControl isInvalid={isFieldError}>
-                            <Input
-                                name="passphrase"
-                                placeholder={
-                                    translation.EnterPassphrasePlaceholder
-                                }
-                            />
-                            {isFieldError ? (
-                                <FormErrorMessage>
-                                    {error?.description}
-                                </FormErrorMessage>
-                            ) : (
-                                <></>
-                            )}
-                        </FormControl>
-                    ) : (
-                        <></>
-                    )}
+                        {encrypted ? (
+                            <FormControl isInvalid={isFieldError}>
+                                <Input
+                                    name="passphrase"
+                                    placeholder={
+                                        translation.EnterPassphrasePlaceholder
+                                    }
+                                />
+                                {isFieldError ? (
+                                    <FormErrorMessage>
+                                        {error?.description}
+                                    </FormErrorMessage>
+                                ) : (
+                                    <></>
+                                )}
+                            </FormControl>
+                        ) : (
+                            <></>
+                        )}
 
-                    <FormButton
-                        text={translation.ContinueButton}
-                        rightElement={<ArrowForwardIcon mt="2" />}
-                    />
-                    <Box
-                        textAlign="center"
-                        fontSize="sm"
-                        fontStyle="italic"
-                        color="custom.400"
-                    >
-                        {translation.Disclaimer}
-                    </Box>
-                </VStack>
-            </Form>
-        </Formik>
+                        <FormButton
+                            text={translation.ContinueButton}
+                            rightElement={<ArrowForwardIcon mt="2" />}
+                        />
+                        <Box
+                            textAlign="center"
+                            fontSize="sm"
+                            fontStyle="italic"
+                            color="custom.400"
+                        >
+                            {translation.Disclaimer}
+                        </Box>
+                    </VStack>
+                </Form>
+            </Formik>
+        </>
     );
 };

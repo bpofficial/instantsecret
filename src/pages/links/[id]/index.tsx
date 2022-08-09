@@ -97,13 +97,10 @@ const LinkMetadata = (props: NewLinkIdPageProps) => {
     return (
         <Head>
             <meta name="robots" content="noindex, nofollow" />
+            <title>Share a Link - Instant Secure Link</title>
             <meta
                 name="title"
-                content="Instant Secure Link - Create One-Time Secure Links Instantly"
-            />
-            <meta
-                name="description"
-                content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."
+                content="Share link - Instant Secure Link"
             />
         </Head>
     );

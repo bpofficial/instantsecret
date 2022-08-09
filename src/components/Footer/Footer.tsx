@@ -25,10 +25,9 @@ interface FooterProps {
 }
 
 export const Footer = ({ showBanner = false }: FooterProps) => {
-    const isMobile = useIsMobile();
 
     return (
-        <Box marginTop={isMobile ? "60px" : "120px"}>
+        <Box>
             <Flex
                 textAlign="center"
                 px="4"

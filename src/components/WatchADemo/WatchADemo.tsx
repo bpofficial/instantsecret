@@ -38,7 +38,7 @@ export const WatchADemo = () => {
                         <AspectRatio maxH="560px">
                             <chakra.iframe
                                 title="demo"
-                                src="https://www.youtube.com/embed/vRhjen7PgUI?controls=0"
+                                src="https://www.youtube.com/embed/vRhjen7PgUI"
                                 allowFullScreen
                             />
                         </AspectRatio>

@@ -1,6 +1,7 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { PageWrapper } from "../components";
+import { Title } from "../components/Title";
 
 export default function TermsAndConditionsPage() {
     return (
@@ -8,13 +9,9 @@ export default function TermsAndConditionsPage() {
             <TermsAndConditionsMetadata />
             <Flex mt="100px" maxW="1200px" justifyContent="center">
                 <Text>
-                    <Heading
-                        fontSize={["32px", "32px", "36px", "36px", "48px"]}
-                        fontWeight="extrabold"
-                        color="custom.400"
-                    >
+                    <Title>
                         Terms & Conditions
-                    </Heading>
+                    </Title>
                     <br />
                     These terms of use (the &quot;Terms of Use&quot;) are a
                     legal agreement between you and White Peak Digital Pty Ltd
