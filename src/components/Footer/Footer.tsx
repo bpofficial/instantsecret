@@ -5,6 +5,7 @@ import {
     Heading,
     HStack,
     Text,
+    useBreakpointValue,
     VisuallyHidden,
     VStack,
 } from "@chakra-ui/react";
@@ -17,15 +18,17 @@ import {
 import { FiEdit, FiSend } from "react-icons/fi";
 import { ImFire } from "react-icons/im";
 import { PAGE_MAX } from "../../constants";
+import { useIsMobile } from "../../hooks";
 
 interface FooterProps {
     showBanner?: boolean;
 }
 
 export const Footer = ({ showBanner = false }: FooterProps) => {
-    const router = useRouter();
+    const isMobile = useIsMobile();
+
     return (
-        <Box marginTop={"auto"}>
+        <Box marginTop={isMobile ? "60px" : "120px"}>
             <Flex
                 textAlign="center"
                 px="4"

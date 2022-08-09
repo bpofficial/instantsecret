@@ -1,30 +1,21 @@
 import {
     Box,
     Button,
-    chakra,
     Flex,
-    Heading,
     HStack,
-    useBreakpointValue,
     VStack,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { CreateLinkForm, PageWrapper, WatchADemo } from "../components";
-import { useTranslation } from "../hooks";
+import { Subtitle, Title, TitleHighlight } from "../components/Title";
+import { useIsMobile, useTranslation } from "../hooks";
 
 export default function Index() {
-    const isMobile = useBreakpointValue([
-        true,
-        true,
-        true,
-        false,
-        false,
-        false,
-    ]);
+    const isMobile = useIsMobile()
 
     return (
-        <PageWrapper fullHeight={!isMobile} center={!isMobile}>
+        <PageWrapper >
             <IndexMetadata />
             <Flex
                 direction={["column", "column", "column", "row"]}
@@ -32,14 +23,13 @@ export default function Index() {
                 align={"center"}
                 maxW={"100%"}
                 h="100%"
-                mt={isMobile ? "50px" : "0"}
-                mb={isMobile ? "50px" : "0"}
+                mt={["50px", "50px"]}
             >
                 <IndexCopyContent />
                 <Box
                     maxW={["100%", "100%", "100%", "460px", "620px"]}
                     w="100%"
-                    mt={["20px", "20px", "32px", "0px"]}
+                    mt={["60px", "60px", "120px"]}
                 >
                     <CreateLinkForm />
                 </Box>
@@ -56,21 +46,15 @@ export const IndexCopyContent = () => {
     return (
         <Box maxW={["100%", "100%", "100%", "50%"]}>
             <VStack align="flext-start" spacing={6}>
-                <Heading
-                    fontSize={["32px", "32px", "36px", "36px", "48px"]}
-                    fontWeight="extrabold"
-                >
-                    <chakra.span color="custom.300">
+                <Title>
+                    <TitleHighlight>
                         {translation.copy.coloredTitle}
-                    </chakra.span>
-                    &nbsp;
+                    </TitleHighlight>
                     {translation.copy.remainingTitle}
-                </Heading>
-
-                <Box color="custom.400" fontWeight="600">
+                </Title>
+                <Subtitle>
                     {translation.copy.subtitle}
-                </Box>
-
+                </Subtitle>
                 <Flex w="100%" justify={["left"]}>
                     <HStack spacing="8" maxW="92%">
                         <WatchADemo />

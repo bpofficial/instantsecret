@@ -42,11 +42,11 @@ export const LifetimeInput = () => {
 
     return (
         <FormControl>
-            <LifetimeLabel shown="(max-width: 768px)" />
+            <LifetimeLabel shown="(max-width: 768px)" mt="2" />
             <Select
                 name="ttl"
                 value={value}
-                onChange={(evt) => setValue(Number(evt.target.value))}
+                onChange={(evt: any) => setValue(Number(evt.target.value))}
                 borderColor="custom.400"
             >
                 {options.map(({ label, value }, key) => (
