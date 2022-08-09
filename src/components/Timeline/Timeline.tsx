@@ -20,6 +20,7 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
     const [refs, setRefs] = useState<RefObject<HTMLDivElement>[]>([]);
     const [result, setResult] = useState<TimelineItem[]>([]);
     const allRight = useBreakpointValue([true, true, false]);
+    const [lineDimensions, setLineDimensions] = useState({ offset: '0', height: '100%' })
 
     useEffect(() => {
         if (!items || (!items.left && !items.right)) return;
@@ -45,13 +46,21 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
         setRefs(refArr);
     }, [items, startingSide]);
 
-    const [first, last] = [refs[0], refs[-1]];
-    const [firstHeight, lastHeight] = [(first?.current?.clientHeight ?? 1) / 2, (last?.current?.clientHeight ?? 1) / 2];
+    useEffect(() => {
+        const [first, last] = [refs[0], refs[-1]];
+        if (first?.current && last?.current && containerRef?.current) {
+            const [topOffset, bottomOffset] = [(first?.current?.clientHeight ?? 1) / 2, (last?.current?.clientHeight ?? 1) / 2];
+            const containerHeight = containerRef.current?.clientHeight ?? 0;
+            const lineHeight = containerHeight - bottomOffset;
+            console.log({ lineHeight,containerHeight, topOffset, bottomOffset })
+            setLineDimensions({ offset: topOffset + 'px', height: lineHeight + 'px' });
+        }
+    }, [refs])
 
     return (<>
         <chakra.style>
             {`
-            .css-1a729wx {
+            .timeline {
                 background: linear-gradient(0deg, rgba(69,123,157,1) 0%, rgba(29,53,87,1) 100%);
             }
             .timeline-dot-0 {
@@ -105,12 +114,13 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
                 ))}
             </Flex>
             <Box
+                top={lineDimensions.offset}
+                height={lineDimensions.height}
+                className="timeline"
                 position="absolute"
-                height="100%"
                 w="6px"
                 bg="custom.400"
                 borderRadius="md"
-                top="0"
                 left={["0", "0", "calc(50% - 3px)"]}
             />
         </Flex>
