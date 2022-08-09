@@ -21,6 +21,7 @@ const securityMiddleware: any[] = [
                 "https://www.googletagmanager.com/",
                 "unsafe-inline",
             ],
+            "connect-src": ["self", "https://www.google-analytics.com/"],
             "style-src": ["self", "unsafe-inline"],
             "style-src-attr": ["unsafe-inline"],
         },
