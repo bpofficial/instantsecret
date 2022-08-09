@@ -52,7 +52,7 @@ export const RevealSecretValueForm = ({
             </Head>
             <Formik {...{ onSubmit }} initialValues={{} as any}>
                 <Form
-                    action={`/private/${secretKey}/`}
+                    action={`/private/${secretKey}`}
                     method="POST"
                     ref={formEl}
                     style={{
@@ -73,6 +73,7 @@ export const RevealSecretValueForm = ({
                             <FormControl isInvalid={isFieldError}>
                                 <Input
                                     name="passphrase"
+                                    type="password"
                                     placeholder={
                                         translation.EnterPassphrasePlaceholder
                                     }

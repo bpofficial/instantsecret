@@ -46,7 +46,7 @@ async function DeleteLink(req: NextApiRequest, res: NextApiResponse) {
         return;
     }
 
-    res.redirect(302, `/links/${id}/`);
+    res.redirect(302, `/links/${id}`);
 }
 
 export default async function Handler(

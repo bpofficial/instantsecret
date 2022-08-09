@@ -25,7 +25,7 @@ export const BurnLinkForm = ({ linkId }: BurnLinkFormProps) => {
     const onCancel = () => {
         emit("secure_link_burn_cancelled");
         router
-            .replace(`/links/${linkId}/`)
+            .replace(`/links/${linkId}`)
             .then(console.debug)
             .catch(console.debug);
     };

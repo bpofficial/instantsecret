@@ -49,7 +49,7 @@ export const LinkReceivedForm = ({
         <Flex w="100%" justifyContent="center" alignItems="center">
             <VStack align="left" spacing={4} w="100%" maxW={"620px"}>
                 <Heading size="md">
-                    {translation.SecureLinkId} ({secretId.slice(0, 8)})
+                    {translation.SecureLinkId} ({secretId})
                 </Heading>
                 <Input
                     w="100%"

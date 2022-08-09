@@ -97,7 +97,11 @@ export const getServerSideProps = gsspWithNonce(
 
         return {
             props: {
-                secret: link,
+                secret: {
+                    secretKey: link.secretKey,
+                    value: link.value,
+                    encrypted: link.encrypted,
+                },
             },
         };
     }

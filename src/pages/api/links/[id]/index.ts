@@ -61,7 +61,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             }
 
             if (record && record.Count && record.Count > 1) {
-                console.log(
+                console.debug(
                     "More than 1 secret found with id",
                     hash(id).toString("hex")
                 );
@@ -73,7 +73,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             record = { Item: record.Items?.[0] ?? null };
         }
     } catch (err) {
-        console.log(err);
+        console.debug(err);
         record = {};
     }
 
@@ -128,13 +128,13 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
                 })
                 .promise();
             if (update.$response.error) {
-                console.log(update.$response);
+                console.debug(update.$response);
                 res.statusCode = 500;
                 res.end();
                 return;
             }
         } catch (err) {
-            console.log(err);
+            console.debug(err);
             res.statusCode = 500;
             res.end();
             return;
@@ -147,6 +147,56 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
         !record.Item.viewedByRecipientAt &&
         !passphraseMatch
     ) {
+        const attempts = (record.Item?.passwordAttempts ?? 0) + 1;
+        const maxAttemptsReached = attempts >= 10;
+        console.log(attempts);
+        try {
+            const update = await dynamodb
+                .update({
+                    TableName: tableName,
+                    Key: {
+                        id: record.Item.id,
+                    },
+                    UpdateExpression:
+                        "SET passwordAttempts = :attempts, secure = :secure, burntAt = :burntAt",
+                    ExpressionAttributeValues: {
+                        ":attempts": attempts,
+                        ":secure": maxAttemptsReached
+                            ? {}
+                            : record.Item?.secure ?? {},
+                        ":burntAt": maxAttemptsReached
+                            ? new Date().toISOString()
+                            : null,
+                    },
+                })
+                .promise();
+            if (maxAttemptsReached) {
+                console.debug("Too many attempts! Wiped");
+                res.statusCode = 401;
+                res.json({
+                    code: 401,
+                    error: "Unauthorized",
+                    description:
+                        "Too many incorrect attempts, this secure link has been destroyed.",
+                    meta: {
+                        fieldError: true,
+                    },
+                });
+                return;
+            }
+            if (update.$response.error) {
+                console.debug(update.$response);
+                res.statusCode = 500;
+                res.end();
+                return;
+            }
+        } catch (err) {
+            console.debug(err);
+            res.statusCode = 500;
+            res.end();
+            return;
+        }
+
         res.statusCode = 401;
         res.json({
             code: 401,
@@ -175,7 +225,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
             );
         }
     } catch (err) {
-        console.log(err);
+        console.debug(err);
         res.statusCode = 500;
         res.end();
         return;
@@ -183,7 +233,7 @@ async function GetLink(req: NextApiRequest, res: NextApiResponse) {
 
     if (secret && secret.length !== record.Item.originalSize) {
         // bad decipher
-        console.log("Failed to properly decipher");
+        console.debug("Failed to properly decipher");
         res.statusCode = 500;
         res.end();
         return;

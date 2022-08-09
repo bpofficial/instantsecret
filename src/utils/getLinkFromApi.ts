@@ -36,7 +36,12 @@ export async function getLinkFromApi(
                 result,
                 accessType
             );
-        return null;
+        try {
+            const data = await result.json();
+            return data;
+        } catch {
+            return null;
+        }
     }
 
     const body = await result.json();

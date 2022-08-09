@@ -7,7 +7,9 @@ export function useOrigin() {
 
     const isProd = process.env.NEXT_PUBLIC_ENV === "production";
     const isStaging = process.env.NEXT_PUBLIC_ENV === "staging";
-    const isDev = process.env.NODE_ENV === "development";
+    const isDev =
+        process.env.NODE_ENV === "development" ||
+        process.env.NEXT_PUBLIC_ENV === "development";
 
     useEffect(() => {
         const origin = window ? window.location.origin : "";

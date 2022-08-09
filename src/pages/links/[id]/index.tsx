@@ -76,10 +76,25 @@ export const getServerSideProps = gsspWithNonce(
 
             if (!link) return { props: {} };
 
+            // Only return what's needed!
             return {
                 props: {
                     linkId: id,
-                    secret: link,
+                    secret: link.burntAt
+                        ? { burntAt: link.burntAt }
+                        : link.viewedByRecipientAt
+                        ? {
+                              secretKey: link.secretKey?.slice(0, 8),
+                              encrypted: link.encrypted,
+                              viewedByRecipientAt: link.viewedByRecipientAt,
+                          }
+                        : {
+                              secretKey: link.secretKey,
+                              encrypted: link.encrypted,
+                              value: link.value,
+                              ttl: link.ttl,
+                              createdAt: link.createdAt,
+                          },
                 },
             };
         } catch (err: any) {
@@ -98,10 +113,7 @@ const LinkMetadata = (props: NewLinkIdPageProps) => {
         <Head>
             <meta name="robots" content="noindex, nofollow" />
             <title>Share a Link - Instant Secure Link</title>
-            <meta
-                name="title"
-                content="Share link - Instant Secure Link"
-            />
+            <meta name="title" content="Share link - Instant Secure Link" />
         </Head>
     );
 };

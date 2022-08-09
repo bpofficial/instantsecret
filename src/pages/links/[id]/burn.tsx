@@ -1,15 +1,15 @@
 import { gsspWithNonce } from "@next-safe/middleware/dist/document";
 import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
-import { NeverExisted, PageWrapper } from "../../../components";
+import { PageWrapper } from "../../../components";
 import { BurnLinkForm } from "../../../components/Forms/BurnLinkForm";
 import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 export default function BurnLinkPage({ id = "" }) {
     return (
         <PageWrapper center fullHeight>
-            <BurnMetadata neverExisted={!id} />
-            {id ? <BurnLinkForm linkId={id} /> : <NeverExisted />}
+            <BurnMetadata />
+            <BurnLinkForm linkId={id} />
         </PageWrapper>
     );
 }
@@ -49,15 +49,12 @@ export const getServerSideProps = gsspWithNonce(
     }
 );
 
-const BurnMetadata = ({ neverExisted = false }) => {
+const BurnMetadata = () => {
     return (
         <Head>
             <meta name="robots" content="noindex, nofollow" />
             <title>Burn a Link - Instant Secure Link</title>
-            <meta
-                name="title"
-                content="Burn a Link - Instant Secure Link"
-            />
+            <meta name="title" content="Burn a Link - Instant Secure Link" />
         </Head>
     );
 };

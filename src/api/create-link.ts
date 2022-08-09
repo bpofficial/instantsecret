@@ -129,7 +129,7 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
         }
 
         if (endpoint === "api") {
-            (res as NextApiResponse).redirect(`/links/${id}/`);
+            (res as NextApiResponse).redirect(`/links/${id}`);
         } else {
             return {
                 linkId: id,

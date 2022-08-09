@@ -47,7 +47,7 @@ export const CounterProvider = ({ children }: CounterProviderProps) => {
 
     const fetchCounter = async () => {
         return axios
-            .get(`/api/stats/`)
+            .get(`/api/stats`)
             .then((data) => data.data.value)
             .catch(console.warn);
     };

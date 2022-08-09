@@ -1,5 +1,11 @@
 import { UserProvider } from "@auth0/nextjs-auth0";
-import { Box, chakra, ChakraProvider, extendTheme, Spacer } from "@chakra-ui/react";
+import {
+    Box,
+    chakra,
+    ChakraProvider,
+    extendTheme,
+    Spacer,
+} from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { Banner, Footer, TopBar } from "../components";
@@ -35,9 +41,13 @@ export default function App({ Component, pageProps }: AppProps) {
                         <Banner />
                         <TopBar />
                         <Component {...pageProps} />
-                        {!!(Component as any).showBanner ? <Box>
-                            <Spacer h={["60px", "60px", "120px"]} />
-                        </Box> : <></>}
+                        {!!(Component as any).showBanner ? (
+                            <Box>
+                                <Spacer h={["60px", "60px", "120px"]} />
+                            </Box>
+                        ) : (
+                            <></>
+                        )}
                         <Footer showBanner={!!(Component as any).showBanner} />
                     </chakra.main>
                 </CounterProvider>
