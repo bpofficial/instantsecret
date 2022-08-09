@@ -69,7 +69,7 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
         setDimensions();
         window.addEventListener("resize", setDimensions);
         return () => window.removeEventListener("resize", setDimensions);
-    }, [refs, containerRef]);
+    }, [refs, containerRef, allRight]);
 
     return (
         <>

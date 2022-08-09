@@ -6,9 +6,10 @@ export const emit = (
 ) => {
     try {
         if (typeof window !== "undefined") {
-            console.debug("Event:", eventName, options);
             if (process.env.NEXT_PUBLIC_ENV === "production") {
                 GtagFn("event", eventName, { ...options });
+            } else {
+                console.debug("Event:", eventName, options);
             }
         }
     } catch (err) {
