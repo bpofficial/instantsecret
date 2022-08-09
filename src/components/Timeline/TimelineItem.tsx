@@ -41,7 +41,7 @@ export const TimelineItem = forwardRef(
         const [boxHeight, setBoxHeight] = useState(0);
         const [boxWidth, setBoxWidth] = useState(0);
 
-        const tenPercent = 0.1 * boxWidth;
+        const tenPercent = 0.25 * boxWidth + 0.5;
         const dotProps = {
             right:
                 !props.fullWidth && props.left
