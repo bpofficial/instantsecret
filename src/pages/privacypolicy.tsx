@@ -1,7 +1,9 @@
 import { chakra, Flex, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { PageWrapper } from "../components";
+import { getLayout } from "../components/Layouts/BaseLayout";
 import { Title } from "../components/Title";
+import { withCounterProps } from "../utils";
 
 export default function PrivacyPolicyPage() {
     return (
@@ -9,9 +11,7 @@ export default function PrivacyPolicyPage() {
             <PrivacyPolicyMetadata />
             <Flex mt="100px" maxW="1200px" justifyContent="center">
                 <Text>
-                    <Title>
-                        Privacy Policy
-                    </Title>
+                    <Title>Privacy Policy</Title>
                     <br />
                     We are committed to protecting your privacy. This policy
                     describes our practices regarding personal and account
@@ -116,21 +116,15 @@ export default function PrivacyPolicyPage() {
         </PageWrapper>
     );
 }
+PrivacyPolicyPage.getLayout = getLayout;
+export const getServerSideProps = withCounterProps();
 
 const PrivacyPolicyMetadata = () => {
     return (
         <Head>
-            <title>
-                Privacy Policy - Instant Secure Link
-            </title>
-            <meta
-                name="title"
-                content="Privacy Policy - Instant Secure Link"
-            />
-            <meta
-                name="description"
-                content=""
-            />
+            <title>Privacy Policy - Instant Secure Link</title>
+            <meta name="title" content="Privacy Policy - Instant Secure Link" />
+            <meta name="description" content="" />
         </Head>
     );
 };

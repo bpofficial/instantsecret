@@ -8,6 +8,8 @@ import {
     PageWrapper,
 } from "../../../components";
 import { ShareLinkForm } from "../../../components/Forms/ShareLinkForm";
+import { getLayout } from "../../../components/Layouts/BaseLayout";
+import { withCounterProps } from "../../../utils";
 import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 interface NewLinkIdPageProps {
@@ -54,9 +56,10 @@ export default function NewLinkIdPage(props: NewLinkIdPageProps) {
         </PageWrapper>
     );
 }
+NewLinkIdPage.getLayout = getLayout;
 
 export const getServerSideProps = gsspWithNonce(
-    async (ctx: GetServerSidePropsContext) => {
+    withCounterProps(async (ctx: GetServerSidePropsContext) => {
         const { id } = ctx.params ?? {};
 
         if (!id || !id.toString().trim().length) {
@@ -101,7 +104,7 @@ export const getServerSideProps = gsspWithNonce(
             console.log(err);
             return { props: { error: err.message } };
         }
-    }
+    })
 );
 
 const LinkMetadata = (props: NewLinkIdPageProps) => {

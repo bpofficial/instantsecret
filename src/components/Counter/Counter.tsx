@@ -28,5 +28,5 @@ export const Counter = (props: CounterProps) => {
         duration,
     });
 
-    return <span ref={countUpRef}>0</span>;
+    return <span ref={countUpRef}>{props.data.startNum}</span>;
 };

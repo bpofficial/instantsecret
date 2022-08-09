@@ -1,4 +1,4 @@
-import { Box, Button, chakra, Flex, Heading, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, VStack } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {
@@ -7,57 +7,62 @@ import {
     TimelineItems,
     WatchADemo,
 } from "../components";
+import { getLayout } from "../components/Layouts/BaseLayout";
 import { Subtitle, Title, TitleHighlight } from "../components/Title";
+import { withCounterProps } from "../utils";
 
-export const getStaticProps = () => {
-    return {
-        props: {
-            items: {
-                left: [
-                    {
-                        title: "A link is generated",
-                        content:
-                            "A secure one-time link is created and is the only way the original content can be decrypted.",
-                    },
-                    {
-                        title: "Share the secure link",
-                        content:
-                            "Send the secure link to the intended recipient, it can only be opened once.",
-                    },
-                    {
-                        title: "Gone, without a trace.",
-                        content:
-                            "All of your encrypted, confidential information has been completely deleted from our databases.",
-                    },
-                ],
-                right: [
-                    {
-                        title: "Create a secure link",
-                        content:
-                            "Enter your confidential information into our forms and we'll create a secure, single-use link for you to share.",
-                    },
-                    {
-                        title: "Encrypt your content",
-                        content:
-                            "Your content is encrypted and a one-time key is generated that allows access to the original information. No decryption information is stored in our databases.",
-                    },
-                    {
-                        title: "Rock-solid security",
-                        content:
-                            "Utilising the same 256-bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
-                    },
-                    {
-                        title: "Decrypted and automatically deleted",
-                        content:
-                            "Once the secure link has been opened by the recipient, it can never be opened again.",
-                    },
-                ],
-            },
+export const getServerSideProps = withCounterProps({
+    props: {
+        items: {
+            left: [
+                {
+                    title: "A link is generated",
+                    content:
+                        "A secure one-time link is created and is the only way the original content can be decrypted.",
+                },
+                {
+                    title: "Share the secure link",
+                    content:
+                        "Send the secure link to the intended recipient, it can only be opened once.",
+                },
+                {
+                    title: "Gone, without a trace.",
+                    content:
+                        "All of your encrypted, confidential information has been completely deleted from our databases.",
+                },
+            ],
+            right: [
+                {
+                    title: "Create a secure link",
+                    content:
+                        "Enter your confidential information into our forms and we'll create a secure, single-use link for you to share.",
+                },
+                {
+                    title: "Encrypt your content",
+                    content:
+                        "Your content is encrypted and a one-time key is generated that allows access to the original information. No decryption information is stored in our databases.",
+                },
+                {
+                    title: "Rock-solid security",
+                    content:
+                        "Utilising the same 256-bit encryption as global banking platforms, you can rest assured that nobody has access to your secure content.",
+                },
+                {
+                    title: "Decrypted and automatically deleted",
+                    content:
+                        "Once the secure link has been opened by the recipient, it can never be opened again.",
+                },
+            ],
         },
-    };
-};
+    },
+});
 
-export default function Security({ items }: { items: TimelineItems }) {
+export default function Security({
+    items,
+    ...props
+}: {
+    items: TimelineItems;
+}) {
     return (
         <PageWrapper>
             <SecurityMetadata />
@@ -108,6 +113,7 @@ export default function Security({ items }: { items: TimelineItems }) {
         </PageWrapper>
     );
 }
+Security.getLayout = getLayout;
 
 const DesktopSecurityContent = ({ items }: { items: TimelineItems }) => {
     return (
@@ -153,9 +159,7 @@ const SecurityTitle = () => {
         >
             <VStack align="flext-start" spacing={[6, 8]}>
                 <Title>
-                    <TitleHighlight>
-                        256-bit encryption
-                    </TitleHighlight>
+                    <TitleHighlight>256-bit encryption</TitleHighlight>
                     to keep your private information secure
                 </Title>
                 <Subtitle>
@@ -186,13 +190,8 @@ const SecurityTitle = () => {
 const SecurityMetadata = () => {
     return (
         <Head>
-            <title>
-                Security - Instant Secure Link
-            </title>
-            <meta
-                name="title"
-                content="Security - Instant Secure Link"
-            />
+            <title>Security - Instant Secure Link</title>
+            <meta name="title" content="Security - Instant Secure Link" />
             <meta
                 name="description"
                 content="We're always working on new features and upgrades to continue to deliver the best experience possible."

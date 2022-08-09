@@ -2,6 +2,7 @@ import { getSession, Session, withPageAuthRequired } from "@auth0/nextjs-auth0";
 import { gsspWithNonce } from "@next-safe/middleware/dist/document";
 import { getDynamodb } from "../../aws";
 import { PageWrapper } from "../../components";
+import { getLayout } from "../../components/Layouts/BaseLayout";
 
 interface Link {}
 
@@ -14,6 +15,7 @@ interface AccountRootPageProps {
 export default function AccountRootPage(props: AccountRootPageProps) {
     return <PageWrapper>hi</PageWrapper>;
 }
+AccountRootPage.getLayout = getLayout;
 
 export const getServerSideProps = withPageAuthRequired({
     getServerSideProps: gsspWithNonce(async (ctx) => {

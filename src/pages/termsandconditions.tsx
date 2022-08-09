@@ -1,7 +1,9 @@
 import { Flex, Heading, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { PageWrapper } from "../components";
+import { getLayout } from "../components/Layouts/BaseLayout";
 import { Title } from "../components/Title";
+import { withCounterProps } from "../utils";
 
 export default function TermsAndConditionsPage() {
     return (
@@ -9,9 +11,7 @@ export default function TermsAndConditionsPage() {
             <TermsAndConditionsMetadata />
             <Flex mt="100px" maxW="1200px" justifyContent="center">
                 <Text>
-                    <Title>
-                        Terms & Conditions
-                    </Title>
+                    <Title>Terms & Conditions</Title>
                     <br />
                     These terms of use (the &quot;Terms of Use&quot;) are a
                     legal agreement between you and White Peak Digital Pty Ltd
@@ -460,21 +460,18 @@ export default function TermsAndConditionsPage() {
         </PageWrapper>
     );
 }
+TermsAndConditionsPage.getLayout = getLayout;
+export const getServerSideProps = withCounterProps();
 
 const TermsAndConditionsMetadata = () => {
     return (
         <Head>
-            <title>
-                Terms and Conditions - Instant Secure Link
-            </title>
+            <title>Terms and Conditions - Instant Secure Link</title>
             <meta
                 name="title"
                 content="Terms and Conditions - Instant Secure Link"
             />
-            <meta
-                name="description"
-                content=""
-            />
+            <meta name="description" content="" />
         </Head>
     );
 };

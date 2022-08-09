@@ -1,5 +1,7 @@
 import Head from "next/head";
 import { CreateLinkForm, PageWrapper } from "../../components";
+import { getLayout } from "../../components/Layouts/BaseLayout";
+import { withCounterProps } from "../../utils";
 
 export default function LinkIndexPage() {
     return (
@@ -9,13 +11,13 @@ export default function LinkIndexPage() {
         </PageWrapper>
     );
 }
+LinkIndexPage.getLayout = getLayout;
+export const getServerSideProps = withCounterProps();
 
 const LinkIndexMetadata = () => {
     return (
         <Head>
-            <title>
-                Create a New Secure Link - Instant Secure Link
-            </title>
+            <title>Create a New Secure Link - Instant Secure Link</title>
             <meta
                 name="title"
                 content="Create a New Secure Link - Instant Secure Link"

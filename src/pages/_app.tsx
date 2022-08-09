@@ -1,17 +1,20 @@
 import { UserProvider } from "@auth0/nextjs-auth0";
-import {
-    Box,
-    chakra,
-    ChakraProvider,
-    extendTheme,
-    Spacer,
-} from "@chakra-ui/react";
+import { chakra, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { AppProps } from "next/app";
+import { ReactNode } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { Banner, Footer, TopBar } from "../components";
-import { CounterProvider } from "../hooks";
 
-export default function App({ Component, pageProps }: AppProps) {
+type Props = AppProps & {
+    Component: AppProps["Component"] & {
+        getLayout?: (node: any, props?: any) => ReactNode;
+    };
+};
+
+const Noop: Required<Props["Component"]>["getLayout"] = (page: ReactNode) =>
+    page;
+
+export default function App({ Component, pageProps }: Props) {
+    const getLayout = Component.getLayout || Noop;
     return (
         <UserProvider>
             <ChakraProvider
@@ -31,26 +34,14 @@ export default function App({ Component, pageProps }: AppProps) {
                     },
                 })}
             >
-                <CounterProvider>
-                    <chakra.main
-                        w="100%"
-                        h="100%"
-                        display="flex"
-                        style={{ flexDirection: "column" }}
-                    >
-                        <Banner />
-                        <TopBar />
-                        <Component {...pageProps} />
-                        {!!(Component as any).showBanner ? (
-                            <Box>
-                                <Spacer h={["60px", "60px", "120px"]} />
-                            </Box>
-                        ) : (
-                            <></>
-                        )}
-                        <Footer showBanner={!!(Component as any).showBanner} />
-                    </chakra.main>
-                </CounterProvider>
+                <chakra.main
+                    w="100%"
+                    h="100%"
+                    display="flex"
+                    style={{ flexDirection: "column" }}
+                >
+                    {getLayout(<Component {...pageProps} />, pageProps)}
+                </chakra.main>
             </ChakraProvider>
         </UserProvider>
     );

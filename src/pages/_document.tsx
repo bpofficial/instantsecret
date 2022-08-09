@@ -7,26 +7,36 @@ import { Html, Main } from "next/document";
 const isProd = process.env.NEXT_PUBLIC_ENV === "production";
 
 export const getInitialProps = async (ctx: any) => {
-    const initialProps = await getCspInitialProps({ ctx });
+    const initialProps: any = await getCspInitialProps({ ctx });
     return initialProps;
 };
 
 // Document component
 export default function Document(props: any) {
-    const { Head, NextScript } = provideComponents(props);
+    const { Head, NextScript } = provideComponents(props) as any;
     return (
         <Html>
             <Head>
-                {isProd ? <>
-                    <script async src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}></script>
-                    <script dangerouslySetInnerHTML={{ __html: `
+                {isProd ? (
+                    <>
+                        <script
+                            async
+                            src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+                        ></script>
+                        <script
+                            dangerouslySetInnerHTML={{
+                                __html: `
                         window.dataLayer = window.dataLayer || [];
                         function gtag(){dataLayer.push(arguments);}
                         gtag('js', new Date());
 
-                        gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');` }
-                    } />
-                </> : <></>}
+                        gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');`,
+                            }}
+                        />
+                    </>
+                ) : (
+                    <></>
+                )}
                 <meta charSet="utf-8" />
                 <meta
                     name="keywords"

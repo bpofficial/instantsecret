@@ -2,6 +2,8 @@ import { Button, Flex, Heading, VStack } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { PageWrapper } from "../components";
+import { getLayout } from "../components/Layouts/BaseLayout";
+import { withCounterProps } from "../utils";
 
 export default function FiveHundredErrorPage() {
     const router = useRouter();
@@ -36,6 +38,8 @@ export default function FiveHundredErrorPage() {
         </PageWrapper>
     );
 }
+FiveHundredErrorPage.getLayout = getLayout;
+export const getInitialProps = withCounterProps();
 
 const FiveHundredMetadata = () => {
     return (

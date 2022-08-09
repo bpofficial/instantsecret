@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
 const CounterContext = createContext([0, 0]);
@@ -10,40 +10,23 @@ export const useCounterValue = () => {
 
 interface CounterProviderProps {
     children: React.ReactNode;
+    initialValue?: number;
 }
 
-const checkDate = (date?: string | null) => {
-    try {
-        if (!date) return false;
-        const d = new Date(date);
-        if (Number.isNaN(Number(date))) return false;
-        if (Number.isNaN(d.getTime())) return false;
-        const diff = new Date().getTime() - d.getTime();
-        if (diff > 1000 * 60 * 60 * 24 * 3) {
-            return false; // 3 days
-        }
-        return true;
-    } catch {
-        return false;
-    }
-};
-
-const immediateValue = (key: string, fallback?: any) => {
+export const immediateValue = (key: string, fallback?: any) => {
     return typeof window !== "undefined"
         ? window.localStorage.getItem(key)
         : fallback ?? null;
 };
 
-export const CounterProvider = ({ children }: CounterProviderProps) => {
-    const [lastLoad, setLastLoad] = useLocalStorage(
-        "last-load",
-        immediateValue("last-load")
-    );
+export const CounterProvider = ({
+    children,
+    initialValue = 0,
+}: CounterProviderProps) => {
     const [counter, setCounter] = useLocalStorage(
         "counter",
-        immediateValue("counter", 0)
+        immediateValue("counter", initialValue)
     );
-    const [loadFromZero] = useState(!checkDate(lastLoad));
 
     const fetchCounter = async () => {
         return axios
@@ -53,13 +36,12 @@ export const CounterProvider = ({ children }: CounterProviderProps) => {
     };
 
     useEffect(() => {
-        setLastLoad(new Date().getTime());
         fetchCounter().then((val) => setCounter(val));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
-        <CounterContext.Provider value={[loadFromZero ? 0 : counter, counter]}>
+        <CounterContext.Provider value={[initialValue, counter]}>
             {children}
         </CounterContext.Provider>
     );

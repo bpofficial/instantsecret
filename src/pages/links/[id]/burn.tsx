@@ -3,6 +3,8 @@ import { GetServerSidePropsContext } from "next";
 import Head from "next/head";
 import { PageWrapper } from "../../../components";
 import { BurnLinkForm } from "../../../components/Forms/BurnLinkForm";
+import { getLayout } from "../../../components/Layouts/BaseLayout";
+import { withCounterProps } from "../../../utils";
 import { getLinkFromApi } from "../../../utils/getLinkFromApi";
 
 export default function BurnLinkPage({ id = "" }) {
@@ -13,9 +15,10 @@ export default function BurnLinkPage({ id = "" }) {
         </PageWrapper>
     );
 }
+BurnLinkPage.getLayout = getLayout;
 
 export const getServerSideProps = gsspWithNonce(
-    async (ctx: GetServerSidePropsContext) => {
+    withCounterProps(async (ctx: GetServerSidePropsContext) => {
         const { id } = ctx.params ?? {};
 
         if (!id || !id.toString().trim().length) {
@@ -46,7 +49,7 @@ export const getServerSideProps = gsspWithNonce(
         } catch (err: any) {
             return { props: { error: err.message } };
         }
-    }
+    })
 );
 
 const BurnMetadata = () => {

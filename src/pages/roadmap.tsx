@@ -1,7 +1,6 @@
 import {
     Box,
     Button,
-    chakra,
     Flex,
     Heading,
     Spacer,
@@ -13,7 +12,9 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import PerfectScrollBar from "react-perfect-scrollbar";
 import { PageWrapper } from "../components";
+import { getLayout } from "../components/Layouts/BaseLayout";
 import { Subtitle, Title, TitleHighlight } from "../components/Title";
+import { withCounterProps } from "../utils";
 
 export default function Roadmap() {
     return (
@@ -249,6 +250,8 @@ export const RoadmapContent = () => {
         </Flex>
     );
 };
+Roadmap.getLayout = getLayout;
+export const getServerSideProps = withCounterProps();
 
 const RoadmapTitle = () => {
     const router = useRouter();
@@ -299,13 +302,8 @@ const RoadmapTitle = () => {
 const RoadmapMetadata = () => {
     return (
         <Head>
-            <title>
-                Roadmap - Instant Secure Link
-            </title>
-            <meta
-                name="title"
-                content="Roadmap - Instant Secure Link"
-            />
+            <title>Roadmap - Instant Secure Link</title>
+            <meta name="title" content="Roadmap - Instant Secure Link" />
             <meta
                 name="description"
                 content="Keep sensitive information out of your email and chat logs with a free, secure and encrypted link that can only be viewed once and then it's gone forever."

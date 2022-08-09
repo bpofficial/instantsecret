@@ -7,6 +7,8 @@ import {
     RevealSecretValueForm,
     ViewSecretValueForm,
 } from "../../components";
+import { getLayout } from "../../components/Layouts/BaseLayout";
+import { withCounterProps } from "../../utils";
 import { getLinkFromApi } from "../../utils/getLinkFromApi";
 import { parseBody } from "../../utils/parseBody";
 
@@ -44,17 +46,23 @@ export default function PrivateSecretPage(props: PrivateSecretPageProps) {
         <PageWrapper center fullHeight>
             <Head>
                 <meta name="robots" content="noindex, nofollow" />
+                <title>View Secure Content - Instant Secure Link</title>
+                <meta
+                    name="title"
+                    content="View Secure Content - Instant Secure Link"
+                />
             </Head>
             {component}
         </PageWrapper>
     );
 }
+PrivateSecretPage.getLayout = getLayout;
 
 export const getServerSideProps = gsspWithNonce(
-    async (ctx: GetServerSidePropsContext) => {
+    withCounterProps(async (ctx: GetServerSidePropsContext) => {
         const { id } = ctx.params ?? {};
 
-        if (!id || !id.toString().trim().length) {
+        if (!id || typeof id !== "string" || !id.toString().trim().length) {
             return {
                 redirect: {
                     destination: "/404",
@@ -104,5 +112,5 @@ export const getServerSideProps = gsspWithNonce(
                 },
             },
         };
-    }
+    })
 );

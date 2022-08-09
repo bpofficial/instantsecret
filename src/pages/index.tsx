@@ -1,21 +1,15 @@
-import {
-    Box,
-    Button,
-    Flex,
-    HStack,
-    VStack,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, VStack } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { CreateLinkForm, PageWrapper, WatchADemo } from "../components";
+import { getLayout } from "../components/Layouts/LayoutWithBottomBanner";
 import { Subtitle, Title, TitleHighlight } from "../components/Title";
-import { useIsMobile, useTranslation } from "../hooks";
+import { useTranslation } from "../hooks";
+import { withCounterProps } from "../utils";
 
 export default function Index() {
-    const isMobile = useIsMobile()
-
     return (
-        <PageWrapper >
+        <PageWrapper>
             <IndexMetadata />
             <Flex
                 direction={["column", "column", "column", "row"]}
@@ -37,7 +31,8 @@ export default function Index() {
         </PageWrapper>
     );
 }
-(Index as any).showBanner = true;
+Index.getLayout = getLayout;
+export const getServerSideProps = withCounterProps();
 
 export const IndexCopyContent = () => {
     const translation = useTranslation("index");
@@ -52,9 +47,7 @@ export const IndexCopyContent = () => {
                     </TitleHighlight>
                     {translation.copy.remainingTitle}
                 </Title>
-                <Subtitle>
-                    {translation.copy.subtitle}
-                </Subtitle>
+                <Subtitle>{translation.copy.subtitle}</Subtitle>
                 <Flex w="100%" justify={["left"]}>
                     <HStack spacing="8" maxW="92%">
                         <WatchADemo />
