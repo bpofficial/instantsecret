@@ -1,6 +1,10 @@
 import * as Crypto from "crypto";
 
-const algorithm = "aes-256-gcm";
+/**
+ * AES 256-bit Cipher Block Chaining (cbc)
+ * @link {https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Cipher_block_chaining_(CBC)}
+ */
+const algorithm = "aes-256-cbc";
 
 /**
  * Hash the provided `value` using SHA512 hash
