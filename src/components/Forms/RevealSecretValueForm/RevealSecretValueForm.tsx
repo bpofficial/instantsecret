@@ -74,6 +74,7 @@ export const RevealSecretValueForm = ({
                                 <Input
                                     name="passphrase"
                                     type="password"
+                                    autoComplete="one-time-code"
                                     placeholder={
                                         translation.EnterPassphrasePlaceholder
                                     }
