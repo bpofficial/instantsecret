@@ -60,8 +60,8 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
                 const containerHeight = containerRef.current?.clientHeight ?? 0;
                 const lineHeight = containerHeight - (bottomOffset + topOffset);
                 setLineDimensions({
-                    offset: topOffset + "px",
-                    height: lineHeight + "px",
+                    offset: (!!allRight ? 32 : 0) + topOffset + "px",
+                    height: lineHeight - (!!allRight ? 24 : 0) + "px",
                 });
             }
         }

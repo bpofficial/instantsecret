@@ -82,7 +82,7 @@ export const TimelineItem = forwardRef(
             <Box
                 position="relative"
                 maxW={props.fullWidth ? "90%" : "40%"}
-                mt={props.fullWidth ? "8" : "0"}
+                mt={props.fullWidth ? "32px" : "0"}
                 alignSelf={
                     props.right && !props.fullWidth ? "flex-end" : "flex-start"
                 }
