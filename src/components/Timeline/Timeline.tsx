@@ -16,7 +16,7 @@ export interface TimelineProps {
 }
 
 export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
-    const containerRef = useRef()
+    const containerRef = useRef<HTMLDivElement>(null)
     const [refs, setRefs] = useState<RefObject<HTMLDivElement>[]>([]);
     const [result, setResult] = useState<TimelineItem[]>([]);
     const allRight = useBreakpointValue([true, true, false]);
@@ -48,7 +48,6 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
     const [first, last] = [refs[0], refs[-1]];
     const [firstHeight, lastHeight] = [(first.current?.clientHeight ?? 1) / 2, (last.current?.clientHeight ?? 1) / 2];
 
-
     return (<>
         <chakra.style>
             {`
@@ -79,7 +78,7 @@ export const Timeline = ({ items, startingSide = "right" }: TimelineProps) => {
         `}
         </chakra.style>
         <Flex justify="space-between" w="100%" position="relative">
-            <Flex direction="column" w="100%">
+            <Flex direction="column" w="100%" ref={containerRef}>
                 {result.map((item, idx) => (
                     <TimelineItem
                         index={idx}
