@@ -1,5 +1,3 @@
-import { default as GtagFn } from "ga-gtag";
-
 export const emit = (
     eventName: Gtag.EventNames | string,
     options: Gtag.ControlParams | Gtag.EventParams | Gtag.CustomParams = {}
@@ -7,7 +5,7 @@ export const emit = (
     try {
         if (typeof window !== "undefined") {
             if (process.env.NEXT_PUBLIC_ENV === "production") {
-                GtagFn("event", eventName, { ...options });
+                window.gtag("event", eventName, { ...options });
             } else {
                 console.debug("Event:", eventName, options);
             }
