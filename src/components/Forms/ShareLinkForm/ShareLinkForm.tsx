@@ -1,3 +1,4 @@
+import { CheckIcon } from "@chakra-ui/icons";
 import {
     Box,
     Button,
@@ -8,6 +9,7 @@ import {
     InputGroup,
     InputRightElement,
     Textarea,
+    useBoolean,
     VStack,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -42,6 +44,7 @@ export const ShareLinkForm = ({
     const formEl = useRef<HTMLFormElement>(null);
     const origin = useOrigin();
     const inputRef = useRef<HTMLInputElement>(null);
+    const [showTick, tick] = useBoolean();
 
     const onSubmit = () => {
         formEl.current?.submit();
@@ -53,9 +56,11 @@ export const ShareLinkForm = ({
     const expiry = millisecondsToStr(expires);
 
     const onCopy = () => {
+        tick.on();
         inputRef.current?.select();
         emit("secure_link_copied");
         copyTextToClipboard(link);
+        setTimeout(tick.off, 3000);
     };
 
     const createAnother = () => {
@@ -107,7 +112,7 @@ export const ShareLinkForm = ({
                                 _hover={{ bg: "custom.50" }}
                                 onClick={onCopy}
                             >
-                                {translation.CopyCTA}
+                                {showTick ? <CheckIcon /> : translation.CopyCTA}
                             </Button>
                         </InputRightElement>
                     </InputGroup>

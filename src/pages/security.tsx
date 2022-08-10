@@ -139,7 +139,6 @@ const MobileSecurityContent = ({ items }: { items: TimelineItems }) => {
     return (
         <Flex
             align="center"
-            mb={["12"]}
             direction="column"
             w={["100%", "100%", "90%", "80%"]}
             display={["flex", "flex", "flex", "flex", "none", "none"]}

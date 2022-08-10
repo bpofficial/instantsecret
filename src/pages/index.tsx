@@ -17,13 +17,12 @@ export default function Index() {
                 align={"center"}
                 maxW={"100%"}
                 h="100%"
-                mt={["50px", "50px"]}
             >
                 <IndexCopyContent />
                 <Box
                     maxW={["100%", "100%", "100%", "460px", "620px"]}
                     w="100%"
-                    mt={["60px", "60px", "120px"]}
+                    mt={"60px"}
                 >
                     <CreateLinkForm />
                 </Box>

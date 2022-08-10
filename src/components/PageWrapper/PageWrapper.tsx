@@ -1,6 +1,8 @@
 import { Flex } from "@chakra-ui/react";
 import { PAGE_MAX } from "../../constants";
 
+const BASE_OFFSET = "120px";
+
 export const PageWrapper = ({
     children,
     align = "center",
@@ -11,6 +13,7 @@ export const PageWrapper = ({
         <Flex
             data-type={"page-wrapper"}
             w="100%"
+            py={["50px", "60px", "70px", "80px", "90px", "100px"]}
             px={["20px", "20px", "4", "4", "4", "8"]}
             alignItems={["center", align]}
             maxW={PAGE_MAX}
