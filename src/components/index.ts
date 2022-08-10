@@ -11,4 +11,5 @@ export * from "./Input";
 export * from "./NeverExisted";
 export * from "./PageWrapper";
 export * from "./Timeline";
+export * from "./Title";
 export * from "./WatchADemo";

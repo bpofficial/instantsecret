@@ -62,12 +62,14 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
         const createdAt = new Date();
 
         const id = generateKey();
+        const idSubstr = id.slice(0, 8);
         const idHash = hash(id).toString("hex");
 
         // deepcode ignore InsecureHash: This isn't important, as its only being shown to the user than SHA512'd away.
         const secretId = Crypto.createHash("md5")
             .update(id + createdAt.toISOString())
             .digest("hex");
+        const secretIdSubstr = secretId.slice(0, 8);
 
         const secretIdHash = hash(secretId).toString("hex");
 
@@ -97,7 +99,9 @@ async function createLink(req: any, res: any, endpoint: "client" | "api") {
 
         const item = {
             id: idHash, // linkId
+            idSub: idSubstr, // substring of the original, un-hashed id
             secretId: secretIdHash, // secretId
+            secretIdSub: secretIdSubstr, // substring of the original, un-hashed secretId
             creatorUserID,
             originalSize: value.length,
             recipients: req.body.recipients || [],

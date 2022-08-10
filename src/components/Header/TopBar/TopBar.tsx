@@ -25,6 +25,7 @@ import {
     VisuallyHidden,
 } from "@chakra-ui/react";
 import Image from "next/image";
+import { useMemo } from "react";
 import { PAGE_MAX } from "../../../constants";
 import { useLocaleLink, useTranslation } from "../../../hooks";
 
@@ -117,11 +118,6 @@ const DesktopNav = () => {
     const translations = useTranslation("TopBar");
     const localLink = useLocaleLink();
     const user = useUser();
-    const NavItems = getNavItems(
-        translations,
-        localLink,
-        user.user && !user.isLoading && !user.error
-    );
 
     const linkColor = useColorModeValue("gray.600", "gray.200");
     const linkHoverColor = useColorModeValue("gray.800", "white");
@@ -146,22 +142,32 @@ const DesktopNav = () => {
         },
     };
 
+    const navItems = useMemo(() => {
+        return getNavItems(
+            translations,
+            localLink,
+            !!user && !!user.user && !user.isLoading && !user.error
+        );
+    }, [user]);
+
     return (
         <Stack direction={"row"} spacing={4}>
-            {NavItems.map((navItem) => (
+            {navItems.map((navItem) => (
                 <Box key={navItem.label} alignSelf={"center"}>
                     <Popover trigger={"hover"} placement={"bottom-start"}>
                         <PopoverTrigger>
                             <Link
-                                pl={2}
+                                px={2}
                                 href={navItem.href ?? "#"}
                                 fontSize={"sm"}
+                                pb="4px"
+                                pt="4px"
                                 fontWeight={600}
                                 {...(navItem.cta ? ctaProps : defaultProps)}
                             >
                                 {navItem.label}
                                 {navItem.cta ? (
-                                    <ArrowForwardIcon ml={"1"} mb={"0.5"} />
+                                    <ArrowForwardIcon ml={"1"} mb="0.5" />
                                 ) : null}
                             </Link>
                         </PopoverTrigger>
@@ -241,11 +247,14 @@ const MobileNav = () => {
     const translations = useTranslation("TopBar");
     const localLink = useLocaleLink();
     const user = useUser();
-    const NavItems = getNavItems(
-        translations,
-        localLink,
-        user.user && !user.isLoading && !user.error
-    );
+
+    const navItems = useMemo(() => {
+        return getNavItems(
+            translations,
+            localLink,
+            !!user && !!user.user && !user.isLoading && !user.error
+        );
+    }, [user]);
 
     return (
         <Stack
@@ -253,7 +262,7 @@ const MobileNav = () => {
             p={4}
             display={{ md: "none" }}
         >
-            {NavItems.map((navItem) => (
+            {navItems.map((navItem) => (
                 <MobileNavItem key={navItem.label} {...navItem} />
             ))}
         </Stack>
@@ -344,7 +353,7 @@ interface NavItem {
 const getNavItems = (
     translations: Record<string, string>,
     localeLink: ReturnType<typeof useLocaleLink>,
-    loggedIn = false
+    loggedIn: boolean
 ) => {
     return [
         {
@@ -355,18 +364,13 @@ const getNavItems = (
             label: translations["RoadMapLink"],
             href: localeLink`/roadmap`,
         },
-        // loggedIn
-        //     ? {
-        //           label: translations["Account"],
-        //           href: localeLink`/account`,
-        //       }
-        //     : {
-        //           label: translations["SignInLink"],
-        //           href: "/api/auth/login",
-        //       },
         {
             label: translations["CreateLink"],
             href: localeLink`/links`,
+        },
+        {
+            label: translations["Account"],
+            href: loggedIn ? localeLink`/account` : "/api/auth/login",
         },
     ] as NavItem[];
 };

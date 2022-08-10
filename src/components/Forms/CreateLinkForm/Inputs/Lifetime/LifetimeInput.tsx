@@ -1,9 +1,10 @@
 import { FormControl, Select } from "@chakra-ui/react";
 import { useState } from "react";
+import { TTL_OFFSET } from "../../../../../constants";
 import { LifetimeLabel } from "./LifetimeLabel";
 
 const ONE_HOUR = 3.6e6; //ms
-const OFFSET = 60 * 1000 * 5; // 5 minutes
+const OFFSET = TTL_OFFSET; // 5 minutes
 
 export const LifetimeInput = () => {
     const options = [
