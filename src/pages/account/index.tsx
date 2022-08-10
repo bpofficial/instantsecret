@@ -1,10 +1,12 @@
 import { getSession, Session, withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import {
     Badge,
     Box,
     Button,
     Flex,
     HStack,
+    Stack,
     Text,
     useBoolean,
     VStack,
@@ -69,7 +71,7 @@ export default function AccountRootPage(props: AccountRootPageProps) {
         if (hasBeenViewed(link))
             return <Badge colorScheme="green">opened</Badge>;
         if (hasBeenBurnt(link)) return <Badge colorScheme="red">burnt</Badge>;
-        return null;
+        return <Badge colorScheme="gray">unseen</Badge>;
     };
 
     const handleBurn = (link: Link) => async () => {
@@ -105,8 +107,8 @@ export default function AccountRootPage(props: AccountRootPageProps) {
         <PageWrapper fullHeight>
             <Flex direction="column" h="100%" align={"flex-start"} w="100%">
                 <Title>Your Account</Title>
-                <VStack align="flex-start" mt="12" w="100%">
-                    <Subtitle>Previously created secure links</Subtitle>
+                <VStack align="flex-start" mt="6" w="100%">
+                    <Subtitle>Recently created secure links</Subtitle>
                     <VStack
                         align="flex-start"
                         mt="4"
@@ -116,75 +118,59 @@ export default function AccountRootPage(props: AccountRootPageProps) {
                         p="4"
                         borderRadius="md"
                         spacing="4"
+                        boxShadow="md"
                     >
-                        {links
-                            .filter((link) => link.linkShortId)
-                            .sort(
-                                (a, b) =>
-                                    new Date(b.createdAt).getTime() -
-                                    new Date(a.createdAt).getTime()
-                            )
-                            .map((link, idx, { length }) => (
-                                <>
-                                    <VStack
-                                        w="100%"
-                                        align="flex-start"
-                                        key={idx}
-                                    >
-                                        <HStack>
-                                            <Box
-                                                fontWeight="semibold"
-                                                letterSpacing="1px"
-                                            >
-                                                {link.linkShortId}
-                                            </Box>
-                                            {getFlag(link)}
-                                        </HStack>
-                                        <Flex
-                                            justifyContent="space-between"
+                        {!links.length ? (
+                            <Box p="6" w="100%" textAlign="center">
+                                No recent secure links
+                            </Box>
+                        ) : (
+                            links
+                                .filter((link) => link.linkShortId)
+                                .sort(
+                                    (a, b) =>
+                                        new Date(b.createdAt).getTime() -
+                                        new Date(a.createdAt).getTime()
+                                )
+                                .slice(0, 3)
+                                .map((link, idx, { length }) => (
+                                    <>
+                                        <VStack
                                             w="100%"
-                                            align="center"
+                                            align="flex-start"
+                                            key={idx}
                                         >
-                                            <HStack w="100%" spacing="6">
-                                                <VStack
-                                                    spacing="0"
-                                                    align="flex-start"
+                                            <Flex
+                                                justifyContent="space-between"
+                                                w="100%"
+                                                align="center"
+                                            >
+                                                <Box
+                                                    fontWeight="semibold"
+                                                    letterSpacing="1px"
                                                 >
-                                                    <Box
-                                                        fontSize={"sm"}
-                                                        fontWeight="semibold"
-                                                        color="custom.50"
-                                                    >
-                                                        Created At
-                                                    </Box>
-                                                    <Box>
-                                                        {formatDate(
-                                                            link.createdAt
-                                                        )}
-                                                    </Box>
-                                                </VStack>
-                                                <VStack
-                                                    spacing="0"
-                                                    align="flex-start"
+                                                    {link.linkShortId}
+                                                </Box>
+                                                {getFlag(link)}
+                                            </Flex>
+                                            <Flex
+                                                justifyContent="space-between"
+                                                w="100%"
+                                                align={[
+                                                    "flex-end",
+                                                    "flex-end",
+                                                    "center",
+                                                ]}
+                                            >
+                                                <Stack
+                                                    w="100%"
+                                                    spacing={["3", "3", "6"]}
+                                                    direction={[
+                                                        "column",
+                                                        "column",
+                                                        "row",
+                                                    ]}
                                                 >
-                                                    <Box
-                                                        fontSize={"sm"}
-                                                        fontWeight="semibold"
-                                                        color="custom.50"
-                                                    >
-                                                        Expire
-                                                        {hasExpired(link)
-                                                            ? "d"
-                                                            : "s"}{" "}
-                                                        At
-                                                    </Box>
-                                                    <Box>
-                                                        {formatDate(
-                                                            link.expiredAt
-                                                        )}
-                                                    </Box>
-                                                </VStack>
-                                                {link.viewedByRecipientAt ? (
                                                     <VStack
                                                         spacing="0"
                                                         align="flex-start"
@@ -194,50 +180,107 @@ export default function AccountRootPage(props: AccountRootPageProps) {
                                                             fontWeight="semibold"
                                                             color="custom.50"
                                                         >
-                                                            Opened At
+                                                            Created At
                                                         </Box>
                                                         <Box>
                                                             {formatDate(
-                                                                link.viewedByRecipientAt
+                                                                link.createdAt
                                                             )}
                                                         </Box>
                                                     </VStack>
-                                                ) : null}
-                                            </HStack>
-                                            {!hasExpired(link) &&
-                                            !hasBeenBurnt(link) &&
-                                            !hasBeenViewed(link) ? (
-                                                <Button
-                                                    colorScheme="red"
-                                                    onClick={handleBurn(link)}
-                                                    isLoading={
-                                                        isBurning &&
-                                                        burningId ===
-                                                            link.linkId
-                                                    }
-                                                >
-                                                    <HStack align="center">
-                                                        <Text>Burn</Text>
-                                                        <Box pb="0.5">
-                                                            <ImFire />
+                                                    <VStack
+                                                        spacing="0"
+                                                        align="flex-start"
+                                                    >
+                                                        <Box
+                                                            fontSize={"sm"}
+                                                            fontWeight="semibold"
+                                                            color="custom.50"
+                                                        >
+                                                            {hasBeenBurnt(link)
+                                                                ? `Burnt `
+                                                                : `Expire${
+                                                                      hasExpired(
+                                                                          link
+                                                                      )
+                                                                          ? "d"
+                                                                          : "s"
+                                                                  } `}
+                                                            At
                                                         </Box>
-                                                    </HStack>
-                                                </Button>
-                                            ) : null}
-                                        </Flex>
-                                    </VStack>
-                                    {idx < length - 1 ? (
-                                        <Box
-                                            w="100%"
-                                            h="1px"
-                                            bg="lightgrey"
-                                            key={idx + "-line"}
-                                        />
-                                    ) : null}
-                                </>
-                            ))}
+                                                        <Box>
+                                                            {formatDate(
+                                                                hasBeenBurnt(
+                                                                    link
+                                                                )
+                                                                    ? link.burntAt
+                                                                    : link.expiredAt
+                                                            )}
+                                                        </Box>
+                                                    </VStack>
+                                                    {link.viewedByRecipientAt ? (
+                                                        <VStack
+                                                            spacing="0"
+                                                            align="flex-start"
+                                                        >
+                                                            <Box
+                                                                fontSize={"sm"}
+                                                                fontWeight="semibold"
+                                                                color="custom.50"
+                                                            >
+                                                                Opened At
+                                                            </Box>
+                                                            <Box>
+                                                                {formatDate(
+                                                                    link.viewedByRecipientAt
+                                                                )}
+                                                            </Box>
+                                                        </VStack>
+                                                    ) : null}
+                                                </Stack>
+                                                {!hasExpired(link) &&
+                                                !hasBeenBurnt(link) &&
+                                                !hasBeenViewed(link) ? (
+                                                    <Button
+                                                        colorScheme="red"
+                                                        onClick={handleBurn(
+                                                            link
+                                                        )}
+                                                        isLoading={
+                                                            isBurning &&
+                                                            burningId ===
+                                                                link.linkId
+                                                        }
+                                                    >
+                                                        <HStack align="center">
+                                                            <Text>Burn</Text>
+                                                            <Box pb="0.5">
+                                                                <ImFire />
+                                                            </Box>
+                                                        </HStack>
+                                                    </Button>
+                                                ) : null}
+                                            </Flex>
+                                        </VStack>
+                                        {idx < length - 1 ? (
+                                            <Box
+                                                w="100%"
+                                                h="1px"
+                                                bg="lightgrey"
+                                                key={idx + "-line"}
+                                            />
+                                        ) : null}
+                                    </>
+                                ))
+                        )}
                     </VStack>
                 </VStack>
+                <Box mt="6">
+                    <Button as="a" href="/api/auth/logout">
+                        <Box>Logout</Box>
+                        <ArrowForwardIcon ml="1" mb="0.5" />
+                    </Button>
+                </Box>
             </Flex>
         </PageWrapper>
     );
