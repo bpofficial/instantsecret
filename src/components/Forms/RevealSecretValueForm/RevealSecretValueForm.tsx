@@ -5,7 +5,7 @@ import {
     FormErrorMessage,
     Heading,
     Input,
-    VStack,
+    VStack
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import Head from "next/head";
@@ -44,10 +44,10 @@ export const RevealSecretValueForm = ({
         <>
             <Head>
                 <meta name="robots" content="noindex, nofollow" />
-                <title>Confirm Open Content - Instant Secure Link</title>
+                <title>Click To Open Secure Link - Instant Secure Link</title>
                 <meta
                     name="title"
-                    content="Confirm Open Content - Instant Secure Link"
+                    content="Click To Open Secure Link - Instant Secure Link"
                 />
             </Head>
             <Formik {...{ onSubmit }} initialValues={{} as any}>
