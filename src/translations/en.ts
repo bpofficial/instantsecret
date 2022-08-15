@@ -29,7 +29,7 @@ export const en: TranslationObj = {
         inputPlaceholder: "Enter secret content here...",
         privacyOptionsTitle: "Optional Privacy Settings",
         passphraseLabel: "Passphrase",
-        passphrasePlaceholder: "A secure passphrase",
+        passphrasePlaceholder: "Enter passphrase",
         passphraseGenerator: "Generate",
         lifetimeLabel: "Lifetime",
         lifetimeOptions: [{ value: "24hr", label: "24 Hours" }],
