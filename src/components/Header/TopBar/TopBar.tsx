@@ -4,7 +4,7 @@ import {
     ChevronDownIcon,
     ChevronRightIcon,
     CloseIcon,
-    HamburgerIcon,
+    HamburgerIcon
 } from "@chakra-ui/icons";
 import {
     Box,
@@ -22,7 +22,7 @@ import {
     Text,
     useColorModeValue,
     useDisclosure,
-    VisuallyHidden,
+    VisuallyHidden
 } from "@chakra-ui/react";
 import Image from "next/image";
 import { useMemo } from "react";
@@ -368,10 +368,10 @@ const getNavItems = (
             label: translations["CreateLink"],
             href: localeLink`/links`,
         },
-        {
-            label: translations["Account"],
-            href: loggedIn ? localeLink`/account` : "/api/auth/login",
-        },
+        // {
+        //     label: translations["Account"],
+        //     href: loggedIn ? localeLink`/account` : "/api/auth/login",
+        // },
     ] as NavItem[];
 };
 
