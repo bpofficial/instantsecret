@@ -10,7 +10,7 @@ import {
     InputRightElement,
     Textarea,
     useBoolean,
-    VStack,
+    VStack
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/router";
